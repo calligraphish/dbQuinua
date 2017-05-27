@@ -178,6 +178,16 @@ return existe;
 end $$
 delimiter ;
 
+DROP FUNCTION IF EXISTS FUN_ultima_venta;
+DELIMITER ;)
+CREATE FUNCTION FUN_ultima_venta() RETURNS INT
+BEGIN
+	DECLARE last_entry INT;
+	SELECT ven_id INTO last_entry FROM venta WHERE ven_id = (SELECT MAX(ven_id) FROM venta);
+    RETURN last_entry;
+END ;)
+DELIMITER ;
+
 #########################################################################################################
 -- TRIGGERS
 
@@ -226,7 +236,7 @@ DELIMITER ;
 
 DROP TRIGGER IF EXISTS tg_inventariocl;
 DELIMITER ;)
-CREATE TRIGGER tg_inventariocl AFTER INSERT ON detalle_venta
+CREATE TRIGGER tg_inventariocl BEFORE INSERT ON detalle_venta
 FOR EACH ROW BEGIN
 	DECLARE producto INT;
     DECLARE cantidad INT;
@@ -237,6 +247,10 @@ FOR EACH ROW BEGIN
     
     IF cantidad <= existencia THEN 
 		UPDATE inventario_sede SET inv_cantidad = inv_cantidad - cantidad WHERE producto = inv_PRODUCTO_id;
+    ELSE
+		SET @message = CONCAT('No hay suficientes unidades.');
+		SIGNAL SQLSTATE '45000'
+		SET MESSAGE_TEXT = @message, MYSQL_ERRNO = 1234;
     END IF;
 END ;)
 DELIMITER ;
@@ -265,7 +279,18 @@ DELIMITER ;
 #########################################################################################################
 #########################################################################################################
 -- EJEMPLOS PARA CORRER ---------------------------------------------------------------------------------
+START TRANSACTION ;#MODELO PARA LLEVAR A CABO UNA VENTA:
+CALL sp_compracl(1,1,FUN_ultima_venta()+1,1);# SE CREA UNA NUEVA VENTA PARA EVITAR PROBLEMAS DE INTEGRIDAD
+#SELECT * FROM venta;
+#SELECT * FROM inventario_sede;
+INSERT INTO detalle_venta values(FUN_ultima_venta(),1,10);# SE AÑADA UNO POR UNO LOS PRODUCTOS QUE ENTRAN EN LA VENTA CON SU CANTIDAD 
+INSERT INTO detalle_venta values(FUN_ultima_venta(),2,17);#CASO EN EL QUE LA CANTIDAD QUE SE QUIERE VENDER ES MAYOR DE LA QUE HAY EN INVENTARIO
+#SELECT * FROM DETALLE_VENTA;
+#SELECT * FROM venta;
+#SELECT * FROM inventario_sede;
+ROLLBACK;
 
+/*
 -- vw_rutarepartidor
 SELECT * FROM vw_rutarepartidor;
 
@@ -351,4 +376,4 @@ SET @CANTIDAD = 15;
 INSERT INTO detalle_compra values (@id_compra,@id_articulo,@CANTIDAD);-- Lo que detona el trigger.
 
 SELECT * FROM inventario_sede WHERE inv_PRODUCTO_id = @id_producto;
-ROLLBACK;
+ROLLBACK;*/
