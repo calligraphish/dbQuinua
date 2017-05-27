@@ -127,13 +127,14 @@ DELIMITER **
 create function FUN_detalle_venta(venta_id int) returns INT
 BEGIN 
 	DECLARE suma INT;
-    SELECT SUM(pro_costo) into suma from detalle_venta JOIN producto ON (detv_PRODUCTO_id = pro_id) WHERE detv_VENTA_id = venta_id;
+
+    SELECT SUM(pro_costo*detv_Cantidad) into suma from detalle_venta JOIN producto ON (detv_PRODUCTO_id = pro_id) WHERE detv_VENTA_id = venta_id;
+
     IF suma IS NOT NULL THEN
 		RETURN suma;
     ELSE
 		RETURN 0;
     END IF;
-    
 END	;
 **
 DELIMITER ;
