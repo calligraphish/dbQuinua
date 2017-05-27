@@ -1,5 +1,20 @@
 #########################################################################################################
 -- VISTAS
+DROP VIEW IF EXISTS vw_ventas_admin;
+CREATE VIEW vw_ventas_admin AS
+    SELECT 
+        ven_id AS ID_VENTA,
+        ven_fecha AS FECHA,
+        ven_costo_total AS COSTO_TOTAL,
+        cli_nombre AS NOMBRE_CLIENTE,
+        cli_telefono AS TELEFONO_CLIENTE,
+        cli_direccion AS DIRECCION_CLIENTE
+    FROM
+        Venta
+            JOIN
+        Cliente ON (cli_id = Venta.CLIENTE_cli_id);
+SELECT * FROM vw_ventas_admin;
+
 DROP VIEW IF EXISTS vw_rutarepartidor;
 CREATE VIEW vw_rutarepartidor AS
     SELECT 
@@ -112,7 +127,7 @@ DELIMITER **
 create function FUN_detalle_compra(compra_id int) returns INT
 BEGIN 
 	declare suma INT;
-    SELECT SUM(art_costo) into suma from detalle_compra JOIN articulo ON (detc_ARTICULO_id = art_id) WHERE detc_COMPRA_id = compra_id;
+    SELECT SUM(art_costo*detc_cantidad) into suma from detalle_compra JOIN articulo ON (detc_ARTICULO_id = art_id) WHERE detc_COMPRA_id = compra_id;
 	IF suma IS NOT NULL THEN
 		RETURN suma;
     ELSE
@@ -183,7 +198,17 @@ DELIMITER ;)
 CREATE FUNCTION FUN_ultima_venta() RETURNS INT
 BEGIN
 	DECLARE last_entry INT;
-	SELECT ven_id INTO last_entry FROM venta WHERE ven_id = (SELECT MAX(ven_id) FROM venta);
+	SELECT MAX(ven_id) INTO last_entry FROM venta;
+    RETURN last_entry;
+END ;)
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS FUN_ultima_compra;
+DELIMITER ;)
+CREATE FUNCTION FUN_ultima_compra() RETURNS INT
+BEGIN
+	DECLARE last_entry INT;
+	SELECT MAX(com_id) INTO last_entry FROM compra;
     RETURN last_entry;
 END ;)
 DELIMITER ;
