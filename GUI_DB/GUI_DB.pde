@@ -1,6 +1,5 @@
 import interfascia.*;
 import de.bezier.data.sql.*;
-import java.sql.SQLException;
 import de.bezier.guido.*;
 
 Listbox listbox;
@@ -84,6 +83,7 @@ la carne en bisteck, y los fideos instantaneos*/
   t2.addActionListener(this);
   
   Interactive.make( this );
+  Interactive.setActive(false);
   listbox = new Listbox( 20, 60, width-40, height-80 );
 
   textAlign(CENTER);

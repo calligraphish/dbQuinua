@@ -1,6 +1,7 @@
 import interfascia.*;
 
 PImage ic1, ic2, ic3, bck;
+PFont f;
 GUIController c;
 IFButton b1, b2;
 IFLabel l;
@@ -57,6 +58,9 @@ void setup() {
   catch(Exception ex) {
     println(ex.getMessage());
   }
+  
+  f = createFont("GothamPro-Bold",30);
+  
   c = new GUIController (this);
   c.setLookAndFeel(defaultLook);
 
@@ -73,71 +77,33 @@ void setup() {
 }
 
 void draw() {
-  background(bck);
+  background(morado_oscuro);
+  icon(bx1, by1, boxSize/2, overBox1, ic1, bk, beige, "",f);
+  icon(bx2, by2, boxSize, overBox2, ic2, bLsel, bL, "Inventario",f);
+  icon(bx3, by3, boxSize, overBox3, ic3, bRsel, bR, "Rutas",f);
+}
 
-  if (mouseX > bx1-boxSize/2 && mouseX < bx1+boxSize/2 && mouseY > by1-boxSize/2 && mouseY < by1+boxSize/2) {
-    overBox1=true;
-    println("Is over B1.");
+void icon(float x, float y, float size, boolean over, PImage im, color on, color off, String tx, PFont font) {
+
+  if (mouseX > x-size && mouseX < x+size && mouseY > y-size && mouseY < y+size) {
+    over=true;
+    println("Is over "+ im.toString());
   } else {
-    overBox1=false;
+    over=false;
   }
 
-  if (mouseX > bx2-boxSize && mouseX < bx2+boxSize && mouseY > by2-boxSize && mouseY < by2+boxSize) {
-    overBox2=true;
-    println("Is over B2.");
+  if (over) {
+    tint(on);
+    fill(255);
   } else {
-    overBox2=false;
+    tint(off);
+    fill(255);
   }
-
-  if (mouseX > bx3-boxSize && mouseX < bx3+boxSize && mouseY > by3-boxSize && mouseY < by3+boxSize) {
-    overBox3=true;
-    println("Is over B3.");
-  } else {
-    overBox3=false;
-  }
-
-  /* 
+  
   pushStyle();
-  stroke(bL);
-  strokeWeight(10);
-  noFill();
-  //rect(bx1, by1, boxSize/2, boxSize/2,10);
-  rect(bx2, by2, boxSize, boxSize,10);
-  stroke(bR);
-  rect(bx3, by3, boxSize, boxSize,10);
+  textFont(font);
+  textAlign(CENTER);
+  image(im, x, y, size, size);
+  text(tx, x, y+size-20);
   popStyle();
-  */
-  if (overBox1) {
-    pushStyle();
-    tint(rojo);
-    image(ic1, bx1, by1, ic1.width/2, ic1.height/2);
-    popStyle();
-  } else {
-    pushStyle();
-    tint(bk);
-    image(ic1, bx1, by1, ic1.width/2, ic1.height/2);
-    popStyle();
-  }
-  if (overBox2) {
-    pushStyle();
-    tint(bLsel);
-    image(ic2, bx2, by2);
-    popStyle();
-  } else {
-    pushStyle();
-    tint(bL);
-    image(ic2, bx2, by2);
-    popStyle();
-  }
-  if (overBox3) {
-    pushStyle();
-    tint(bRsel);
-    image(ic3, bx3, by3);//,boxSize*2,boxSize*2);
-    popStyle();
-  } else {
-    pushStyle();
-    tint(bR);
-    image(ic3, bx3, by3);//,boxSize*2,boxSize*2);
-    popStyle();
-  }
 }
