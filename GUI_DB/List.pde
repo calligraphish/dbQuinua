@@ -87,13 +87,18 @@ public class Listbox
         {
             for ( int i = 0; i < int(height/itemHeight) && i < items.size(); i++ )
             {
-                stroke( 80 );
-                fill( (i+listStartAt) == hoverItem ? 200 : 120 );
+                pushStyle();
+                strokeWeight(4);
+                stroke(0);
+                fill( bR );
                 rect( x, y + (i*itemHeight), this.width, itemHeight );
                 
                 noStroke();
-                fill( 0 );
+                fill(morado_oscuro);
+                textFont(lgnFont);
+                textSize(20);
                 text( items.get(i+listStartAt).toString(), x+5, y+(i+1)*itemHeight-5 );
+                popStyle();
             }
         }
         

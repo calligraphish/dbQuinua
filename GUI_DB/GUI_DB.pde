@@ -7,7 +7,7 @@ import interfascia.*;
 import de.bezier.data.sql.*;
 import de.bezier.guido.*;
 
-Listbox listbox;
+Listbox listbox, listbox2, listbox3, listbox4;
 Object lastItemClicked;
 
 MySQL msql;
@@ -113,13 +113,15 @@ void setup() {
    b2.addActionListener(this);*/
   t2.addActionListener(this);
 
+  int xIni = 50;
+  int wid = 150;
+
   Interactive.make( this );
   Interactive.setActive(false);
-  listbox = new Listbox( 70, 300, 550, 200);
-
-  //textAlign(CENTER);
-  noStroke();
-  //imageMode(CENTER);
+  listbox  = new Listbox( xIni, 300, wid, 200);
+  listbox2 = new Listbox( xIni+wid, 300, wid, 200);
+  listbox3 = new Listbox( xIni+wid*2, 300, wid, 200);
+  listbox4 = new Listbox( xIni+wid*3, 300, wid, 200);
 }
 
 void draw() {
@@ -139,7 +141,10 @@ void draw() {
     background(morado_oscuro);
     icon(bx6, by6, boxSizeH, overHome, home2, bLsel, bL, "", lgnFont);
     if (runOnce) {
-      listbox.addItem("ID" + "    " + "PRODUCTO"+ "\t          " +"PRECIO"+ "          " +"CANTIDAD");
+      listbox.addItem("ID");
+      listbox2.addItem("PRODUCTO");
+      listbox3.addItem("PRECIO");
+      listbox4.addItem("CANTIDAD");
       msql.query( "SELECT * FROM vw_inventariocl;" );
       while (msql.next())
       {
@@ -147,13 +152,16 @@ void draw() {
         String PRODUCTO = msql.getString("PRODUCTO");
         String PRECIO = msql.getString("PRECIO");
         String CANTIDAD = msql.getString("CANTIDAD");
-        listbox.addItem(ID + "    " + PRODUCTO+ "\t          " +PRECIO+ "          " +CANTIDAD);
+        listbox.addItem(ID);
+        listbox2.addItem(PRODUCTO);
+        listbox3.addItem(PRECIO);
+        listbox4.addItem(CANTIDAD);
       }
       runOnce = false;
     }
     textFont(lgnFont);
     Interactive.setActive(true);
-    
+
     popStyle();
   }
 }
@@ -181,7 +189,7 @@ void actionPerformed(GUIEvent e) {
 }
 
 void welcome() {
-
+  noStroke();
   background(beige);
   pushMatrix();
   pushStyle();
