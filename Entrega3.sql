@@ -34,11 +34,13 @@ CREATE VIEW vw_inventariocl AS
     SELECT 
         art_id AS ID,
         art_nombre AS PRODUCTO,
+		art_costo AS PRECIO,
         inv_Cantidad AS CANTIDAD
     FROM
         INVENTARIO_SEDE
             JOIN
         Articulo ON (inv_PRODUCTO_id = art_id);
+        SELECT * FROM vw_inventariocl;
 
 #########################################################################################################
 -- PROCEDIMIENTOS
