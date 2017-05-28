@@ -119,12 +119,16 @@ void setup() {
 }
 
 void draw() {
-  if (mouseX > bx2-boxSize && mouseX < bx2+boxSize && mouseY > by2-boxSize && mouseY < by2+boxSize) {
-    overInventario=true;
-    println("Is over ");
-  } else {
-    overInventario=false;
-  }
+  checkOver();
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   if (welcond) {
@@ -302,4 +306,32 @@ void icon(float x, float y, float size, boolean o, PImage im, color on, color of
   image(im, x, y, size, size);
   text(tx, x, y+size-20);
   popStyle();
+}
+
+void checkOver(){
+if (mouseX > bx2-boxSize && mouseX < bx2+boxSize && mouseY > by2-boxSize && mouseY < by2+boxSize) {
+    overInventario=true;
+    println("Is over ");
+  } else {
+    overInventario=false;
+  }
+  if (mouseX > bx3-boxSize && mouseX < bx3+boxSize && mouseY > by3-boxSize && mouseY < by3+boxSize) {
+    overRutas=true;
+    println("Is over ");
+  } else {
+    overRutas=false;
+  }
+  if (mouseX > bx4-boxSize && mouseX < bx4+boxSize && mouseY > by4-boxSize && mouseY < by4+boxSize) {
+    overClientes=true;
+    println("Is over ");
+  } else {
+    overClientes=false;
+  }
+  if (mouseX > bx5-boxSize && mouseX < bx5+boxSize && mouseY > by5-boxSize && mouseY < by5+boxSize) {
+    overVentas=true;
+    println("Is over ");
+  } else {
+    overVentas=false;
+  }
+
 }
