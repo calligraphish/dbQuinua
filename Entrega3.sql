@@ -57,6 +57,7 @@ CREATE VIEW vw_inventariocl AS
             JOIN
         Articulo ON (inv_PRODUCTO_id = art_id);
         SELECT * FROM vw_inventariocl;
+        
 
 #########################################################################################################
 -- PROCEDIMIENTOS

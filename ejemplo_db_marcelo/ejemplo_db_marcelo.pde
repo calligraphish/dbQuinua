@@ -35,13 +35,13 @@ void setup()
     {
         // now read it back out
         //
-        dbconnection.query( "SELECT * FROM vw_rutarepartidor;" );
+        dbconnection.query( "SELECT * FROM vw_rutarepartidor" );
         
         while (dbconnection.next())
         {
-            String fecha = dbconnection.getString("FECHA");
-            String repartidor = dbconnection.getString("REPARTIDOR");
-            String ruta = dbconnection.getString("RUTA");
+            String fecha = dbconnection.getString("fecha");
+            String repartidor = dbconnection.getString("repartidor");
+            String ruta = dbconnection.getString("ruta");
             println(fecha + "   " + repartidor+"  "+ruta);
         }
     }
