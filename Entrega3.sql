@@ -1,5 +1,21 @@
 #########################################################################################################
 -- VISTAS
+DROP VIEW IF EXISTS ESTABLECIMIENTO_V;
+CREATE VIEW ESTABLECIMIENTO_V AS
+    SELECT 
+        CLIENTE_cli_id AS ID_EMPRESA,
+        cli_nombre AS NOMBRE_DE_EMPRESA,
+        est_tipo_de_empresa AS TIPO_DE_EMPRESA,
+        est_pagina_web AS PÁGINA_WEB,
+        est_rep_legal AS REPRESENTANTE_LEGAL,
+        est_rep_legal_telefono AS TELÉFONO_R_L,
+        est_rep_comercial AS REPRESENTANTE_COMERCIAL,
+        est_rep_comercial_telefono AS TELÉFONO_R_C
+    FROM
+        Establecimiento
+            JOIN
+        Cliente ON (cli_id = CLIENTE_cli_id);
+
 DROP VIEW IF EXISTS vw_ventas_admin;
 CREATE VIEW vw_ventas_admin AS
     SELECT 
