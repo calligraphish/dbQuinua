@@ -18,14 +18,14 @@ IFLabel l, l2, l3;
 IFButton b1, b2;
 IFLookAndFeel defaultLook;
 
-PImage bck, logo, home, inventario, ruta, cliente, venta;
+PImage bck, logo, home, home2, inventario, ruta, cliente, venta;
 PFont lgnFont;
 boolean welcond=true, logcond=false, homcond=false, invcond = false;
 String user, pass, database="db_1";
 float var = 0.0;
 color rojo, amarillo, naranja, aguamarina, morado, azul, beige, lila, morado_oscuro, bLsel, bL, bk, bR, bRsel;
-float bx1, by1, bx2, by2, bx3, by3, bx4, by4, bx5, by5;
-int boxSize;
+float bx1, by1, bx2, by2, bx3, by3, bx4, by4, bx5, by5, bx6, by6;
+int boxSize, boxSizeH;
 boolean overHome, overInventario, overRutas, overClientes, overVentas;
 
 boolean runOnce=true;
@@ -38,6 +38,7 @@ void setup() {
   logo= requestImage("un.png");
 
   home= loadImage("home.png");
+  home2= loadImage("home2.png");
   inventario= loadImage("inventario.png");
   ruta= loadImage("ruta.png");
   cliente = loadImage("person.png");
@@ -53,7 +54,10 @@ void setup() {
   by4= height/2-100;
   bx5= width/2+150;
   by5= height/2-100;
+  bx6= 90;
+  by6= height/8;
   boxSize = 128;
+  boxSizeH = 40;
 
   bLsel = #4C5760;
   bL = #93A8AC;
@@ -131,7 +135,9 @@ void draw() {
   }
   if (invcond) {
     pushStyle();
+    imageMode(CORNER);
     background(morado_oscuro);
+    icon(bx6, by6, boxSizeH, overHome, home2, bLsel, bL, "", lgnFont);
     if (runOnce) {
       listbox.addItem("ID" + "    " + "PRODUCTO"+ "\t          " +"PRECIO"+ "          " +"CANTIDAD");
       msql.query( "SELECT * FROM vw_inventariocl;" );
