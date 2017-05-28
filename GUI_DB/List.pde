@@ -88,13 +88,13 @@ public class Listbox
             for ( int i = 0; i < int(height/itemHeight) && i < items.size(); i++ )
             {
                 pushStyle();
-                strokeWeight(4);
-                stroke(0);
-                fill( bR );
+                strokeWeight(77);
+                stroke(morado_oscuro);
+                fill( 255 );
                 rect( x, y + (i*itemHeight), this.width, itemHeight );
                 
                 noStroke();
-                fill(morado_oscuro);
+                fill(30);
                 textFont(lgnFont);
                 textSize(20);
                 text( items.get(i+listStartAt).toString(), x+5, y+(i+1)*itemHeight-5 );
@@ -113,53 +113,6 @@ public class Listbox
     }
 }
 
-void keyPressed() {
-  if (key=='M') {
-    /*if ( msql.connect() )
-    {  
-      try {
-        msql.query( "START TRANSACTION;" );
-        msql.query( "CALL sp_compracl(1,1,FUN_ultima_venta()+1,"+");" );
-        msql.query( "INSERT INTO detalle_venta values(FUN_ultima_venta(),2,17);" );
-        msql.query( "ROLLBACK;" );
-      }
-      catch(Exception e) {
-        msql.query( "ROLLBACK;" );
-        println(e.getMessage());
-      }
-    }
-    */homcond = false;
-    invcond = true;
-  }
-}
-
-void query() {
-  if ( msql.connect() )
-  {  
-    try {
-      msql.query( "START TRANSACTION;" );
-      msql.query( "CALL sp_compracl(1,1,FUN_ultima_venta()+1,1);" );
-      msql.query( "SELECT * FROM venta" );
-      while (msql.next())
-      {
-        String s = msql.getString("ven_fecha");
-        int n = msql.getInt("ven_id");
-        println(n + "   " + s);
-      }
-      msql.query( "INSERT INTO detalle_venta values(FUN_ultima_venta(),2,17);" );
-      msql.query( "ROLLBACK;" );
-    }
-    catch(Exception e) {
-      msql.query( "ROLLBACK;" );
-      println("Somemsqlthing went bad :V");
-    }
-    //msql.next();
-    //println( "number of rows: " + msql.getInt(1) );
-  } else
-  {
-    // connection failed !
-  }
-}
 public void itemClicked ( int i, Object item )
 {
     lastItemClicked = item;

@@ -1,8 +1,3 @@
-import java.awt.Color;
-import java.awt.Dimension;
-import javax.swing.BorderFactory;
-import java.awt.GridLayout;
-import javax.swing.JPanel;
 import interfascia.*;
 import de.bezier.data.sql.*;
 import de.bezier.guido.*;
@@ -230,6 +225,7 @@ void login() {
   c.setVisible(true);
 
   pushStyle();
+  textAlign(CENTER );
   textFont(lgnFont);
   text("Login", width/2, height/7);
   textAlign(LEFT);
