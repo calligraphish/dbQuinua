@@ -13,25 +13,48 @@ IFLabel l, l2, l3;
 IFButton b1, b2;
 IFLookAndFeel defaultLook;
 
-PImage bck, logo, home, inventario, ruta;
+PImage bck, logo, home, inventario, ruta, cliente, venta;
 PFont lgnFont;
-boolean welcond=true, logcond=false, logged=false;
+boolean welcond=true, logcond=false, homcond=false, invcond = false;
 String user, pass, database="db_1";
 float var = 0.0;
-color rojo, amarillo, naranja, aguamarina, morado, azul, beige, lila, morado_oscuro;
+color rojo, amarillo, naranja, aguamarina, morado, azul, beige, lila, morado_oscuro, bLsel, bL, bk, bR, bRsel;
+float bx1, by1, bx2, by2, bx3, by3, bx4, by4, bx5, by5;
+int boxSize;
+boolean overHome, overInventario, overRutas, overClientes, overVentas;
+
+boolean runOnce=true;
 
 void setup() {
   size(700, 700);
-/*me gustan las papas con salsa de tomate,
-la carne en bisteck, y los fideos instantaneos*/
   lgnFont = createFont("GothamPro-Bold", 40);
 
   bck = requestImage("bckpht.jpg");
   logo= requestImage("un.png");
 
   home= loadImage("home.png");
-  inventario= loadImage("book.png");
+  inventario= loadImage("inventario.png");
   ruta= loadImage("ruta.png");
+  cliente = loadImage("person.png");
+  venta = loadImage("book.png");  
+
+  bx1= width/2;
+  by1= height-100;
+  bx2= width/2-150;
+  by2= height/2+150;
+  bx3= width/2+150;
+  by3= height/2+150;
+  bx4= width/2-150;
+  by4= height/2-100;
+  bx5= width/2+150;
+  by5= height/2-100;
+  boxSize = 128;
+
+  bLsel = #4C5760;
+  bL = #93A8AC;
+  bk = #FFFFC7;
+  bR = #A59E8C;
+  bRsel = #66635B;
 
   rojo = color(#F52326); //ROJO
   amarillo = color(#E7BC46); //AMARILLO
@@ -58,7 +81,7 @@ la carne en bisteck, y los fideos instantaneos*/
   c.setLookAndFeel(defaultLook);
   c.setVisible(false);
 
-  
+
   c1 = new GUIController(this);
   c1.setLookAndFeel(defaultLook);
   c1.setVisible(false);
@@ -81,15 +104,15 @@ la carne en bisteck, y los fideos instantaneos*/
    b1.addActionListener(this);
    b2.addActionListener(this);*/
   t2.addActionListener(this);
-  
+
   Interactive.make( this );
   Interactive.setActive(false);
-  listbox = new Listbox( 20, 60, width-40, height-80 );
+  listbox = new Listbox( 20, 300, 200, 200);
 
-  textAlign(CENTER);
-  noStroke();
-  imageMode(CENTER);
-  rectMode(RADIUS);
+
+   //textAlign(CENTER);
+   noStroke();
+   //imageMode(CENTER);
 }
 
 void draw() {
@@ -99,18 +122,54 @@ void draw() {
   if (logcond) {
     login();
   }
-  if (logged) {
-    //image(bck, 0, 0, 700, 700);
-    background(beige);
+  if (homcond) {
+    background(morado_oscuro);
     c.setVisible(false);
-    c1.setVisible(true);
+
+    //icon(bx1, by1, boxSize/2, overHome, home, amarillo, rojo, "", lgnFont);
+    icon(bx2, by2, boxSize, overInventario, inventario, bLsel, bL, "Inventario", lgnFont);
+    icon(bx3, by3, boxSize, overRutas, ruta, bRsel, bR, "Rutas", lgnFont);
+    icon(bx4, by4, boxSize, overClientes, cliente, bLsel, bL, "Clientes", lgnFont);
+    icon(bx5, by5, boxSize, overVentas, venta, bRsel, bR, "Ventas", lgnFont);
 
     pushStyle();
+    textAlign(CENTER);
     textFont(lgnFont);
-    text("Bienvenido,"+user, width/2, height/2);
+    text("Bienvenido, "+user, width/2, 100);
     popStyle();
   }
+  if (invcond) {
+    //noLoop();
+    pushStyle();
+    //textAlign(RIGHT);
+    
+    background(morado_oscuro);
+    if (runOnce) {
+      msql.query( "SELECT * FROM vw_inventariocl;" );
+      while (msql.next())
+      {
+        String ID = msql.getString("ID");
+        String PRODUCTO = msql.getString("PRODUCTO");
+        String PRECIO = msql.getString("PRECIO");
+        String CANTIDAD = msql.getString("CANTIDAD");
+        listbox.addItem(ID + "\t\t" + PRODUCTO+ "\t\t" +PRECIO+ "\t\t" +CANTIDAD);
+      }
+      runOnce = false;
+    }
+
+    //rectMode(CORNER);
+    Interactive.setActive(true);
+    textFont(lgnFont);
+    //Interactive.
+    //popStyle();
+  }
 }
+/*listbox = new Listbox( 20, 60, width-40, height-80 );
+ for ( int i = 0, r = int(10+random(100)); i < r; i++ )
+ {
+ listbox.addItem( "Item " + i );
+ }*/
+
 
 void actionPerformed(GUIEvent e) {
   if (e.getSource()==t2) {
@@ -129,12 +188,12 @@ void actionPerformed(GUIEvent e) {
 }
 
 void welcome() {
-  translate(width/2, height/2);
+
   background(beige);
   pushMatrix();
   pushStyle();
   fill(amarillo);
-
+  translate(width/2, height/2);
   beginShape();
   for (float theta = 0; theta <= 2*PI; theta +=0.01) {
     float rad = r(theta, 5, 5, 1, 1, abs(sin(var)+2), abs(sin(var)+2));
@@ -150,17 +209,24 @@ void welcome() {
   popStyle();
 
   pushStyle();
+  pushMatrix();
+  translate(width/2, height/2);
+  textAlign(CENTER);
   textFont(lgnFont);
   fill(sin(var)*255);
   text("Bienvenido", 0, 150);
   popStyle();
+  popMatrix();
 }
 
 void login() {
-  image(bck, width/2, height/2, 700, 700);
+  
+  
+  
 
   pushStyle();
   imageMode(CENTER);
+  image(bck, width/2, height/2, 700, 700);
   image(logo, width/2, height-height/6, logo.width/2, logo.height/2);
   popStyle();
 
@@ -190,10 +256,10 @@ void conectar() {
     c.remove(t2);
     c.remove(l);
     logcond=false;
-    logged=true;
+    homcond=true;
     println("You're in: "+ database);
   } else {
-    l3.setSize(200,200);
+    l3.setSize(200, 200);
     l3.setLabel("Usuario o contraseña incorrecta.");
   }
 }
@@ -202,6 +268,10 @@ void mousePressed() {
   if (welcond) {
     welcond=false;
     logcond=true;
+  }
+  if (overInventario) {
+    homcond = false;
+    invcond = true;
   }
 }
 
@@ -229,6 +299,7 @@ void icon(float x, float y, float size, boolean over, PImage im, color on, color
   pushStyle();
   textFont(font);
   textAlign(CENTER);
+  imageMode(CENTER);
   image(im, x, y, size, size);
   text(tx, x, y+size-20);
   popStyle();

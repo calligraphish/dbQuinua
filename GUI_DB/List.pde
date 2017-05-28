@@ -113,7 +113,7 @@ public class Listbox
 
 void keyPressed() {
   if (key=='M') {
-    if ( msql.connect() )
+    /*if ( msql.connect() )
     {  
       try {
         msql.query( "START TRANSACTION;" );
@@ -126,6 +126,8 @@ void keyPressed() {
         println(e.getMessage());
       }
     }
+    */homcond = false;
+    invcond = true;
   }
 }
 
