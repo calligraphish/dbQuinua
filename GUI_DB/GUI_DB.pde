@@ -23,7 +23,8 @@ color rojo, amarillo, naranja, aguamarina, morado, azul, beige, lila, morado_osc
 
 void setup() {
   size(700, 700);
-
+/*me gustan las papas con salsa de tomate,
+la carne en bisteck, y los fideos instantaneos*/
   lgnFont = createFont("GothamPro-Bold", 40);
 
   bck = requestImage("bckpht.jpg");
