@@ -15,15 +15,11 @@ void sl_ESTABLECIMIENTO_V (){
         
         while (dbconnection.next())
         {
-            String ID_EMPRESA = dbconnection.getString("ID_EMPRESA");
             String NOMBRE_DE_EMPRESA = dbconnection.getString("NOMBRE_DE_EMPRESA");
             String TIPO_DE_EMPRESA = dbconnection.getString("TIPO_DE_EMPRESA");
-            String PAGINA_WEB = dbconnection.getString("PAGINA_WEB");
             String REPRESENTANTE_LEGAL = dbconnection.getString("REPRESENTANTE_LEGAL");
-            String TELEFONO_R_L = dbconnection.getString("TELEFONO_R_L");
-            String REPRESENTANTE_COMERCIAL = dbconnection.getString("REPRESENTANTE_COMERCIAL");
-            String TELEFONO_R_C = dbconnection.getString("TELEFONO_R_C");
-            println(ID_EMPRESA + "          " + NOMBRE_DE_EMPRESA+ "          " +TIPO_DE_EMPRESA+ "          " +PAGINA_WEB+ "          " +REPRESENTANTE_LEGAL+ "          " +TELEFONO_R_L+ "          " +REPRESENTANTE_COMERCIAL+"          " +TELEFONO_R_C);
+            String TELEFONO = dbconnection.getString("TELEFONO");
+            println(NOMBRE_DE_EMPRESA+ "          " +TIPO_DE_EMPRESA+ "          " +REPRESENTANTE_LEGAL+ "          " +TELEFONO);
         }
     }
     else
@@ -54,11 +50,11 @@ void setup()
     // connect to database of server "localhost"
     //
     dbconnection = new MySQL( this, "localhost", database, user, pass );
-    
+        sl_ESTABLECIMIENTO_V ();
 }
 
 void draw()
 {
     // i know this is not really a visual sketch ...
-    sl_ESTABLECIMIENTO_V ();
+
 }
