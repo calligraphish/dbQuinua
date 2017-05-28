@@ -1,3 +1,8 @@
+import java.awt.Color;
+import java.awt.Dimension;
+import javax.swing.BorderFactory;
+import java.awt.GridLayout;
+import javax.swing.JPanel;
 import interfascia.*;
 import de.bezier.data.sql.*;
 import de.bezier.guido.*;
@@ -76,7 +81,6 @@ void setup() {
   defaultLook.lightGrayColor = naranja;
   defaultLook.darkGrayColor = beige;
 
-
   c = new GUIController(this);
   c.setLookAndFeel(defaultLook);
   c.setVisible(false);
@@ -109,13 +113,20 @@ void setup() {
   Interactive.setActive(false);
   listbox = new Listbox( 20, 300, 200, 200);
 
-
    //textAlign(CENTER);
    noStroke();
    //imageMode(CENTER);
 }
 
 void draw() {
+  if (mouseX > bx2-boxSize && mouseX < bx2+boxSize && mouseY > by2-boxSize && mouseY < by2+boxSize) {
+    overInventario=true;
+    println("Is over ");
+  } else {
+    overInventario=false;
+  }
+  
+  
   if (welcond) {
     welcome();
   }
@@ -162,7 +173,7 @@ void draw() {
     textFont(lgnFont);
     //Interactive.
     //popStyle();
-  }
+  } 
 }
 /*listbox = new Listbox( 20, 60, width-40, height-80 );
  for ( int i = 0, r = int(10+random(100)); i < r; i++ )
@@ -220,10 +231,6 @@ void welcome() {
 }
 
 void login() {
-  
-  
-  
-
   pushStyle();
   imageMode(CENTER);
   image(bck, width/2, height/2, 700, 700);
@@ -265,13 +272,13 @@ void conectar() {
 }
 
 void mousePressed() {
+  if (overInventario&&!welcond) {
+    homcond = false;
+    invcond = true;
+  }
   if (welcond) {
     welcond=false;
     logcond=true;
-  }
-  if (overInventario) {
-    homcond = false;
-    invcond = true;
   }
 }
 
@@ -279,16 +286,8 @@ float r(float theta, float a, float b, float m, float n1, float n2, float n3) {
   return pow(pow(abs(cos(m*theta/4.0)/a), n2) + pow(abs(sin(m*theta/4.0)/b), n3), -1.0/n1);
 }
 
-void icon(float x, float y, float size, boolean over, PImage im, color on, color off, String tx, PFont font) {
-
-  if (mouseX > x-size && mouseX < x+size && mouseY > y-size && mouseY < y+size) {
-    over=true;
-    println("Is over "+ im.toString());
-  } else {
-    over=false;
-  }
-
-  if (over) {
+void icon(float x, float y, float size, boolean o, PImage im, color on, color off, String tx, PFont font) {
+  if (o) {
     tint(on);
     fill(255);
   } else {
