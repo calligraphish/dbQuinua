@@ -3,7 +3,7 @@ public class Listbox
     float x, y, width, height;
     
     ArrayList items;
-    int itemHeight = 20;
+    int itemHeight = 40;
     int listStartAt = 0;
     int hoverItem = -1;
     

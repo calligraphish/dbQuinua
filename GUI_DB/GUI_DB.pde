@@ -111,26 +111,15 @@ void setup() {
 
   Interactive.make( this );
   Interactive.setActive(false);
-  listbox = new Listbox( 20, 300, 200, 200);
+  listbox = new Listbox( 70, 300, 550, 200);
 
-   //textAlign(CENTER);
-   noStroke();
-   //imageMode(CENTER);
+  //textAlign(CENTER);
+  noStroke();
+  //imageMode(CENTER);
 }
 
 void draw() {
   checkOver();
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   if (welcond) {
     welcome();
   }
@@ -138,28 +127,13 @@ void draw() {
     login();
   }
   if (homcond) {
-    background(morado_oscuro);
-    c.setVisible(false);
-
-    //icon(bx1, by1, boxSize/2, overHome, home, amarillo, rojo, "", lgnFont);
-    icon(bx2, by2, boxSize, overInventario, inventario, bLsel, bL, "Inventario", lgnFont);
-    icon(bx3, by3, boxSize, overRutas, ruta, bRsel, bR, "Rutas", lgnFont);
-    icon(bx4, by4, boxSize, overClientes, cliente, bLsel, bL, "Clientes", lgnFont);
-    icon(bx5, by5, boxSize, overVentas, venta, bRsel, bR, "Ventas", lgnFont);
-
-    pushStyle();
-    textAlign(CENTER);
-    textFont(lgnFont);
-    text("Bienvenido, "+user, width/2, 100);
-    popStyle();
+    homeAdmin();
   }
   if (invcond) {
-    //noLoop();
     pushStyle();
-    //textAlign(RIGHT);
-    
     background(morado_oscuro);
     if (runOnce) {
+      listbox.addItem("ID" + "    " + "PRODUCTO"+ "\t          " +"PRECIO"+ "          " +"CANTIDAD");
       msql.query( "SELECT * FROM vw_inventariocl;" );
       while (msql.next())
       {
@@ -167,17 +141,15 @@ void draw() {
         String PRODUCTO = msql.getString("PRODUCTO");
         String PRECIO = msql.getString("PRECIO");
         String CANTIDAD = msql.getString("CANTIDAD");
-        listbox.addItem(ID + "\t\t" + PRODUCTO+ "\t\t" +PRECIO+ "\t\t" +CANTIDAD);
+        listbox.addItem(ID + "    " + PRODUCTO+ "\t          " +PRECIO+ "          " +CANTIDAD);
       }
       runOnce = false;
     }
-
-    //rectMode(CORNER);
-    Interactive.setActive(true);
     textFont(lgnFont);
-    //Interactive.
-    //popStyle();
-  } 
+    Interactive.setActive(true);
+    
+    popStyle();
+  }
 }
 /*listbox = new Listbox( 20, 60, width-40, height-80 );
  for ( int i = 0, r = int(10+random(100)); i < r; i++ )
@@ -308,8 +280,8 @@ void icon(float x, float y, float size, boolean o, PImage im, color on, color of
   popStyle();
 }
 
-void checkOver(){
-if (mouseX > bx2-boxSize && mouseX < bx2+boxSize && mouseY > by2-boxSize && mouseY < by2+boxSize) {
+void checkOver() {
+  if (mouseX > bx2-boxSize && mouseX < bx2+boxSize && mouseY > by2-boxSize && mouseY < by2+boxSize) {
     overInventario=true;
     println("Is over ");
   } else {
@@ -333,5 +305,18 @@ if (mouseX > bx2-boxSize && mouseX < bx2+boxSize && mouseY > by2-boxSize && mous
   } else {
     overVentas=false;
   }
+}
 
+void homeAdmin() {
+  background(morado_oscuro);
+  c.setVisible(false);
+  icon(bx2, by2, boxSize, overInventario, inventario, bLsel, bL, "Inventario", lgnFont);
+  icon(bx3, by3, boxSize, overRutas, ruta, bRsel, bR, "Rutas", lgnFont);
+  icon(bx4, by4, boxSize, overClientes, cliente, bLsel, bL, "Clientes", lgnFont);
+  icon(bx5, by5, boxSize, overVentas, venta, bRsel, bR, "Ventas", lgnFont);
+  pushStyle();
+  textAlign(CENTER);
+  textFont(lgnFont);
+  text("Bienvenido, "+user, width/2, 100);
+  popStyle();
 }
