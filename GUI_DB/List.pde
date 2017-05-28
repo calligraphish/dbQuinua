@@ -11,6 +11,7 @@ public class Listbox
     boolean hasSlider = false;
     boolean holi = true;
     boolean holi2 = true;
+    //¿Cómo nos vamos a repartir?
     Listbox ( float xx, float yy, float ww, float hh ) 
     {
         x = xx; y = yy;
