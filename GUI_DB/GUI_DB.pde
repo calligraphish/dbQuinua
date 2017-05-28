@@ -262,6 +262,11 @@ void mousePressed() {
     welcond=false;
     logcond=true;
   }
+  if (overHome && !homcond && invcond) {
+    Interactive.deactivate();
+    invcond=false;
+    homcond=true;
+  }
 }
 
 float r(float theta, float a, float b, float m, float n1, float n2, float n3) {
@@ -310,6 +315,12 @@ void checkOver() {
     println("Is over ");
   } else {
     overVentas=false;
+  }
+  if (mouseX > bx6-boxSizeH && mouseX < bx6+boxSizeH && mouseY > by6-boxSizeH && mouseY < by6+boxSizeH) {
+    overHome=true;
+    println("Is over ");
+  } else {
+    overHome=false;
   }
 }
 
