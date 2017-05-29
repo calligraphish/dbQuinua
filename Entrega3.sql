@@ -1,6 +1,6 @@
 #########################################################################################################
 -- VISTAS
-DROP VIEW IF EXISTS ESTABLECIMIENTO_V;
+DROP VIEW IF EXISTS vw_clientes;
 CREATE VIEW ESTABLECIMIENTO_V AS
     SELECT 
         cli_nombre AS NOMBRE_DE_EMPRESA,
