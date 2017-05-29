@@ -41,5 +41,8 @@ void checkOver() {
   } else {
     overAdd=false;
   }
+<<<<<<< HEAD
   
+=======
+>>>>>>> c03b6839477bc3a721a2fbe91ee1b4a7f445734d
 }

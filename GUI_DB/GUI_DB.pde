@@ -6,6 +6,7 @@ IFTextField t, t2;
 IFLabel l3;
 IFLookAndFeel defaultLook;
 
+<<<<<<< HEAD
 Box box1, Box2, Box3, Box4, Box5, Box6, Box7, Box8, Box9, Box10, Box11, Box15, Box16, Box17, Box18, Box19, Box20;
 
 boolean runOnce=true, runOnce2=true, runOnce3=true, runOnce4=true, runOnce5=true;
@@ -16,6 +17,18 @@ float var = 0.0;
 float bx1, by1, bx2, by2, bx3, by3, bx4, by4, bx5, by5, bx6, by6, bx7, by7, bx8, by8;
 int boxSize, boxSizeH, boxSizeLO, h1, h2,h3;
 PImage bck, logo, home, home2, inventario, ruta, cliente, venta, logOut, add, back;
+=======
+Box box1, Box2, Box3, Box4, Box5, Box6, Box7, Box8, Box9, Box10, Box11, Box15, Box16, Box17, Box18, Box19, Box20, Box21, Box22, Box23, Box24;
+
+boolean runOnce=true, runOnce2=true, runOnce3=true,runOnce4=true;
+boolean overHome, overInventario, overRutas, overClientes, overVentas, overLogOut, overAdd;
+boolean welcond=true, logcond=false, homcond=false, invcond = false, vencond = false, rutcond = false, clicond=false, out = false, intcond=false;
+color rojo, amarillo, naranja, aguamarina, morado, azul, beige, lila, morado_oscuro, bLsel, bL, bk, bR, bRsel;
+float var = 0.0;
+float bx1, by1, bx2, by2, bx3, by3, bx4, by4, bx5, by5, bx6, by6, bx7, by7, bx8, by8;
+int boxSize, boxSizeH, boxSizeLO, h1, h2;
+PImage bck, logo, home, home2, inventario, ruta, cliente, venta, logOut, back, add;
+>>>>>>> c03b6839477bc3a721a2fbe91ee1b4a7f445734d
 PFont lgnFont;
 String user, pass, database="db_1";
 
@@ -24,8 +37,9 @@ void setup() {
   lgnFont = createFont("GothamPro-Bold", 40);
 
   bck = requestImage("bckpht.jpg");
+  add= requestImage("add.png");
   logo= requestImage("un.png");
-
+  back= requestImage("back.png");
   home= loadImage("home.png");
   home2= loadImage("home2.png");
   inventario= loadImage("inventario2.png");
@@ -50,8 +64,13 @@ void setup() {
   by6= height/8;
   bx7= width-90;
   by7= height/8;
+<<<<<<< HEAD
   bx8= width-90;
   by8= height/8;
+=======
+  bx8= 90;
+  by8= height*7/8;
+>>>>>>> c03b6839477bc3a721a2fbe91ee1b4a7f445734d
   boxSize = 128;
   boxSizeH = 40;
   boxSizeLO = 40;
@@ -111,17 +130,34 @@ void setup() {
   Box6 = new Box(h1, 20);
   Box7 = new Box(h1, 20);
   
+<<<<<<< HEAD
   Box8 = new Box(h3, 20);
   Box9 = new Box(h3, 20);
   Box10 = new Box(h3, 20);
   Box11 = new Box(h3, 20);
 
+=======
+  Box5 = new Box(h1,20);
+  Box6 = new Box(h1,20);
+  Box7 = new Box(h1,20);
+  
+  Box8 = new Box(h1,20);
+  Box9 = new Box(h1,20);
+  Box10 = new Box(h1,20);
+  Box11 = new Box(h1,20);
+  
+>>>>>>> c03b6839477bc3a721a2fbe91ee1b4a7f445734d
   Box15 = new Box(h2, 20);
   Box16 = new Box(h2, 20);
   Box17 = new Box(h2, 20);
   Box18 = new Box(h2, 20);
   Box19 = new Box(h2, 20);
   Box20 = new Box(h2, 20);
+  
+  Box21 = new Box(h1,20);
+  Box22 = new Box(h1,20);
+  Box23 = new Box(h1,20);
+  Box24 = new Box(h1,20);
 }
 
 void draw() {
@@ -144,10 +180,17 @@ void draw() {
   if (rutcond) {
     rutas();
   }
+<<<<<<< HEAD
   if (clicond) {
     clientes();
   }
   if (ingcond) {
+=======
+  if (clicond){
+    clientes();
+  }
+  if (intcond){
+>>>>>>> c03b6839477bc3a721a2fbe91ee1b4a7f445734d
     ingresar();
   }
   if (out) {
@@ -198,6 +241,15 @@ void mousePressed() {
     runOnce2 = true;
     homcond=true;
   }
+ if (overAdd && clicond) {
+    clicond = false;
+    Box21.remove();
+    Box22.remove();
+    Box23.remove();
+    Box24.remove();
+    runOnce = true;
+    intcond = true;
+  }
   if (overHome && !homcond && rutcond) {
     rutcond=false;
     Box5.remove();
@@ -206,6 +258,7 @@ void mousePressed() {
     runOnce4 = true;
     homcond=true;
   }
+<<<<<<< HEAD
   if (overHome && !homcond && clicond) {
     clicond=false;
     Box8.remove();
@@ -215,6 +268,27 @@ void mousePressed() {
     runOnce5 = true;
     homcond=true;
   }
+=======
+    if (overHome && !homcond && clicond) {
+    clicond=false;
+    Box21.remove();
+    Box22.remove();
+    Box23.remove();
+    Box24.remove();
+    runOnce = true;
+    homcond=true;
+  }
+    if (overHome && !homcond && intcond) {
+    intcond=false;
+    runOnce = true;
+    homcond=true;
+  }
+    if (overLogOut && intcond) {
+    intcond = false;
+    runOnce = true;
+    clicond = true;
+  }
+>>>>>>> c03b6839477bc3a721a2fbe91ee1b4a7f445734d
   if (overLogOut && homcond) {
     homcond = false;
     runOnce3=true;
