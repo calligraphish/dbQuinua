@@ -189,7 +189,7 @@ void mousePressed() {
   }  
   if (overVentas && homcond) {
     homcond = false;
-    vencond = true;
+    vencond = true; 
   }
   if (overRutas && homcond) {
     homcond = false;
@@ -256,6 +256,7 @@ void mousePressed() {
     Box23.remove();
     Box24.remove();
     runOnce = true;
+    c2.setVisible(false);
     homcond=true;
   }
   if (overLogOut && intcond) {
