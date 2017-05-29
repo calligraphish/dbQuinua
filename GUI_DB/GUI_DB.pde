@@ -8,7 +8,7 @@ IFLookAndFeel defaultLook;
 
 Box box1, Box2, Box3, Box4, Box5, Box6, Box7, Box8, Box9, Box10, Box11, Box15, Box16, Box17, Box18, Box19, Box20, Box21, Box22, Box23, Box24;
 
-boolean runOnce=true, runOnce2=true, runOnce3=true, runOnce4=true, runOnce5=true,runOnce6 = true;
+boolean runOnce=true;
 boolean overHome, overInventario, overRutas, overClientes, overVentas, overLogOut, overAdd;
 boolean welcond=true, logcond=false, homcond=false, invcond = false, vencond = false, rutcond = false, clicond=false, out = false, intcond=false;
 color rojo, amarillo, naranja, aguamarina, morado, azul, beige, lila, morado_oscuro, bLsel, bL, bk, bR, bRsel;
@@ -36,7 +36,11 @@ void setup() {
   logOut = loadImage("power.png");
   add = loadImage("add.png");
   back = loadImage("back.png");
-
+  
+  boxSize = 128;
+  boxSizeH = 40;
+  boxSizeLO = 40;
+  
   bx1= width/2;
   by1= height-100;
   bx2= width/2-150;
@@ -51,11 +55,9 @@ void setup() {
   by6= height/8;
   bx7= width-90;
   by7= height/8;
-  bx8= 90;
-  by8= height*7/8;
-  boxSize = 128;
-  boxSizeH = 40;
-  boxSizeLO = 40;
+  bx8= width-90;
+  by8= height/8+boxSizeH+15;
+  
 
   h1 = 300;
   h2 = 300;
