@@ -19,9 +19,9 @@ void rutas() {
             Box6.addItem(ruta);
             Box7.addItem(direccion);
         }
-    Box5.setX(180);//SE COLOCA LA X INICIAL DE TODA LA TABLA: ESTA DICTAMINA LA POSICION DE LAS OTRAS COLUMNAS
     runOnce4 = false;
   }
+  Box5.setX((width-((Box7.getX()+Box7.getWidth())-Box5.getX()))/2);//ESTA LINEA CENTRA AUTOMATICAMENTE TODO
   Box5.draw();
   Box6.draw();
   Box7.draw();

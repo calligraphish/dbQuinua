@@ -21,9 +21,9 @@
       Box3.addItem(PRECIO);
       Box4.addItem(CANTIDAD);
     }
-    box1.setX(237);//PRIMERO SE COLOCA LA X INICIAL QUE AFECTA A LAS DEMAS
     runOnce = false;
   }
+  Box21.setX((width-((Box24.getX()+Box24.getWidth())-Box21.getX()))/2);//ESTA LINEA CENTRA AUTOMATICAMENTE TODO
   box1.draw();
   Box2.draw();
   Box3.draw();

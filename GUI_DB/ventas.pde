@@ -27,9 +27,9 @@ void ventas() {
       Box19.addItem(TELEFONO_CLIENTE);
       Box20.addItem(DIRECCION_CLIENTE);
     }
-    Box15.setX(35);//SE COLOCA LA X INICIAL DE TODA LA TABLA: ESTA DICTAMINA LA POSICION DE LAS OTRAS COLUMNAS
     runOnce2 = false;
   }
+  Box15.setX((width-((Box20.getX()+Box20.getWidth())-Box15.getX()))/2);//ESTA LINEA CENTRA AUTOMATICAMENTE TODO
   Box15.draw();
   Box16.draw();
   Box17.draw();
