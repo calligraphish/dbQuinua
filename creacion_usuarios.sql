@@ -15,3 +15,7 @@ grant select on db_1.vw_clientes to 'admon'@'localhost';
 grant select on db_1.vw_rutarepartidor to 'admon'@'localhost';
 grant select on db_1.vw_ventas_admin to 'admon'@'localhost';
 grant select on db_1.vw_inventariocl to 'admon'@'localhost';
+<<<<<<< HEAD
+=======
+grant select on db_1.establecimiento_v to 'admon'@'localhost';
+>>>>>>> c03b6839477bc3a721a2fbe91ee1b4a7f445734d
