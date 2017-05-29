@@ -35,5 +35,10 @@ void checkOver() {
   } else {
     overLogOut=false;
   }
-  
+  if (mouseX > bx8-boxSizeH && mouseX < bx8+boxSizeH && mouseY > by8-boxSizeH && mouseY < by8+boxSizeH) {
+    overAdd=true;
+    //println("Is over HOME");
+  } else {
+    overAdd=false;
+  }
 }
