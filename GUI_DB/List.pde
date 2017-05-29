@@ -1,129 +1,66 @@
-public class Listbox
-{
-    float x, y, width, height;
-    Interactive inte;
-    ArrayList items;
-    int itemHeight = 40;
-    int listStartAt = 0;
-    int hoverItem = -1;
-    
-    float valueY = 0;
-    boolean hasSlider = false;
-    Listbox ( float xx, float yy, float ww, float hh) 
-    {
-        x = xx; y = yy;
-        valueY = y;
-        
-        width = ww; height = hh;
-        
-        // register it
-        Interactive.add( this );
-    }
-    
-    public void addItem ( String item )
-    {
-        if ( items == null ) items = new ArrayList();
-        items.add( item );
-        
-        hasSlider = items.size() * itemHeight > height;
-    }
-    
-    public void mouseMoved ( float mx, float my )
-    {
-        if ( hasSlider && mx > width-20 ) return;
-        
-        hoverItem = listStartAt + int((my-y) / itemHeight);
-    }
-    
-    public void mouseExited ( float mx, float my )
-    {
-        hoverItem = -1;
-    }
-    
-    // called from manager
-    void mouseDragged ( float mx, float my )
-    {
-        if ( !hasSlider ) return;
-        if ( mx < x+width-20 ) return;
-        
-        valueY = my-10;
-        valueY = constrain( valueY, y, y+height-20 );
-        
-        update();
-    }
-    
-    // called from manager
-    void mouseScrolled ( float step )
-    {
-        valueY += step;
-        valueY = constrain( valueY, y, y+height-20 );
-        
-        update();
-    }
-    
-    void redraw(float xN, float yN){
-      this.x = xN;
-      this.y = yN;
-    }
-    
-    void undraw(){
-      this.x = 2000;
-      this.y = 2000;
-    }
-    
-    void update ()
-    {
-        float totalHeight = items.size() * itemHeight;
-        float itemsInView = height / itemHeight;
-        float listOffset = map( valueY, y, y+height-20, 0, totalHeight-height );
-        
-        listStartAt = int( listOffset / itemHeight );
-    }
-    
-    public void mousePressed ( float mx, float my )
-    {
-        if ( hasSlider && mx > width-20 ) return;
-        
-        int item = listStartAt + int( (my-y) / itemHeight);
-        itemClicked( item, items.get(item) );
-    }
+import java.util.ArrayList;
 
-    void draw ()
-    {
+public class Box {
+  ArrayList items;
+  int x, y, h, w, cell;
+  int largestString, txSize;
+  public Box(int yCoordinate, int heigthCell) {
+    this.x = width/3; 
+    this.y = yCoordinate;
+    this.cell= heigthCell;
+    this.txSize =10;
+  }
+
+  void draw() {
+    if ( items != null ) {
+      this.w = this.largestString*9;
+      this.h = this.items.size()-1*this.cell;
+      for ( int i = 0; i < this.items.size(); i++ ) {
+        pushStyle();
         noStroke();
-        fill( 100 );
-        rect( x,y,this.width,this.height );
-        if ( items != null )
-        {
-            for ( int i = 0; i < int(height/itemHeight) && i < items.size(); i++ )
-            {
-                pushStyle();
-                strokeWeight(4);
-                stroke(morado_oscuro);
-                fill( 255 );
-                rect( x, y + (i*itemHeight), this.width, itemHeight );
-                
-                noStroke();
-                fill(30);
-                textFont(lgnFont);
-                textSize(20);
-                text( items.get(i+listStartAt).toString(), x+5, y+(i+1)*itemHeight-5 );
-                popStyle();
-            }
+        if (i%2==0) {
+          fill( 255 );
+        } else {
+          fill(#ACCDDE);
         }
-        
-        if ( hasSlider )
-        {
-            stroke( 80 );
-            fill( 100 );
-            rect( x+width-20, y, 20, height );
-            fill( 120 );
-            rect( x+width-20, valueY, 20, 20 );
-        }
-    }
-}
+        rect(this.x, this.y + (i*this.cell), this.w, this.cell);
 
-public void itemClicked ( int i, Object item )
-{
-    lastItemClicked = item;
+        noStroke();
+        fill(0);
+        //textAlign(LEFT);
+        textFont(lgnFont);
+        textSize(txSize);
+        text(items.get(i).toString(), this.x+2, this.y+(i+1)*this.cell-5);
+        popStyle();
+      }
+    }
+  }
+
+  public void remove() {
+    items.clear();
+  }
+  public void addItem(String st ) {
+    if ( items == null ) { 
+      this.items = new ArrayList();
+    }
+    this.items.add(st);
+    largestString = items.get(0).toString().length();
+    for (int i = 0; i < items.size(); i++) {
+      if (items.get(i).toString().length() > largestString) {
+        largestString = items.get(i).toString().length();
+      }
+    }
+  }
+  public int getWidth(){
+    return this.w;
+  }
+  public void setX(int xi){
+    this.x = xi;
+  }
+  public int getX(){
+    return this.x;
+  }
+  public void setTextSize(int size){
+    this.txSize = size;
+  }
 }

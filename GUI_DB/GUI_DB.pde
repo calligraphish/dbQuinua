@@ -2,13 +2,12 @@ import interfascia.*;
 import de.bezier.data.sql.*;
 import de.bezier.guido.*;
 
-Listbox listbox, listbox2, listbox3, listbox4, listboxAux;
-Object lastItemClicked;
+Box box1, Box2, Box3, Box4, Box15, Box16, Box17, Box18, Box19, Box20;
 
 MySQL msql;
 
 int xIni = 50;
-int wid = 150;
+int wid = 100, wid2 = 100;
 GUIController c, c1;
 IFTextField t, t2, t3;
 IFLabel l, l2, l3;
@@ -25,7 +24,8 @@ float bx1, by1, bx2, by2, bx3, by3, bx4, by4, bx5, by5, bx6, by6;
 int boxSize, boxSizeH;
 boolean overHome, overInventario, overRutas, overClientes, overVentas;
 
-boolean runOnce=true;
+boolean runOnce=true, runOnce2=true;
+;
 
 void setup() {
   size(700, 700);
@@ -106,15 +106,19 @@ void setup() {
   t2.addActionListener(this);
 
 
+//CREACIÓN DE COLUMNAS ENLAZADAS PARA HACER TABLAS
+  box1 = new Box(300, 20);//SOLO RECIBEN 2 PARÁMETROS: LA ALTURA Y EL ALTO DE LA CELDA.
+  Box2 = new Box(300, 20);
+  Box3 = new Box(300, 20);
+  Box4 = new Box(300, 20);
 
 
-  Interactive.make( this );
-  Interactive.setActive(false);
-  listbox  = new Listbox( xIni, 300, wid, 200);
-  listboxAux  = new Listbox( xIni, 300, wid, 200);
-  listbox2 = new Listbox( xIni+wid, 300, wid, 200);
-  listbox3 = new Listbox( xIni+wid*2, 300, wid, 200);
-  listbox4 = new Listbox( xIni+wid*3, 300, wid, 200);
+  Box15 = new Box(300, 20);
+  Box16 = new Box(300, 20);
+  Box17 = new Box(300, 20);
+  Box18 = new Box(300, 20);
+  Box19 = new Box(300, 20);
+  Box20 = new Box(300, 20);
 }
 
 void draw() {
@@ -240,13 +244,13 @@ void mousePressed() {
     logcond=true;
   }
   if (overHome && !homcond && invcond) {
-    Interactive.deactivate();
     invcond=false;
+    runOnce = true;
     homcond=true;
   }
   if (overHome && !homcond && vencond) {
-    Interactive.deactivate();
     vencond=false;
+    runOnce2 = true;
     homcond=true;
   }
 }
@@ -276,31 +280,31 @@ void icon(float x, float y, float size, boolean o, PImage im, color on, color of
 void checkOver() {
   if (mouseX > bx2-boxSize && mouseX < bx2+boxSize && mouseY > by2-boxSize && mouseY < by2+boxSize) {
     overInventario=true;
-    println("Is over INVENTARIO");
+    //println("Is over INVENTARIO");
   } else {
     overInventario=false;
   }
   if (mouseX > bx3-boxSize && mouseX < bx3+boxSize && mouseY > by3-boxSize && mouseY < by3+boxSize) {
     overRutas=true;
-    println("Is over RUTAS");
+    //println("Is over RUTAS");
   } else {
     overRutas=false;
   }
   if (mouseX > bx4-boxSize && mouseX < bx4+boxSize && mouseY > by4-boxSize && mouseY < by4+boxSize) {
     overClientes=true;
-    println("Is over CLIENTES");
+    //println("Is over CLIENTES");
   } else {
     overClientes=false;
   }
   if (mouseX > bx5-boxSize && mouseX < bx5+boxSize && mouseY > by5-boxSize && mouseY < by5+boxSize) {
     overVentas=true;
-    println("Is over VENTAS");
+    //println("Is over VENTAS");
   } else {
     overVentas=false;
   }
   if (mouseX > bx6-boxSizeH && mouseX < bx6+boxSizeH && mouseY > by6-boxSizeH && mouseY < by6+boxSizeH) {
     overHome=true;
-    println("Is over HOME");
+    //println("Is over HOME");
   } else {
     overHome=false;
   }
@@ -326,11 +330,11 @@ void inventario() {
   imageMode(CORNER); 
   icon(bx6, by6, boxSizeH, overHome, home2, amarillo, beige, "", lgnFont);
   if (runOnce) {
-    listbox.addItem("ID");
-    listbox2.addItem("PRODUCTO");
-    listbox3.addItem("PRECIO");
-    listbox4.addItem("CANTIDAD");
-    listboxAux.addItem("PRECIO");
+    box1.addItem("ID");
+    Box2.addItem("PRODUCTO");
+    Box3.addItem("PRECIO");
+    Box4.addItem("CANTIDAD");
+
     msql.query( "SELECT * FROM vw_inventariocl;" );
     while (msql.next())
     {
@@ -338,20 +342,26 @@ void inventario() {
       String PRODUCTO = msql.getString("PRODUCTO");
       String PRECIO = msql.getString("PRECIO");
       String CANTIDAD = msql.getString("CANTIDAD");
-      listbox.addItem(ID);
-      listbox2.addItem(PRODUCTO);
-      listbox3.addItem(PRECIO);
-      listbox4.addItem(CANTIDAD);
-      listboxAux.addItem(PRECIO);
+      box1.addItem(ID);
+      println(box1.items.get(1));
+      Box2.addItem(PRODUCTO);
+      Box3.addItem(PRECIO);
+      Box4.addItem(CANTIDAD);
     }
+    box1.setX(40);//PRIMERO SE COLOCA LA X INICIAL QUE AFECTA A LAS DEMAS
     runOnce = false;
   }
+  box1.draw();
+  Box2.draw();
+  Box3.draw();
+  Box4.draw();
+  Box2.setX(box1.getWidth()+box1.getX());//PATRÓN DESPUÉS DEL DRAW.
+  Box3.setX(Box2.getWidth()+Box2.getX());
+  Box4.setX(Box3.getWidth()+Box3.getX());
+  pushStyle();
+  textAlign(CENTER);
   textFont(lgnFont);
-  Interactive.setActive(true);
-  fill(255);
-  textFont(lgnFont);
-  text("Inventario", width/3, 100);
-  textMode(CENTER);
+  text("Inventario", width/2, 100);
   popStyle();
 }
 
@@ -360,41 +370,47 @@ void ventas() {
   pushStyle();
   imageMode(CORNER); 
   icon(bx6, by6, boxSizeH, overHome, home2, amarillo, beige, "", lgnFont);
-  if (runOnce) {
-    listbox.addItem("ID");
-    listbox2.addItem("PRODUCTO");
-    listbox3.addItem("PRECIO");
-    listbox4.addItem("CANTIDAD");
-    msql.query( "SELECT * FROM vw_inventariocl;" );
+  if (runOnce2) {
+    Box15.addItem("ID_VENTA");
+    Box16.addItem("FECHA");
+    Box17.addItem("COSTO");
+    Box18.addItem("NOMBRE");
+    Box19.addItem("TELEFONO");
+    Box20.addItem("DIRECCION");
+
+    msql.query( "SELECT * FROM vw_ventas_admin;" );
     while (msql.next())
     {
-      String ID = msql.getString("ID");
-      String PRODUCTO = msql.getString("PRODUCTO");
-      String PRECIO = msql.getString("PRECIO");
-      String CANTIDAD = msql.getString("CANTIDAD");
-      listbox.addItem(ID);
-      listbox2.addItem(PRODUCTO);
-      listbox3.addItem(PRECIO);
-      listbox4.addItem(CANTIDAD);
+      String ID_VENTA = msql.getString("ID_VENTA");
+      String FECHA = msql.getString("FECHA");
+      String COSTO_TOTAL = msql.getString("COSTO_TOTAL");
+      String NOMBRE_CLIENTE = msql.getString("NOMBRE_CLIENTE");
+      String TELEFONO_CLIENTE = msql.getString("TELEFONO_CLIENTE");
+      String DIRECCION_CLIENTE = msql.getString("DIRECCION_CLIENTE");
+      Box15.addItem(ID_VENTA);
+      Box16.addItem(FECHA);
+      Box17.addItem(COSTO_TOTAL);
+      Box18.addItem(NOMBRE_CLIENTE);
+      Box19.addItem(TELEFONO_CLIENTE);
+      Box20.addItem(DIRECCION_CLIENTE);
     }
-    runOnce = false;
+    Box15.setX(20);//SE COLOCA LA X INICIAL DE TODA LA TABLA: ESTA DICTAMINA LA POSICION DE LAS OTRAS COLUMNAS
+    runOnce2 = false;
   }
+  Box15.draw();
+  Box16.draw();
+  Box17.draw();
+  Box18.draw();
+  Box19.draw();
+  Box20.draw();  
+  Box16.setX(Box15.getWidth()+Box15.getX());//SE DEBE SEGUIR EL MISMO PATRÓN PARA ORGANIZAR AUTOMATICAMENTE LAS COLUMNAS
+  Box17.setX(Box16.getWidth()+Box16.getX());//DEBE HACERSE DESPUÉS DEL <BoXnum>.draw(), NO ANTES.
+  Box18.setX(Box17.getWidth()+Box17.getX());
+  Box19.setX(Box18.getWidth()+Box18.getX());
+  Box20.setX(Box19.getWidth()+Box19.getX());
+  pushStyle();
+  textAlign(CENTER);
   textFont(lgnFont);
-  Interactive.setActive(true);
-  fill(255);
-  textFont(lgnFont);
-  text("Inventario", width/3, 100);
-  textMode(CENTER);
+  text("Ventas", width/2, 100);
   popStyle();
-}
-
-//COMO ARREGLAR EL PROBLEMA DE LOS GAPS GRISES:
-void keyPressed() {
-  if (key=='m') {// se activa oprimiendo m
-    listbox.undraw();// undraw() pinta el listbox pero fuera del canvas.
-    listboxAux.redraw(xIni, 300);// redraw() lo que hace es pintar el listbox desde la coordinadas (x,y) que se expecifican en los parametros.
-  } else {
-    listbox.redraw(xIni, 300);
-    listboxAux.undraw();
-  }
 }
