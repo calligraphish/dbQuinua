@@ -30,13 +30,16 @@ SELECT * FROM vw_ventas_admin;
 DROP VIEW IF EXISTS vw_rutarepartidor;
 CREATE VIEW vw_rutarepartidor AS
     SELECT 
-        CURDATE() AS FECHA, emp_nombre AS REPARTIDOR, rut_id AS RUTA
+        CURDATE() AS FECHA, emp_nombre AS REPARTIDOR, ven_id as VENTA,
+        cli_direccion AS DIRECCION
     FROM
         Ruta
             JOIN
         Empleado ON (REPARTIDOR_EMPLEADO_id = emp_id)
             JOIN
         Venta ON (rut_VENTA_id = ven_id)
+			JOIN
+        cliente ON (CLIENTE_cli_id = cli_id)    
     WHERE
         ven_fecha = CURDATE()
     ORDER BY REPARTIDOR;
