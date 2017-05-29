@@ -19,11 +19,15 @@ CREATE VIEW vw_ventas_admin AS
         ven_id AS ID_VENTA,
         ven_fecha AS FECHA,
         ven_costo_total AS COSTO_TOTAL,
-        cli_nombre AS NOMBRE_CLIENTE
+        cli_nombre AS NOMBRE_CLIENTE,
+        cli_telefono AS TELEFONO_CLIENTE,
+        cli_direccion AS DIRECCION_CLIENTE
     FROM
         Venta
             JOIN
         Cliente ON (cli_id = Venta.CLIENTE_cli_id);
+
+#SELECT * FROM vw_ventas_admin;
 
 DROP VIEW IF EXISTS vw_rutarepartidor;
 CREATE VIEW vw_rutarepartidor AS
