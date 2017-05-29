@@ -129,20 +129,10 @@ void draw() {
     ventas();
   }
   if (out) {
-    if (runOnce3) {
-      msql.close();
-      user="";
-      pass="";
-      t.setValue("");
-      t2.setValue("");
-      l3.setLabel("");
-      println("logged out");
-      runOnce3=false;
-    }
-      login();
+    logOut();
+    login();
   }  
-
-  text(mouseX, 20, 10);
+  text(mouseX, 20, 10);//IMPRIME LAS COORDENADAS DE X EN UNA ESQUINA PARA QUE CENTRAR SEA MÁS FÁCIL
 }
 
 void mousePressed() {
