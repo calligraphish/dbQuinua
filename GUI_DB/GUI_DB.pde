@@ -6,11 +6,11 @@ IFTextField t, t2;
 IFLabel l3;
 IFLookAndFeel defaultLook;
 
-Box box1, Box2, Box3, Box4, Box15, Box16, Box17, Box18, Box19, Box20;
+Box box1, Box2, Box3, Box4, Box5, Box6, Box7, Box15, Box16, Box17, Box18, Box19, Box20;
 
-boolean runOnce=true, runOnce2=true, runOnce3=true;
+boolean runOnce=true, runOnce2=true, runOnce3=true,runOnce4=true;
 boolean overHome, overInventario, overRutas, overClientes, overVentas, overLogOut;
-boolean welcond=true, logcond=false, homcond=false, invcond = false, vencond = false, out = false;
+boolean welcond=true, logcond=false, homcond=false, invcond = false, vencond = false, rutcond = false, out = false;
 color rojo, amarillo, naranja, aguamarina, morado, azul, beige, lila, morado_oscuro, bLsel, bL, bk, bR, bRsel;
 float var = 0.0;
 float bx1, by1, bx2, by2, bx3, by3, bx4, by4, bx5, by5, bx6, by6, bx7, by7;
@@ -101,7 +101,10 @@ void setup() {
   Box2 = new Box(h1, 20);
   Box3 = new Box(h1, 20);
   Box4 = new Box(h1, 20);
-
+  
+  Box5 = new Box(h1,20);
+  Box6 = new Box(h1,20);
+  Box7 = new Box(h1,20);
 
   Box15 = new Box(h2, 20);
   Box16 = new Box(h2, 20);
@@ -127,6 +130,9 @@ void draw() {
   }
   if (vencond) {
     ventas();
+  }
+  if (rutcond){
+    rutas();
   }
   if (out) {
     if (runOnce3) {
@@ -159,6 +165,10 @@ void mousePressed() {
     homcond = false;
     vencond = true;
   }
+  if(overRutas && homcond){
+    homcond = false;
+    rutcond = true;
+  }
   if (welcond) {
     welcond=false;
     logcond=true;
@@ -181,6 +191,14 @@ void mousePressed() {
     Box19.remove();
     Box20.remove(); 
     runOnce2 = true;
+    homcond=true;
+  }
+  if (overHome && !homcond && rutcond) {
+    rutcond=false;
+    Box5.remove();
+    Box6.remove();
+    Box7.remove(); 
+    runOnce4 = true;
     homcond=true;
   }
   if (overLogOut && homcond) {
