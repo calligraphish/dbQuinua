@@ -17,7 +17,7 @@ IFLookAndFeel defaultLook;
 PApplet a = this;
 PImage bck, logo, home, home2, inventario, ruta, cliente, venta;
 PFont lgnFont;
-boolean welcond=true, logcond=false, homcond=false, invcond = false, vencond = false;
+boolean welcond=true, logcond=false, homcond=false, invcond = false, vencond = false, clicond = false;
 String user, pass, database="db_1";
 float var = 0.0;
 color rojo, amarillo, naranja, aguamarina, morado, azul, beige, lila, morado_oscuro, bLsel, bL, bk, bR, bRsel;
@@ -134,6 +134,9 @@ void draw() {
   if (vencond) {
     ventas();
   }
+    if (clicond) {
+    clientes();
+  }
 }
 
 void actionPerformed(GUIEvent e) {
@@ -235,6 +238,10 @@ void mousePressed() {
     homcond = false;
     vencond = true;
   }
+    if (overClientes && homcond) {
+    homcond = false;
+    clicond = true;
+  }
   if (welcond) {
     welcond=false;
     logcond=true;
@@ -247,6 +254,11 @@ void mousePressed() {
   if (overHome && !homcond && vencond) {
     Interactive.deactivate();
     vencond=false;
+    homcond=true;
+  }
+    if (overHome && !homcond && clicond) {
+    Interactive.deactivate();
+    clicond=false;
     homcond=true;
   }
 }
@@ -361,21 +373,21 @@ void ventas() {
   imageMode(CORNER); 
   icon(bx6, by6, boxSizeH, overHome, home2, amarillo, beige, "", lgnFont);
   if (runOnce) {
-    listbox.addItem("ID");
-    listbox2.addItem("PRODUCTO");
-    listbox3.addItem("PRECIO");
-    listbox4.addItem("CANTIDAD");
-    msql.query( "SELECT * FROM vw_inventariocl;" );
+    listbox.addItem("VEN_ID");
+    listbox2.addItem("FECHA");
+    listbox3.addItem("COSTO_TOTAL");
+    listbox4.addItem("NOMBRE_CLIENTE");
+    msql.query( "SELECT * FROM vw_ventas_admin;" );
     while (msql.next())
     {
-      String ID = msql.getString("ID");
-      String PRODUCTO = msql.getString("PRODUCTO");
-      String PRECIO = msql.getString("PRECIO");
-      String CANTIDAD = msql.getString("CANTIDAD");
-      listbox.addItem(ID);
-      listbox2.addItem(PRODUCTO);
-      listbox3.addItem(PRECIO);
-      listbox4.addItem(CANTIDAD);
+      String VEN_ID = msql.getString("VEN_ID");
+      String FECHA = msql.getString("FECHA");
+      String COSTO_TOTAL = msql.getString("COSTO_TOTAL");
+      String NOMBRE_CLIENTE = msql.getString("NOMBRE_CLIENTE");
+      listbox.addItem(VEN_ID);
+      listbox2.addItem(FECHA);
+      listbox3.addItem(COSTO_TOTAL);
+      listbox4.addItem(NOMBRE_CLIENTE);
     }
     runOnce = false;
   }
@@ -383,7 +395,40 @@ void ventas() {
   Interactive.setActive(true);
   fill(255);
   textFont(lgnFont);
-  text("Inventario", width/3, 100);
+  text("Ventas", width/3, 100);
+  textMode(CENTER);
+  popStyle();
+}
+
+void clientes() {
+  background(morado_oscuro);
+  pushStyle();
+  imageMode(CORNER); 
+  icon(bx6, by6, boxSizeH, overHome, home2, amarillo, beige, "", lgnFont);
+   if (runOnce) {
+      listbox.addItem("NOMBRE_DE_EMPRESA");
+      listbox2.addItem("TIPO_DE_EMPRESA");
+      listbox3.addItem("REPRESENTANTE_LEGAL");
+      listbox4.addItem("TELEFONO");
+      msql.query("SELECT * FROM ESTABLECIMIENTO_V;");
+      while (msql.next())
+      {
+            String NOMBRE_DE_EMPRESA = msql.getString("NOMBRE_DE_EMPRESA");
+            String TIPO_DE_EMPRESA = msql.getString("TIPO_DE_EMPRESA");
+            String REPRESENTANTE_LEGAL = msql.getString("REPRESENTANTE_LEGAL");
+            String TELEFONO = msql.getString("TELEFONO");
+        listbox.addItem(NOMBRE_DE_EMPRESA);
+        listbox2.addItem(TIPO_DE_EMPRESA);
+        listbox3.addItem(REPRESENTANTE_LEGAL);
+        listbox4.addItem(TELEFONO);
+      }
+      runOnce = false;
+    }
+  textFont(lgnFont);
+  Interactive.setActive(true);
+  fill(255);
+  textFont(lgnFont);
+  text("Ventas", width/3, 100);
   textMode(CENTER);
   popStyle();
 }
