@@ -31,13 +31,16 @@ SELECT * FROM vw_ventas_admin;
 DROP VIEW IF EXISTS vw_rutarepartidor;
 CREATE VIEW vw_rutarepartidor AS
     SELECT 
-        CURDATE() AS FECHA, emp_nombre AS REPARTIDOR, rut_id AS RUTA
+        CURDATE() AS FECHA, emp_nombre AS REPARTIDOR, cli_nombre AS CLIENTE,
+        cli_direccion AS DIRECCION
     FROM
         Ruta
             JOIN
         Empleado ON (REPARTIDOR_EMPLEADO_id = emp_id)
             JOIN
         Venta ON (rut_VENTA_id = ven_id)
+			JOIN
+        cliente ON (cli_id = CLIENTE_cli_id)    
     WHERE
         ven_fecha = CURDATE()
     ORDER BY REPARTIDOR;
@@ -320,7 +323,7 @@ DELIMITER ;
 #########################################################################################################
 #########################################################################################################
 -- EJEMPLOS PARA CORRER ---------------------------------------------------------------------------------
-START TRANSACTION ;#MODELO PARA LLEVAR A CABO UNA VENTA:
+/*START TRANSACTION ;#MODELO PARA LLEVAR A CABO UNA VENTA:
 CALL sp_compracl(1,1,FUN_ultima_venta()+1,1);# SE CREA UNA NUEVA VENTA PARA EVITAR PROBLEMAS DE INTEGRIDAD
 #SELECT * FROM venta;
 #SELECT * FROM inventario_sede;
@@ -331,7 +334,6 @@ INSERT INTO detalle_venta values(FUN_ultima_venta(),2,17);#CASO EN EL QUE LA CAN
 #SELECT * FROM inventario_sede;
 ROLLBACK;
 
-/*
 -- vw_rutarepartidor
 SELECT * FROM vw_rutarepartidor;
 
