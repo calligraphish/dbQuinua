@@ -39,6 +39,7 @@ public class Box {
   public void remove() {
     items.clear();
   }
+  
   public void addItem(String st ) {
     if ( items == null ) { 
       this.items = new ArrayList();

@@ -19,7 +19,7 @@ void rutas() {
             Box6.addItem(ruta);
             Box7.addItem(direccion);
         }
-    Box5.setX(35);//SE COLOCA LA X INICIAL DE TODA LA TABLA: ESTA DICTAMINA LA POSICION DE LAS OTRAS COLUMNAS
+    Box5.setX(180);//SE COLOCA LA X INICIAL DE TODA LA TABLA: ESTA DICTAMINA LA POSICION DE LAS OTRAS COLUMNAS
     runOnce4 = false;
   }
   Box5.draw();
