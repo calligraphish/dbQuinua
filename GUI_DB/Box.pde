@@ -29,7 +29,7 @@ public class Box {
         fill(0);
         //textAlign(LEFT);
         textFont(lgnFont);
-        textSize(txSize);
+        textSize(txSize);//EL TAMAÑO DE LA FUENTE DEFAULT ES 10px.
         text(items.get(i).toString(), this.x+2, this.y+(i+1)*this.cell-5);
         popStyle();
       }
