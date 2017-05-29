@@ -1,8 +1,8 @@
 import interfascia.*;
 import de.bezier.data.sql.*;
 MySQL msql;
-GUIController c, c2;
-IFTextField t, t2, t3, t4, t5, t6;
+GUIController c, c2, c3;
+IFTextField t, t2, t3, t4, t5, t6, t7, t8, t9, t10;
 IFLabel l3;
 IFLookAndFeel defaultLook;
 
@@ -10,7 +10,7 @@ Box box1, Box2, Box3, Box4, Box5, Box6, Box7, Box8, Box9, Box10, Box11, Box15, B
 
 boolean runOnce=true;
 boolean overHome, overInventario, overRutas, overClientes, overVentas, overLogOut, overAdd, overCommit;
-boolean welcond=true, logcond=false, homcond=false, invcond = false, vencond = false, rutcond = false, clicond=false, out = false, intcond=false;
+boolean welcond=true, logcond=false, homcond=false, invcond = false, vencond = false, rutcond = false, clicond=false, out = false, intcond=false, buycond= false;
 color rojo, amarillo, naranja, aguamarina, morado, azul, beige, lila, morado_oscuro, bLsel, bL, bk, bR, bRsel;
 float var = 0.0;
 float bx1, by1, bx2, by2, bx3, by3, bx4, by4, bx5, by5, bx6, by6, bx7, by7, bx8, by8, bx9, by9;
@@ -99,6 +99,10 @@ void setup() {
   c2 = new GUIController(this);
   c2.setLookAndFeel(defaultLook);
   c2.setVisible(false);
+  
+  c3 = new GUIController(this);
+  c3.setLookAndFeel(defaultLook);
+  c3.setVisible(false);
 
   t  = new IFTextField("Text Field", width/4, height/3, width/2);
   t2 = new IFTextField("Text Field", width/4, height/3+80, width/2);
@@ -108,6 +112,11 @@ void setup() {
   t4 = new IFTextField("Text Field", width/4, height/2+50, width/2);
   t5 = new IFTextField("Text Field", width/4, height/2+150, width/2); 
   t6 = new IFTextField("Text Field", width/4, height/2+250, width/2); 
+
+  t7 = new IFTextField("Text Field", width/4, height/2-50, width/2); 
+  t8 = new IFTextField("Text Field", width/4, height/2+50, width/2);
+  t9 = new IFTextField("Text Field", width/4, height/2+150, width/2); 
+  t10 = new IFTextField("Text Field", width/4, height/2+250, width/2); 
   
   c.add(t);
   c.add(t2);
@@ -118,8 +127,12 @@ void setup() {
   c2.add(t5);
   c2.add(t6);
   
+  c3.add(t7);
+  c3.add(t8);
+  c3.add(t9);
+  c3.add(t10);
+  
   t2.addActionListener(this);
-
 
   //CREACIÓN DE COLUMNAS ENLAZADAS PARA HACER TABLAS
   box1 = new Box(h1, 20);//SOLO RECIBEN 2 PARÁMETROS: LA ALTURA Y EL ALTO DE LA CELDA.
@@ -175,6 +188,9 @@ void draw() {
   if (intcond) {
     ingresar();
   }
+  if (buycond) {
+    compra();
+  }
   if (out) {
     logOut();
     login();
@@ -223,6 +239,17 @@ void mousePressed() {
     runOnce = true;
     homcond=true;
   }
+    if (overAdd && vencond) {
+    vencond=false;
+    Box15.remove();
+    Box16.remove();
+    Box17.remove();
+    Box18.remove();
+    Box19.remove();
+    Box20.remove(); 
+    runOnce = true;
+    buycond=true;
+  }
   if (overAdd && clicond) {
     clicond = false;
     Box21.remove();
@@ -268,6 +295,28 @@ void mousePressed() {
     t6.setValue("");
     clicond = true;
   }
+ if (overLogOut && buycond) {
+    buycond = false;
+    runOnce = true;
+    t3.setValue("");
+    t4.setValue("");
+    t5.setValue("");
+    t6.setValue("");
+    c3.setVisible(false);
+    vencond = true;
+  }
+  if (overHome && !homcond && buycond) {
+    buycond=false;
+    Box15.remove();
+    Box16.remove();
+    Box17.remove();
+    Box18.remove();
+    Box19.remove();
+    Box20.remove(); 
+    runOnce = true;
+    c3.setVisible(false);
+    homcond=true;
+  }
   if (overCommit && intcond) {
     msql.query("CALL sp_registrocl(\""+t3.getValue()+"\",\""+t4.getValue()+"\",\""+t5.getValue()+"\",\""+t6.getValue()+"\");");
     intcond = false;
@@ -276,6 +325,16 @@ void mousePressed() {
     t4.setValue("");
     t5.setValue("");
     t6.setValue("");
+    clicond = true;
+  }
+  if (overCommit && buycond) {
+    msql.query("CALL sp_compracl(\""+t7.getValue()+"\",\""+t8.getValue()+"\",\""+t9.getValue()+"\",\""+t10.getValue()+"\");");
+    intcond = false;
+    runOnce = true;
+    t7.setValue("");
+    t8.setValue("");
+    t9.setValue("");
+    t10.setValue("");
     clicond = true;
   }
   if (overLogOut && homcond) {
