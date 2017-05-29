@@ -1,4 +1,5 @@
 void inventario() {
+  
   background(morado_oscuro);
   pushStyle();
   imageMode(CORNER); 

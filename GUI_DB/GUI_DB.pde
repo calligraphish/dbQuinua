@@ -1,21 +1,21 @@
 import interfascia.*;
 import de.bezier.data.sql.*;
 MySQL msql;
-GUIController c;
-IFTextField t, t2;
+GUIController c, c2;
+IFTextField t, t2, t3, t4, t5, t6;
 IFLabel l3;
 IFLookAndFeel defaultLook;
 
 Box box1, Box2, Box3, Box4, Box5, Box6, Box7, Box8, Box9, Box10, Box11, Box15, Box16, Box17, Box18, Box19, Box20, Box21, Box22, Box23, Box24;
 
 boolean runOnce=true;
-boolean overHome, overInventario, overRutas, overClientes, overVentas, overLogOut, overAdd;
+boolean overHome, overInventario, overRutas, overClientes, overVentas, overLogOut, overAdd, overCommit;
 boolean welcond=true, logcond=false, homcond=false, invcond = false, vencond = false, rutcond = false, clicond=false, out = false, intcond=false;
 color rojo, amarillo, naranja, aguamarina, morado, azul, beige, lila, morado_oscuro, bLsel, bL, bk, bR, bRsel;
 float var = 0.0;
-float bx1, by1, bx2, by2, bx3, by3, bx4, by4, bx5, by5, bx6, by6, bx7, by7, bx8, by8;
-int boxSize, boxSizeH, boxSizeLO, h1, h2, h3;
-PImage bck, logo, home, home2, inventario, ruta, cliente, venta, logOut, back, add;
+float bx1, by1, bx2, by2, bx3, by3, bx4, by4, bx5, by5, bx6, by6, bx7, by7, bx8, by8, bx9, by9;
+int boxSize, boxSizeH, boxSizeLO, boxSizeC, h1, h2, h3;
+PImage bck, logo, home, home2, inventario, ruta, cliente, venta, logOut, back, add,commit;
 PFont lgnFont;
 String user, pass, database="db_1";
 
@@ -36,11 +36,13 @@ void setup() {
   logOut = loadImage("power.png");
   add = loadImage("add.png");
   back = loadImage("back.png");
+  commit = loadImage("ventas.png");
   
   boxSize = 128;
   boxSizeH = 40;
   boxSizeLO = 40;
-  
+  boxSizeC = 64;
+
   bx1= width/2;
   by1= height-100;
   bx2= width/2-150;
@@ -57,7 +59,8 @@ void setup() {
   by7= height/8;
   bx8= width-90;
   by8= height/8+boxSizeH+15;
-  
+  bx9 =width/2;
+  by9 =height/2-200;
 
   h1 = 300;
   h2 = 300;
@@ -92,15 +95,29 @@ void setup() {
   c = new GUIController(this);
   c.setLookAndFeel(defaultLook);
   c.setVisible(false);
+  
+  c2 = new GUIController(this);
+  c2.setLookAndFeel(defaultLook);
+  c2.setVisible(false);
 
   t  = new IFTextField("Text Field", width/4, height/3, width/2);
-  t2 = new IFTextField("Text Field", width/4, height/3+80, width/2); 
+  t2 = new IFTextField("Text Field", width/4, height/3+80, width/2);
   l3 = new IFLabel("", width/2-20, height/2);
-
+  
+  t3 = new IFTextField("Text Field", width/4, height/2-50, width/2); 
+  t4 = new IFTextField("Text Field", width/4, height/2+50, width/2);
+  t5 = new IFTextField("Text Field", width/4, height/2+150, width/2); 
+  t6 = new IFTextField("Text Field", width/4, height/2+250, width/2); 
+  
   c.add(t);
   c.add(t2);
   c.add(l3);
-
+  
+  c2.add(t3);
+  c2.add(t4);
+  c2.add(t5);
+  c2.add(t6);
+  
   t2.addActionListener(this);
 
 
@@ -244,6 +261,20 @@ void mousePressed() {
   if (overLogOut && intcond) {
     intcond = false;
     runOnce = true;
+    t3.setValue("");
+    t4.setValue("");
+    t5.setValue("");
+    t6.setValue("");
+    clicond = true;
+  }
+  if (overCommit && intcond) {
+    msql.query("CALL sp_registrocl(\""+t3.getValue()+"\",\""+t4.getValue()+"\",\""+t5.getValue()+"\",\""+t6.getValue()+"\");");
+    intcond = false;
+    runOnce = true;
+    t3.setValue("");
+    t4.setValue("");
+    t5.setValue("");
+    t6.setValue("");
     clicond = true;
   }
   if (overLogOut && homcond) {

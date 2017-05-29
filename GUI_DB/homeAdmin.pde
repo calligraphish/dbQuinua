@@ -1,4 +1,12 @@
 void homeAdmin() {
+  defaultLook.baseColor = naranja;
+  defaultLook.borderColor = naranja;
+  defaultLook.selectionColor = rojo;
+  defaultLook.highlightColor = naranja;
+  defaultLook.activeColor = amarillo;
+  defaultLook.textColor = beige;
+  defaultLook.lightGrayColor = naranja;
+  defaultLook.darkGrayColor = beige;
   background(morado_oscuro);
   c.setVisible(false);
   icon(bx2, by2, boxSize, overInventario, inventario, bLsel, bL, "Inventario", lgnFont);

@@ -1,4 +1,5 @@
 void clientes() {
+  c2.setVisible(false);
   background(morado_oscuro);
   pushStyle();
   imageMode(CORNER); 

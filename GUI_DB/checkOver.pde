@@ -41,5 +41,12 @@ void checkOver() {
   } else {
     overAdd=false;
   }
+  if (mouseX > bx9-boxSizeC && mouseX < bx9+boxSizeC && mouseY > by9-boxSizeC && mouseY < by9+boxSizeC) {
+    overCommit=true;
+      
+  } else {
+    overCommit=false;
+  }
+
 
 }
