@@ -88,7 +88,7 @@ public class Listbox
             for ( int i = 0; i < int(height/itemHeight) && i < items.size(); i++ )
             {
                 pushStyle();
-                strokeWeight(77);
+                strokeWeight(4);
                 stroke(morado_oscuro);
                 fill( 255 );
                 rect( x, y + (i*itemHeight), this.width, itemHeight );
