@@ -139,6 +139,11 @@ void setup() {
   Box2 = new Box(h1, 20);
   Box3 = new Box(h1, 20);
   Box4 = new Box(h1, 20);
+  
+  box1.setTextSize(20);
+  Box2.setTextSize(20);
+  Box3.setTextSize(20);
+  Box4.setTextSize(20);
 
   Box5 = new Box(h1, 20);
   Box6 = new Box(h1, 20);
@@ -205,7 +210,7 @@ void mousePressed() {
   }  
   if (overVentas && homcond) {
     homcond = false;
-    vencond = true; 
+    vencond = true;
   }
   if (overRutas && homcond) {
     homcond = false;
@@ -283,7 +288,6 @@ void mousePressed() {
     Box23.remove();
     Box24.remove();
     runOnce = true;
-    c2.setVisible(false);
     homcond=true;
   }
   if (overLogOut && intcond) {

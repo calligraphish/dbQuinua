@@ -123,10 +123,12 @@ DELIMITER ;
 
 DROP PROCEDURE IF EXISTS sp_registrocl;
 DELIMITER ** 
-create procedure sp_registrocl(IN cli_nombre VARCHAR(45), IN cli_telefono VARCHAR(20), IN cli_direccion VARCHAR(50))
+create procedure sp_registrocl(IN cli_nombre VARCHAR(45),IN cli_tipo VARCHAR(45), IN cli_rep VARCHAR(45), IN cli_telefono VARCHAR(50))
 	BEGIN
-		insert into cliente (cli_nombre,cli_telefono ,cli_direccion)
-			values (cli_nombre, cli_telefono, cli_direccion);
+    DECLARE ID INT;
+    SELECT MAX(cli_id)+1 INTO ID FROM cliente; 
+		INSERT INTO cliente VALUES(ID,cli_nombre,"","");
+		INSERT INTO establecimiento VALUES(ID,cli_tipo,"",cli_rep,cli_telefono,"","");
     END ;
 **
 DELIMITER ;

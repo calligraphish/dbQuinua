@@ -8,12 +8,12 @@ public class Box {
     this.x = width/3; 
     this.y = yCoordinate;
     this.cell= heigthCell;
-    this.txSize =10;
+    this.txSize =9;
   }
 
   void draw() {
     if ( items != null ) {
-      this.w = this.largestString*9;
+      this.w = this.largestString*txSize;
       this.h = this.items.size()-1*this.cell;
       for ( int i = 0; i < this.items.size(); i++ ) {
         pushStyle();
