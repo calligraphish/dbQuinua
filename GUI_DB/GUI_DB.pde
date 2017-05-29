@@ -50,7 +50,7 @@ void setup() {
   by7= height/8;
   boxSize = 128;
   boxSizeH = 40;
-  boxSizeLO = 70;
+  boxSizeLO = 40;
 
   h1 = 300;
   h2 = 300;
@@ -130,21 +130,16 @@ void draw() {
   }
   if (out) {
     if (runOnce3) {
+      msql.close();
       user="";
       pass="";
-      msql.dispose();
       t.setValue("");
       t2.setValue("");
-      
-
-      c.setVisible(true);
-
+      l3.setLabel("");
+      println("logged out");
       runOnce3=false;
     }
-    login();
-    if (!msql.connect()) {
-      println("logged out");
-    }
+      login();
   }  
 
   text(mouseX, 20, 10);
@@ -185,6 +180,7 @@ void mousePressed() {
   }
   if (overLogOut && homcond) {
     homcond = false;
+    runOnce3=true;
     out = true;
   }
 }
