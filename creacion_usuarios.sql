@@ -15,6 +15,7 @@ grant select on db_1.vw_clientes to 'admon'@'localhost';
 grant select on db_1.vw_rutarepartidor to 'admon'@'localhost';
 grant select on db_1.vw_ventas_admin to 'admon'@'localhost';
 grant select on db_1.vw_inventariocl to 'admon'@'localhost';
+<<<<<<< HEAD
 GRANT EXECUTE ON PROCEDURE db_1.sp_registrocl TO 'admon'@'localhost';
 =======
 grant select on db_1.establecimiento_v to 'admon'@'localhost';
