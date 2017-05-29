@@ -15,15 +15,15 @@ IFLabel l, l2, l3;
 IFButton b1, b2;
 IFLookAndFeel defaultLook;
 PApplet a = this;
-PImage bck, logo, home, home2, inventario, ruta, cliente, venta;
+PImage add, bck, logo, home, home2, inventario, ruta, cliente, venta;
 PFont lgnFont;
 boolean welcond=true, logcond=false, homcond=false, invcond = false, vencond = false, clicond = false;
 String user, pass, database="db_1";
 float var = 0.0;
 color rojo, amarillo, naranja, aguamarina, morado, azul, beige, lila, morado_oscuro, bLsel, bL, bk, bR, bRsel;
-float bx1, by1, bx2, by2, bx3, by3, bx4, by4, bx5, by5, bx6, by6;
+float bx1, by1, bx2, by2, bx3, by3, bx4, by4, bx5, by5, bx6, by6, bx7, by7;
 int boxSize, boxSizeH;
-boolean overHome, overInventario, overRutas, overClientes, overVentas;
+boolean overHome, overInventario, overRutas, overClientes, overVentas, overAdd;
 
 boolean runOnce=true;
 
@@ -34,6 +34,7 @@ void setup() {
   bck = requestImage("bckpht.jpg");
   logo= requestImage("un.png");
 
+  add= loadImage("add.png");
   home= loadImage("home.png");
   home2= loadImage("home2.png");
   inventario= loadImage("inventario2.png");
@@ -53,6 +54,8 @@ void setup() {
   by5= height/2-100;
   bx6= 90;
   by6= height/8;
+  bx7= 90;
+  by7= height*7/8;
   boxSize = 128;
   boxSizeH = 40;
 
@@ -316,6 +319,12 @@ void checkOver() {
   } else {
     overHome=false;
   }
+    if (mouseX > bx7-boxSizeH && mouseX < bx7+boxSizeH && mouseY > by7-boxSizeH && mouseY < by7+boxSizeH) {
+    overAdd=true;
+    println("Is over HOME");
+  } else {
+    overAdd=false;
+  }
 }
 
 void homeAdmin() {
@@ -405,6 +414,7 @@ void clientes() {
   pushStyle();
   imageMode(CORNER); 
   icon(bx6, by6, boxSizeH, overHome, home2, amarillo, beige, "", lgnFont);
+  icon(bx7, by7, boxSizeH, overAdd, add, amarillo, beige, "", lgnFont);
    if (runOnce) {
       listbox.addItem("NOMBRE_DE_EMPRESA");
       listbox2.addItem("TIPO_DE_EMPRESA");
@@ -428,7 +438,7 @@ void clientes() {
   Interactive.setActive(true);
   fill(255);
   textFont(lgnFont);
-  text("Ventas", width/3, 100);
+  text("clientes", width/3, 100);
   textMode(CENTER);
   popStyle();
 }
