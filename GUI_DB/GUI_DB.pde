@@ -15,9 +15,9 @@ IFLabel l, l2, l3;
 IFButton b1, b2;
 IFLookAndFeel defaultLook;
 PApplet a = this;
-PImage add, bck, logo, home, home2, inventario, ruta, cliente, venta;
+PImage add, bck, back, logo, home, home2, inventario, ruta, cliente, venta;
 PFont lgnFont;
-boolean welcond=true, logcond=false, homcond=false, invcond = false, vencond = false, clicond = false;
+boolean welcond=true, logcond=false, homcond=false, invcond = false, vencond = false, clicond = false, intcond = false;
 String user, pass, database="db_1";
 float var = 0.0;
 color rojo, amarillo, naranja, aguamarina, morado, azul, beige, lila, morado_oscuro, bLsel, bL, bk, bR, bRsel;
@@ -35,6 +35,7 @@ void setup() {
   logo= requestImage("un.png");
 
   add= loadImage("add.png");
+  back= loadImage("back.png");
   home= loadImage("home.png");
   home2= loadImage("home2.png");
   inventario= loadImage("inventario2.png");
@@ -140,6 +141,9 @@ void draw() {
     if (clicond) {
     clientes();
   }
+    if (intcond) {
+    ingresar();
+  }  
 }
 
 void actionPerformed(GUIEvent e) {
@@ -245,6 +249,20 @@ void mousePressed() {
     homcond = false;
     clicond = true;
   }
+  if (overAdd && clicond) {
+    Interactive.deactivate();
+    clicond = false;
+    intcond = true;
+  }
+/*    if (overAdd && intcond) {
+    intcond = false;
+    clicond = true;
+  }*/
+    if (overHome && intcond) {
+    Interactive.deactivate();
+    intcond = false;
+    homcond = true;
+  }
   if (welcond) {
     welcond=false;
     logcond=true;
@@ -264,6 +282,7 @@ void mousePressed() {
     clicond=false;
     homcond=true;
   }
+  
 }
 
 float r(float theta, float a, float b, float m, float n1, float n2, float n3) {
@@ -439,6 +458,25 @@ void clientes() {
   fill(255);
   textFont(lgnFont);
   text("clientes", width/3, 100);
+  textMode(CENTER);
+  popStyle();
+}
+
+void ingresar() {
+  background(morado_oscuro);
+  pushStyle();
+  imageMode(CORNER); 
+  icon(bx6, by6, boxSizeH, overHome, home2, amarillo, beige, "", lgnFont);
+  icon(bx7, by7, boxSizeH, overAdd, back, amarillo, beige, "", lgnFont);
+   if (runOnce) {
+
+      runOnce = false;
+    }
+  textFont(lgnFont);
+  Interactive.setActive(false);
+  fill(255);
+  textFont(lgnFont);
+  text("Ingresar Cliente", width/3, 100);
   textMode(CENTER);
   popStyle();
 }
