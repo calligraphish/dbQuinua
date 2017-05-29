@@ -3,7 +3,7 @@ void ventas() {
   pushStyle();
   imageMode(CORNER); 
   icon(bx6, by6, boxSizeH, overHome, home2, amarillo, beige, "", lgnFont);
-  if (runOnce2) {
+  if (runOnce) {
     Box15.addItem("ID_VENTA");
     Box16.addItem("FECHA");
     Box17.addItem("COSTO");
@@ -27,20 +27,28 @@ void ventas() {
       Box19.addItem(TELEFONO_CLIENTE);
       Box20.addItem(DIRECCION_CLIENTE);
     }
-    runOnce2 = false;
+    runOnce = false;
   }
-  Box15.setX((width-((Box20.getX()+Box20.getWidth())-Box15.getX()))/2);//ESTA LINEA CENTRA AUTOMATICAMENTE TODO
-  Box15.draw();
-  Box16.draw();
-  Box17.draw();
-  Box18.draw();
-  Box19.draw();
-  Box20.draw();  
-  Box16.setX(Box15.getWidth()+Box15.getX());//SE DEBE SEGUIR EL MISMO PATRÓN PARA ORGANIZAR AUTOMATICAMENTE LAS COLUMNAS
-  Box17.setX(Box16.getWidth()+Box16.getX());//DEBE HACERSE DESPUÉS DEL <BoXnum>.draw(), NO ANTES.
-  Box18.setX(Box17.getWidth()+Box17.getX());
-  Box19.setX(Box18.getWidth()+Box18.getX());
-  Box20.setX(Box19.getWidth()+Box19.getX());
+  if (!(Box15.getItems().size()==1)) {
+    Box15.setX((width-((Box20.getX()+Box20.getWidth())-Box15.getX()))/2);//ESTA LINEA CENTRA AUTOMATICAMENTE TODO
+    Box15.draw();
+    Box16.draw();
+    Box17.draw();
+    Box18.draw();
+    Box19.draw();
+    Box20.draw();  
+    Box16.setX(Box15.getWidth()+Box15.getX());//SE DEBE SEGUIR EL MISMO PATRÓN PARA ORGANIZAR AUTOMATICAMENTE LAS COLUMNAS
+    Box17.setX(Box16.getWidth()+Box16.getX());//DEBE HACERSE DESPUÉS DEL <BoXnum>.draw(), NO ANTES.
+    Box18.setX(Box17.getWidth()+Box17.getX());
+    Box19.setX(Box18.getWidth()+Box18.getX());
+    Box20.setX(Box19.getWidth()+Box19.getX());
+  } else {
+    pushStyle();
+    textAlign(CENTER);
+    textFont(lgnFont);
+    text("No tienes los permisos correctos.", width/2, height/2);
+    popStyle();
+  }
   pushStyle();
   textAlign(CENTER);
   textFont(lgnFont);

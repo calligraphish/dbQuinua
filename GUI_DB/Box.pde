@@ -61,6 +61,9 @@ public class Box {
   public int getX(){
     return this.x;
   }
+  public ArrayList getItems(){
+    return this.items;
+  }
   public void setTextSize(int size){
     this.txSize = size;
   }

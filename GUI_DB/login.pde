@@ -38,6 +38,7 @@ void conectar() {
     c.setVisible(false);
     logcond=false;
     out=false;
+    runOnce=true;
     homcond=true;
     println("You're in: "+ database);
   } else {

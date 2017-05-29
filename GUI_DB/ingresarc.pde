@@ -4,9 +4,9 @@ void ingresar() {
   imageMode(CORNER); 
   icon(bx6, by6, boxSizeH, overHome, home2, amarillo, beige, "", lgnFont);
   icon(bx7, by7, boxSizeH, overLogOut, back, amarillo, beige, "", lgnFont);
-  if (runOnce6) {
+  if (runOnce) {
 
-    runOnce6 = false;
+    runOnce = false;
   }
   textFont(lgnFont);
   fill(255);

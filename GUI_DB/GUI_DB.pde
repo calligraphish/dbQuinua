@@ -201,7 +201,7 @@ void mousePressed() {
     Box18.remove();
     Box19.remove();
     Box20.remove(); 
-    runOnce2 = true;
+    runOnce = true;
     homcond=true;
   }
   if (overAdd && clicond) {
@@ -218,7 +218,7 @@ void mousePressed() {
     Box5.remove();
     Box6.remove();
     Box7.remove(); 
-    runOnce4 = true;
+    runOnce = true;
     homcond=true;
   }
   if (overHome && !homcond && clicond) {
@@ -227,7 +227,7 @@ void mousePressed() {
     Box22.remove();
     Box23.remove();
     Box24.remove();
-    runOnce5 = true;
+    runOnce = true;
     homcond=true;
   }
   if (overHome && !homcond && intcond) {
@@ -236,7 +236,7 @@ void mousePressed() {
     Box22.remove();
     Box23.remove();
     Box24.remove();
-    runOnce5 = true;
+    runOnce = true;
     homcond=true;
   }
   if (overLogOut && intcond) {
@@ -246,7 +246,7 @@ void mousePressed() {
   }
   if (overLogOut && homcond) {
     homcond = false;
-    runOnce3=true;
+    runOnce=true;
     out = true;
   }
 }

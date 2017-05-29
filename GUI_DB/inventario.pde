@@ -1,4 +1,4 @@
-  void inventario() {
+void inventario() {
   background(morado_oscuro);
   pushStyle();
   imageMode(CORNER); 
@@ -23,14 +23,22 @@
     }
     runOnce = false;
   }
-  Box21.setX((width-((Box24.getX()+Box24.getWidth())-Box21.getX()))/2);//ESTA LINEA CENTRA AUTOMATICAMENTE TODO
-  box1.draw();
-  Box2.draw();
-  Box3.draw();
-  Box4.draw();
-  Box2.setX(box1.getWidth()+box1.getX());//PATRÓN DESPUÉS DEL DRAW.
-  Box3.setX(Box2.getWidth()+Box2.getX());
-  Box4.setX(Box3.getWidth()+Box3.getX());
+  if (!(box1.getItems().size()==1)) {
+    box1.setX((width-((Box4.getX()+Box4.getWidth())-box1.getX()))/2);//ESTA LINEA CENTRA AUTOMATICAMENTE TODO
+    box1.draw();
+    Box2.draw();
+    Box3.draw();
+    Box4.draw();
+    Box2.setX(box1.getWidth()+box1.getX());//PATRÓN DESPUÉS DEL DRAW.
+    Box3.setX(Box2.getWidth()+Box2.getX());
+    Box4.setX(Box3.getWidth()+Box3.getX());
+  } else {
+    pushStyle();
+    textAlign(CENTER);
+    textFont(lgnFont);
+    text("No tienes los permisos correctos.", width/2, height/2);
+    popStyle();
+  }
   pushStyle();
   textAlign(CENTER);
   textFont(lgnFont);

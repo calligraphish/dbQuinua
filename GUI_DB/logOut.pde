@@ -1,5 +1,5 @@
 void logOut() {
-  if (runOnce3) {
+  if (runOnce) {
     msql.close();
     user="";
     pass="";
@@ -7,6 +7,6 @@ void logOut() {
     t2.setValue("");
     l3.setLabel("");
     println("logged out");
-    runOnce3=false;
+    runOnce=false;
   }
 }
