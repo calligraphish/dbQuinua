@@ -1,9 +1,7 @@
 #########################################################################################################
 -- VISTAS
-select * from cliente;
-
-DROP VIEW IF EXISTS ESTABLECIMIENTO_V;
-CREATE VIEW ESTABLECIMIENTO_V AS
+DROP VIEW IF EXISTS vw_clientes;
+CREATE VIEW vw_clientes AS
     SELECT 
         cli_nombre AS NOMBRE_DE_EMPRESA,
         est_tipo_de_empresa AS TIPO_DE_EMPRESA,
@@ -13,7 +11,7 @@ CREATE VIEW ESTABLECIMIENTO_V AS
         Establecimiento
             JOIN
         Cliente ON (cli_id = CLIENTE_cli_id);
-        SELECT * FROM ESTABLECIMIENTO_V;
+
 
 DROP VIEW IF EXISTS vw_ventas_admin;
 CREATE VIEW vw_ventas_admin AS
@@ -26,7 +24,6 @@ CREATE VIEW vw_ventas_admin AS
         Venta
             JOIN
         Cliente ON (cli_id = Venta.CLIENTE_cli_id);
-SELECT * FROM vw_ventas_admin;
 
 DROP VIEW IF EXISTS vw_rutarepartidor;
 CREATE VIEW vw_rutarepartidor AS
@@ -56,7 +53,7 @@ CREATE VIEW vw_inventariocl AS
         INVENTARIO_SEDE
             JOIN
         Articulo ON (inv_PRODUCTO_id = art_id);
-        SELECT * FROM vw_inventariocl;
+
         
 
 #########################################################################################################
@@ -231,6 +228,17 @@ BEGIN
     RETURN last_entry;
 END ;)
 DELIMITER ;
+
+DROP FUNCTION IF EXISTS FUN_get_ID_por_nombre;
+DELIMITER ;)
+CREATE FUNCTION FUN_get_ID_por_nombre(nombre varchar(40)) RETURNS INT
+BEGIN
+	DECLARE id INT;
+	SELECT cli_id INTO id FROM cliente WHERE cli_nombre = nombre;
+    RETURN id;
+END ;)
+DELIMITER ;
+
 
 #########################################################################################################
 -- TRIGGERS
