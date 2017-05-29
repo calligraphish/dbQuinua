@@ -6,16 +6,16 @@ IFTextField t, t2;
 IFLabel l3;
 IFLookAndFeel defaultLook;
 
-Box box1, Box2, Box3, Box4, Box5, Box6, Box7, Box8, Box9, Box10, Box11, Box15, Box16, Box17, Box18, Box19, Box20;
+Box box1, Box2, Box3, Box4, Box5, Box6, Box7, Box15, Box16, Box17, Box18, Box19, Box20;
 
-boolean runOnce=true, runOnce2=true, runOnce3=true, runOnce4=true, runOnce5=true;
-boolean overHome, overInventario, overRutas, overClientes, overVentas, overLogOut, overAdd;
-boolean welcond=true, logcond=false, homcond=false, invcond = false, vencond = false, rutcond = false, out = false, clicond = false, ingcond = false;
+boolean runOnce=true, runOnce2=true, runOnce3=true,runOnce4=true;
+boolean overHome, overInventario, overRutas, overClientes, overVentas, overLogOut;
+boolean welcond=true, logcond=false, homcond=false, invcond = false, vencond = false, rutcond = false, out = false;
 color rojo, amarillo, naranja, aguamarina, morado, azul, beige, lila, morado_oscuro, bLsel, bL, bk, bR, bRsel;
 float var = 0.0;
-float bx1, by1, bx2, by2, bx3, by3, bx4, by4, bx5, by5, bx6, by6, bx7, by7, bx8, by8;
-int boxSize, boxSizeH, boxSizeLO, h1, h2,h3;
-PImage bck, logo, home, home2, inventario, ruta, cliente, venta, logOut, add, back;
+float bx1, by1, bx2, by2, bx3, by3, bx4, by4, bx5, by5, bx6, by6, bx7, by7;
+int boxSize, boxSizeH, boxSizeLO, h1, h2;
+PImage bck, logo, home, home2, inventario, ruta, cliente, venta, logOut;
 PFont lgnFont;
 String user, pass, database="db_1";
 
@@ -33,8 +33,6 @@ void setup() {
   cliente = loadImage("person.png");
   venta = loadImage("book.png");  
   logOut = loadImage("power.png");
-  add = loadImage("add.png");
-  back = loadImage("back.png");
 
   bx1= width/2;
   by1= height-100;
@@ -50,15 +48,12 @@ void setup() {
   by6= height/8;
   bx7= width-90;
   by7= height/8;
-  bx8= width-90;
-  by8= height/8;
   boxSize = 128;
   boxSizeH = 40;
   boxSizeLO = 40;
 
   h1 = 300;
   h2 = 300;
-  h3 = 300;
 
   bLsel = #4C5760;
   bL = #93A8AC;
@@ -106,15 +101,10 @@ void setup() {
   Box2 = new Box(h1, 20);
   Box3 = new Box(h1, 20);
   Box4 = new Box(h1, 20);
-
-  Box5 = new Box(h1, 20);
-  Box6 = new Box(h1, 20);
-  Box7 = new Box(h1, 20);
   
-  Box8 = new Box(h3, 20);
-  Box9 = new Box(h3, 20);
-  Box10 = new Box(h3, 20);
-  Box11 = new Box(h3, 20);
+  Box5 = new Box(h1,20);
+  Box6 = new Box(h1,20);
+  Box7 = new Box(h1,20);
 
   Box15 = new Box(h2, 20);
   Box16 = new Box(h2, 20);
@@ -141,14 +131,8 @@ void draw() {
   if (vencond) {
     ventas();
   }
-  if (rutcond) {
+  if (rutcond){
     rutas();
-  }
-  if (clicond) {
-    clientes();
-  }
-  if (ingcond) {
-    ingresar();
   }
   if (out) {
     logOut();
@@ -166,13 +150,9 @@ void mousePressed() {
     homcond = false;
     vencond = true;
   }
-  if (overRutas && homcond) {
+  if(overRutas && homcond){
     homcond = false;
     rutcond = true;
-  }
-  if (overClientes && homcond) {
-    homcond = false;
-    clicond = true;
   }
   if (welcond) {
     welcond=false;
@@ -204,15 +184,6 @@ void mousePressed() {
     Box6.remove();
     Box7.remove(); 
     runOnce4 = true;
-    homcond=true;
-  }
-  if (overHome && !homcond && clicond) {
-    clicond=false;
-    Box8.remove();
-    Box9.remove();
-    Box10.remove();
-    Box11.remove();
-    runOnce5 = true;
     homcond=true;
   }
   if (overLogOut && homcond) {
