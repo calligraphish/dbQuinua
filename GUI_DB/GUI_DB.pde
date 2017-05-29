@@ -1,31 +1,23 @@
 import interfascia.*;
 import de.bezier.data.sql.*;
-import de.bezier.guido.*;
+MySQL msql;
+GUIController c;
+IFTextField t, t2;
+IFLabel l3;
+IFLookAndFeel defaultLook;
 
 Box box1, Box2, Box3, Box4, Box15, Box16, Box17, Box18, Box19, Box20;
 
-MySQL msql;
-
-int xIni = 50;
-int wid = 100, wid2 = 100;
-GUIController c, c1;
-IFTextField t, t2, t3;
-IFLabel l, l2, l3;
-IFButton b1, b2;
-IFLookAndFeel defaultLook;
-PApplet a = this;
-PImage bck, logo, home, home2, inventario, ruta, cliente, venta;
-PFont lgnFont;
+boolean runOnce=true, runOnce2=true;
+boolean overHome, overInventario, overRutas, overClientes, overVentas;
 boolean welcond=true, logcond=false, homcond=false, invcond = false, vencond = false;
-String user, pass, database="db_1";
-float var = 0.0;
 color rojo, amarillo, naranja, aguamarina, morado, azul, beige, lila, morado_oscuro, bLsel, bL, bk, bR, bRsel;
+float var = 0.0;
 float bx1, by1, bx2, by2, bx3, by3, bx4, by4, bx5, by5, bx6, by6;
 int boxSize, boxSizeH;
-boolean overHome, overInventario, overRutas, overClientes, overVentas;
-
-boolean runOnce=true, runOnce2=true;
-;
+PImage bck, logo, home, home2, inventario, ruta, cliente, venta;
+PFont lgnFont;
+String user, pass, database="db_1";
 
 void setup() {
   size(700, 700);
@@ -86,19 +78,10 @@ void setup() {
   c.setLookAndFeel(defaultLook);
   c.setVisible(false);
 
-
-  c1 = new GUIController(this);
-  c1.setLookAndFeel(defaultLook);
-  c1.setVisible(false);
-
   t  = new IFTextField("Text Field", width/4, height/3, width/2);
   t2 = new IFTextField("Text Field", width/4, height/3+80, width/2); 
-
   l3 = new IFLabel("", width/2-20, height/2);
 
-  b1 = new IFButton("", 15, 15, width/4, height/4);
-  b2 = new IFButton("", 15, height-height/4-15, width/4, height/4);
-  t2.setVisiblePortionStart(0);
   c.add(t);
   c.add(t2);
   c.add(l3);
@@ -106,7 +89,7 @@ void setup() {
   t2.addActionListener(this);
 
 
-//CREACIÓN DE COLUMNAS ENLAZADAS PARA HACER TABLAS
+  //CREACIÓN DE COLUMNAS ENLAZADAS PARA HACER TABLAS
   box1 = new Box(300, 20);//SOLO RECIBEN 2 PARÁMETROS: LA ALTURA Y EL ALTO DE LA CELDA.
   Box2 = new Box(300, 20);
   Box3 = new Box(300, 20);
@@ -140,96 +123,6 @@ void draw() {
   }
 }
 
-void actionPerformed(GUIEvent e) {
-  if (e.getSource()==t2) {
-    if (e.getMessage().equals("Completed")) {
-      user = t.getValue();
-      pass = t2.getValue();
-      conectar();
-    }
-  }
-  if (e.getSource()==b1) {
-    println("HOME");
-  }
-  if (e.getSource()==b2) {
-    println("CLIENT");
-  }
-}
-
-void welcome() {
-  noStroke();
-  background(beige);
-  pushMatrix();
-  pushStyle();
-  fill(amarillo);
-  translate(width/2, height/2);
-  beginShape();
-  for (float theta = 0; theta <= 2*PI; theta +=0.01) {
-    float rad = r(theta, 5, 5, 1, 1, abs(sin(var)+2), abs(sin(var)+2));
-    float x = rad*cos(theta)*4.0;
-    float y = rad*sin(theta)*4.0;
-    vertex(x, y);
-    rotate(var);
-  }
-  endShape();
-
-  var += 0.03;
-  popMatrix();
-  popStyle();
-
-  pushStyle();
-  pushMatrix();
-  translate(width/2, height/2);
-  textAlign(CENTER);
-  textFont(lgnFont);
-  fill(sin(var)*255);
-  text("Bienvenido", 0, 150);
-  popStyle();
-  popMatrix();
-}
-
-void login() {
-  pushStyle();
-  imageMode(CENTER);
-  image(bck, width/2, height/2, 700, 700);
-  image(logo, width/2, height-height/6, logo.width/2, logo.height/2);
-  popStyle();
-
-  c.setVisible(true);
-
-  pushStyle();
-  textAlign(CENTER );
-  textFont(lgnFont);
-  text("Login", width/2, height/7);
-  textAlign(LEFT);
-  textSize(30);
-  text("user", width/4, height/3-20);
-  text("password", width/4, height/3+60);
-  popStyle();
-}
-
-void conectar() {
-  try {
-    msql = new MySQL( this, "localhost", database, user, pass );
-  }
-  catch(Exception exc) {
-    println("Something went bad.");
-    println(exc.getMessage());
-  }
-  if (msql.connect()) {
-    c.remove(l2);
-    c.remove(t);
-    c.remove(t2);
-    c.remove(l);
-    logcond=false;
-    homcond=true;
-    println("You're in: "+ database);
-  } else {
-    l3.setSize(200, 200);
-    l3.setLabel("Usuario o contraseña incorrecta.");
-  }
-}
-
 void mousePressed() {
   if (overInventario && homcond) {
     homcond = false;
@@ -253,164 +146,4 @@ void mousePressed() {
     runOnce2 = true;
     homcond=true;
   }
-}
-
-float r(float theta, float a, float b, float m, float n1, float n2, float n3) {
-  return pow(pow(abs(cos(m*theta/4.0)/a), n2) + pow(abs(sin(m*theta/4.0)/b), n3), -1.0/n1);
-}
-
-void icon(float x, float y, float size, boolean o, PImage im, color on, color off, String tx, PFont font) {
-  if (o) {
-    tint(on);
-    fill(255);
-  } else {
-    tint(off);
-    fill(255);
-  }
-
-  pushStyle();
-  textFont(font);
-  textAlign(CENTER);
-  imageMode(CENTER);
-  image(im, x, y, size, size);
-  text(tx, x, y+size-20);
-  popStyle();
-}
-
-void checkOver() {
-  if (mouseX > bx2-boxSize && mouseX < bx2+boxSize && mouseY > by2-boxSize && mouseY < by2+boxSize) {
-    overInventario=true;
-    //println("Is over INVENTARIO");
-  } else {
-    overInventario=false;
-  }
-  if (mouseX > bx3-boxSize && mouseX < bx3+boxSize && mouseY > by3-boxSize && mouseY < by3+boxSize) {
-    overRutas=true;
-    //println("Is over RUTAS");
-  } else {
-    overRutas=false;
-  }
-  if (mouseX > bx4-boxSize && mouseX < bx4+boxSize && mouseY > by4-boxSize && mouseY < by4+boxSize) {
-    overClientes=true;
-    //println("Is over CLIENTES");
-  } else {
-    overClientes=false;
-  }
-  if (mouseX > bx5-boxSize && mouseX < bx5+boxSize && mouseY > by5-boxSize && mouseY < by5+boxSize) {
-    overVentas=true;
-    //println("Is over VENTAS");
-  } else {
-    overVentas=false;
-  }
-  if (mouseX > bx6-boxSizeH && mouseX < bx6+boxSizeH && mouseY > by6-boxSizeH && mouseY < by6+boxSizeH) {
-    overHome=true;
-    //println("Is over HOME");
-  } else {
-    overHome=false;
-  }
-}
-
-void homeAdmin() {
-  background(morado_oscuro);
-  c.setVisible(false);
-  icon(bx2, by2, boxSize, overInventario, inventario, bLsel, bL, "Inventario", lgnFont);
-  icon(bx3, by3, boxSize, overRutas, ruta, bRsel, bR, "Rutas", lgnFont);
-  icon(bx4, by4, boxSize, overClientes, cliente, bLsel, bL, "Clientes", lgnFont);
-  icon(bx5, by5, boxSize, overVentas, venta, bRsel, bR, "Ventas", lgnFont);
-  pushStyle();
-  textAlign(CENTER);
-  textFont(lgnFont);
-  text("Bienvenido, "+user, width/2, 100);
-  popStyle();
-}
-
-void inventario() {
-  background(morado_oscuro);
-  pushStyle();
-  imageMode(CORNER); 
-  icon(bx6, by6, boxSizeH, overHome, home2, amarillo, beige, "", lgnFont);
-  if (runOnce) {
-    box1.addItem("ID");
-    Box2.addItem("PRODUCTO");
-    Box3.addItem("PRECIO");
-    Box4.addItem("CANTIDAD");
-
-    msql.query( "SELECT * FROM vw_inventariocl;" );
-    while (msql.next())
-    {
-      String ID = msql.getString("ID");
-      String PRODUCTO = msql.getString("PRODUCTO");
-      String PRECIO = msql.getString("PRECIO");
-      String CANTIDAD = msql.getString("CANTIDAD");
-      box1.addItem(ID);
-      println(box1.items.get(1));
-      Box2.addItem(PRODUCTO);
-      Box3.addItem(PRECIO);
-      Box4.addItem(CANTIDAD);
-    }
-    box1.setX(40);//PRIMERO SE COLOCA LA X INICIAL QUE AFECTA A LAS DEMAS
-    runOnce = false;
-  }
-  box1.draw();
-  Box2.draw();
-  Box3.draw();
-  Box4.draw();
-  Box2.setX(box1.getWidth()+box1.getX());//PATRÓN DESPUÉS DEL DRAW.
-  Box3.setX(Box2.getWidth()+Box2.getX());
-  Box4.setX(Box3.getWidth()+Box3.getX());
-  pushStyle();
-  textAlign(CENTER);
-  textFont(lgnFont);
-  text("Inventario", width/2, 100);
-  popStyle();
-}
-
-void ventas() {
-  background(morado_oscuro);
-  pushStyle();
-  imageMode(CORNER); 
-  icon(bx6, by6, boxSizeH, overHome, home2, amarillo, beige, "", lgnFont);
-  if (runOnce2) {
-    Box15.addItem("ID_VENTA");
-    Box16.addItem("FECHA");
-    Box17.addItem("COSTO");
-    Box18.addItem("NOMBRE");
-    Box19.addItem("TELEFONO");
-    Box20.addItem("DIRECCION");
-
-    msql.query( "SELECT * FROM vw_ventas_admin;" );
-    while (msql.next())
-    {
-      String ID_VENTA = msql.getString("ID_VENTA");
-      String FECHA = msql.getString("FECHA");
-      String COSTO_TOTAL = msql.getString("COSTO_TOTAL");
-      String NOMBRE_CLIENTE = msql.getString("NOMBRE_CLIENTE");
-      String TELEFONO_CLIENTE = msql.getString("TELEFONO_CLIENTE");
-      String DIRECCION_CLIENTE = msql.getString("DIRECCION_CLIENTE");
-      Box15.addItem(ID_VENTA);
-      Box16.addItem(FECHA);
-      Box17.addItem(COSTO_TOTAL);
-      Box18.addItem(NOMBRE_CLIENTE);
-      Box19.addItem(TELEFONO_CLIENTE);
-      Box20.addItem(DIRECCION_CLIENTE);
-    }
-    Box15.setX(20);//SE COLOCA LA X INICIAL DE TODA LA TABLA: ESTA DICTAMINA LA POSICION DE LAS OTRAS COLUMNAS
-    runOnce2 = false;
-  }
-  Box15.draw();
-  Box16.draw();
-  Box17.draw();
-  Box18.draw();
-  Box19.draw();
-  Box20.draw();  
-  Box16.setX(Box15.getWidth()+Box15.getX());//SE DEBE SEGUIR EL MISMO PATRÓN PARA ORGANIZAR AUTOMATICAMENTE LAS COLUMNAS
-  Box17.setX(Box16.getWidth()+Box16.getX());//DEBE HACERSE DESPUÉS DEL <BoXnum>.draw(), NO ANTES.
-  Box18.setX(Box17.getWidth()+Box17.getX());
-  Box19.setX(Box18.getWidth()+Box18.getX());
-  Box20.setX(Box19.getWidth()+Box19.getX());
-  pushStyle();
-  textAlign(CENTER);
-  textFont(lgnFont);
-  text("Ventas", width/2, 100);
-  popStyle();
 }

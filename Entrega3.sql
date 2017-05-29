@@ -1,6 +1,8 @@
 #########################################################################################################
 -- VISTAS
-DROP VIEW IF EXISTS vw_clientes;
+select * from cliente;
+
+DROP VIEW IF EXISTS ESTABLECIMIENTO_V;
 CREATE VIEW ESTABLECIMIENTO_V AS
     SELECT 
         cli_nombre AS NOMBRE_DE_EMPRESA,
@@ -11,6 +13,7 @@ CREATE VIEW ESTABLECIMIENTO_V AS
         Establecimiento
             JOIN
         Cliente ON (cli_id = CLIENTE_cli_id);
+        SELECT * FROM ESTABLECIMIENTO_V;
 
 DROP VIEW IF EXISTS vw_ventas_admin;
 CREATE VIEW vw_ventas_admin AS
@@ -18,9 +21,7 @@ CREATE VIEW vw_ventas_admin AS
         ven_id AS ID_VENTA,
         ven_fecha AS FECHA,
         ven_costo_total AS COSTO_TOTAL,
-        cli_nombre AS NOMBRE_CLIENTE,
-        cli_telefono AS TELEFONO_CLIENTE,
-        cli_direccion AS DIRECCION_CLIENTE
+        cli_nombre AS NOMBRE_CLIENTE
     FROM
         Venta
             JOIN
@@ -30,16 +31,13 @@ SELECT * FROM vw_ventas_admin;
 DROP VIEW IF EXISTS vw_rutarepartidor;
 CREATE VIEW vw_rutarepartidor AS
     SELECT 
-        CURDATE() AS FECHA, emp_nombre AS REPARTIDOR, ven_id as VENTA,
-        cli_direccion AS DIRECCION
+        CURDATE() AS FECHA, emp_nombre AS REPARTIDOR, rut_id AS RUTA
     FROM
         Ruta
             JOIN
         Empleado ON (REPARTIDOR_EMPLEADO_id = emp_id)
             JOIN
         Venta ON (rut_VENTA_id = ven_id)
-			JOIN
-        cliente ON (CLIENTE_cli_id = cli_id)    
     WHERE
         ven_fecha = CURDATE()
     ORDER BY REPARTIDOR;
