@@ -50,7 +50,7 @@ void setup() {
   by7= height/8;
   boxSize = 128;
   boxSizeH = 40;
-  boxSizeLO = 70;
+  boxSizeLO = 40;
 
   h1 = 300;
   h2 = 300;
@@ -135,25 +135,10 @@ void draw() {
     rutas();
   }
   if (out) {
-    if (runOnce3) {
-      user="";
-      pass="";
-      msql.dispose();
-      t.setValue("");
-      t2.setValue("");
-      
-
-      c.setVisible(true);
-
-      runOnce3=false;
-    }
+    logOut();
     login();
-    if (!msql.connect()) {
-      println("logged out");
-    }
   }  
-
-  text(mouseX, 20, 10);
+  text(mouseX, 20, 10);//IMPRIME LAS COORDENADAS DE X EN UNA ESQUINA PARA QUE CENTRAR SEA MÁS FÁCIL
 }
 
 void mousePressed() {
@@ -203,6 +188,7 @@ void mousePressed() {
   }
   if (overLogOut && homcond) {
     homcond = false;
+    runOnce3=true;
     out = true;
   }
 }
