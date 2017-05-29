@@ -8,14 +8,14 @@ IFLookAndFeel defaultLook;
 
 Box box1, Box2, Box3, Box4, Box15, Box16, Box17, Box18, Box19, Box20;
 
-boolean runOnce=true, runOnce2=true;
-boolean overHome, overInventario, overRutas, overClientes, overVentas;
-boolean welcond=true, logcond=false, homcond=false, invcond = false, vencond = false;
+boolean runOnce=true, runOnce2=true, runOnce3=true;
+boolean overHome, overInventario, overRutas, overClientes, overVentas, overLogOut;
+boolean welcond=true, logcond=false, homcond=false, invcond = false, vencond = false, out = false;
 color rojo, amarillo, naranja, aguamarina, morado, azul, beige, lila, morado_oscuro, bLsel, bL, bk, bR, bRsel;
 float var = 0.0;
-float bx1, by1, bx2, by2, bx3, by3, bx4, by4, bx5, by5, bx6, by6;
-int boxSize, boxSizeH;
-PImage bck, logo, home, home2, inventario, ruta, cliente, venta;
+float bx1, by1, bx2, by2, bx3, by3, bx4, by4, bx5, by5, bx6, by6, bx7, by7;
+int boxSize, boxSizeH, boxSizeLO, h1, h2;
+PImage bck, logo, home, home2, inventario, ruta, cliente, venta, logOut;
 PFont lgnFont;
 String user, pass, database="db_1";
 
@@ -32,6 +32,7 @@ void setup() {
   ruta= loadImage("ruta.png");
   cliente = loadImage("person.png");
   venta = loadImage("book.png");  
+  logOut = loadImage("power.png");
 
   bx1= width/2;
   by1= height-100;
@@ -45,8 +46,14 @@ void setup() {
   by5= height/2-100;
   bx6= 90;
   by6= height/8;
+  bx7= width-90;
+  by7= height/8;
   boxSize = 128;
   boxSizeH = 40;
+  boxSizeLO = 70;
+
+  h1 = 300;
+  h2 = 300;
 
   bLsel = #4C5760;
   bL = #93A8AC;
@@ -90,18 +97,18 @@ void setup() {
 
 
   //CREACIÓN DE COLUMNAS ENLAZADAS PARA HACER TABLAS
-  box1 = new Box(300, 20);//SOLO RECIBEN 2 PARÁMETROS: LA ALTURA Y EL ALTO DE LA CELDA.
-  Box2 = new Box(300, 20);
-  Box3 = new Box(300, 20);
-  Box4 = new Box(300, 20);
+  box1 = new Box(h1, 20);//SOLO RECIBEN 2 PARÁMETROS: LA ALTURA Y EL ALTO DE LA CELDA.
+  Box2 = new Box(h1, 20);
+  Box3 = new Box(h1, 20);
+  Box4 = new Box(h1, 20);
 
 
-  Box15 = new Box(300, 20);
-  Box16 = new Box(300, 20);
-  Box17 = new Box(300, 20);
-  Box18 = new Box(300, 20);
-  Box19 = new Box(300, 20);
-  Box20 = new Box(300, 20);
+  Box15 = new Box(h2, 20);
+  Box16 = new Box(h2, 20);
+  Box17 = new Box(h2, 20);
+  Box18 = new Box(h2, 20);
+  Box19 = new Box(h2, 20);
+  Box20 = new Box(h2, 20);
 }
 
 void draw() {
@@ -121,6 +128,26 @@ void draw() {
   if (vencond) {
     ventas();
   }
+  if (out) {
+    if (runOnce3) {
+      user="";
+      pass="";
+      msql.dispose();
+      t.setValue("");
+      t2.setValue("");
+      
+
+      c.setVisible(true);
+
+      runOnce3=false;
+    }
+    login();
+    if (!msql.connect()) {
+      println("logged out");
+    }
+  }  
+
+  text(mouseX, 20, 10);
 }
 
 void mousePressed() {
@@ -138,12 +165,26 @@ void mousePressed() {
   }
   if (overHome && !homcond && invcond) {
     invcond=false;
+    box1.remove();
+    Box2.remove();
+    Box3.remove();
+    Box4.remove();
     runOnce = true;
     homcond=true;
   }
   if (overHome && !homcond && vencond) {
     vencond=false;
+    Box15.remove();
+    Box16.remove();
+    Box17.remove();
+    Box18.remove();
+    Box19.remove();
+    Box20.remove(); 
     runOnce2 = true;
     homcond=true;
+  }
+  if (overLogOut && homcond) {
+    homcond = false;
+    out = true;
   }
 }

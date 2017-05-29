@@ -21,7 +21,7 @@ void inventario() {
       Box3.addItem(PRECIO);
       Box4.addItem(CANTIDAD);
     }
-    box1.setX(40);//PRIMERO SE COLOCA LA X INICIAL QUE AFECTA A LAS DEMAS
+    box1.setX(237);//PRIMERO SE COLOCA LA X INICIAL QUE AFECTA A LAS DEMAS
     runOnce = false;
   }
   box1.draw();

@@ -1,11 +1,11 @@
 void login() {
+  noTint();
+  c.setVisible(true);
   pushStyle();
   imageMode(CENTER);
   image(bck, width/2, height/2, 700, 700);
   image(logo, width/2, height-height/6, logo.width/2, logo.height/2);
   popStyle();
-
-  c.setVisible(true);
 
   pushStyle();
   textAlign(CENTER );
@@ -16,6 +16,8 @@ void login() {
   text("user", width/4, height/3-20);
   text("password", width/4, height/3+60);
   popStyle();
+  
+
 }
 
 void actionPerformed(GUIEvent e) {
@@ -24,6 +26,8 @@ void actionPerformed(GUIEvent e) {
       user = t.getValue();
       pass = t2.getValue();
       conectar();
+      t.setValue("");
+      t2.setValue("");
     }
   }
 }
@@ -31,9 +35,9 @@ void actionPerformed(GUIEvent e) {
 void conectar() {
   msql = new MySQL( this, "localhost", database, user, pass );
   if (msql.connect()) {
-    c.remove(t);
-    c.remove(t2);
+    c.setVisible(false);
     logcond=false;
+    out=false;
     homcond=true;
     println("You're in: "+ database);
   } else {

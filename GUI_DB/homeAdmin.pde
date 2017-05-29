@@ -5,6 +5,7 @@ void homeAdmin() {
   icon(bx3, by3, boxSize, overRutas, ruta, bRsel, bR, "Rutas", lgnFont);
   icon(bx4, by4, boxSize, overClientes, cliente, bLsel, bL, "Clientes", lgnFont);
   icon(bx5, by5, boxSize, overVentas, venta, bRsel, bR, "Ventas", lgnFont);
+  icon(bx7, by7, boxSizeLO, overLogOut, logOut, rojo, beige, "", lgnFont);
   pushStyle();
   textAlign(CENTER);
   textFont(lgnFont);
