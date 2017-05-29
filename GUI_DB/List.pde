@@ -1,7 +1,7 @@
 public class Listbox
 {
     float x, y, width, height;
-    
+    Interactive inte;
     ArrayList items;
     int itemHeight = 40;
     int listStartAt = 0;
@@ -9,7 +9,7 @@ public class Listbox
     
     float valueY = 0;
     boolean hasSlider = false;
-    Listbox ( float xx, float yy, float ww, float hh ) 
+    Listbox ( float xx, float yy, float ww, float hh) 
     {
         x = xx; y = yy;
         valueY = y;
@@ -59,6 +59,16 @@ public class Listbox
         valueY = constrain( valueY, y, y+height-20 );
         
         update();
+    }
+    
+    void redraw(float xN, float yN){
+      this.x = xN;
+      this.y = yN;
+    }
+    
+    void undraw(){
+      this.x = 2000;
+      this.y = 2000;
     }
     
     void update ()

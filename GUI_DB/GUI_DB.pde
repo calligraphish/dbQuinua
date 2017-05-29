@@ -2,20 +2,22 @@ import interfascia.*;
 import de.bezier.data.sql.*;
 import de.bezier.guido.*;
 
-Listbox listbox, listbox2, listbox3, listbox4;
+Listbox listbox, listbox2, listbox3, listbox4, listboxAux;
 Object lastItemClicked;
 
 MySQL msql;
 
+int xIni = 50;
+int wid = 150;
 GUIController c, c1;
 IFTextField t, t2, t3;
 IFLabel l, l2, l3;
 IFButton b1, b2;
 IFLookAndFeel defaultLook;
-
+PApplet a = this;
 PImage bck, logo, home, home2, inventario, ruta, cliente, venta;
 PFont lgnFont;
-boolean welcond=true, logcond=false, homcond=false, invcond = false;
+boolean welcond=true, logcond=false, homcond=false, invcond = false, vencond = false;
 String user, pass, database="db_1";
 float var = 0.0;
 color rojo, amarillo, naranja, aguamarina, morado, azul, beige, lila, morado_oscuro, bLsel, bL, bk, bR, bRsel;
@@ -34,7 +36,7 @@ void setup() {
 
   home= loadImage("home.png");
   home2= loadImage("home2.png");
-  inventario= loadImage("inventario.png");
+  inventario= loadImage("inventario2.png");
   ruta= loadImage("ruta.png");
   cliente = loadImage("person.png");
   venta = loadImage("book.png");  
@@ -68,7 +70,7 @@ void setup() {
   azul = color(#005F72); //AZUL
   beige = color(#F5EDD3); //BEIGE
   lila = color(#271C49); //LILA
-  morado_oscuro = color(#110D29); //MORADO OSCURO
+  morado_oscuro = color(#487C6E); //MORADO OSCURO
 
   defaultLook = new IFLookAndFeel(this, IFLookAndFeel.DEFAULT);
   defaultLook.baseColor = naranja;
@@ -101,19 +103,15 @@ void setup() {
   c.add(t2);
   c.add(l3);
 
-  /*c1.add(b1);
-   c1.add(b2);
-   
-   b1.addActionListener(this);
-   b2.addActionListener(this);*/
   t2.addActionListener(this);
 
-  int xIni = 50;
-  int wid = 150;
+
+
 
   Interactive.make( this );
   Interactive.setActive(false);
   listbox  = new Listbox( xIni, 300, wid, 200);
+  listboxAux  = new Listbox( xIni, 300, wid, 200);
   listbox2 = new Listbox( xIni+wid, 300, wid, 200);
   listbox3 = new Listbox( xIni+wid*2, 300, wid, 200);
   listbox4 = new Listbox( xIni+wid*3, 300, wid, 200);
@@ -131,41 +129,12 @@ void draw() {
     homeAdmin();
   }
   if (invcond) {
-    pushStyle();
-    imageMode(CORNER);
-    background(morado_oscuro);
-    icon(bx6, by6, boxSizeH, overHome, home2, bLsel, bL, "", lgnFont);
-    if (runOnce) {
-      listbox.addItem("ID");
-      listbox2.addItem("PRODUCTO");
-      listbox3.addItem("PRECIO");
-      listbox4.addItem("CANTIDAD");
-      msql.query( "SELECT * FROM vw_inventariocl;" );
-      while (msql.next())
-      {
-        String ID = msql.getString("ID");
-        String PRODUCTO = msql.getString("PRODUCTO");
-        String PRECIO = msql.getString("PRECIO");
-        String CANTIDAD = msql.getString("CANTIDAD");
-        listbox.addItem(ID);
-        listbox2.addItem(PRODUCTO);
-        listbox3.addItem(PRECIO);
-        listbox4.addItem(CANTIDAD);
-      }
-      runOnce = false;
-    }
-    textFont(lgnFont);
-    Interactive.setActive(true);
-
-    popStyle();
+    inventario();
+  }
+  if (vencond) {
+    ventas();
   }
 }
-/*listbox = new Listbox( 20, 60, width-40, height-80 );
- for ( int i = 0, r = int(10+random(100)); i < r; i++ )
- {
- listbox.addItem( "Item " + i );
- }*/
-
 
 void actionPerformed(GUIEvent e) {
   if (e.getSource()==t2) {
@@ -258,9 +227,13 @@ void conectar() {
 }
 
 void mousePressed() {
-  if (overInventario&&!welcond) {
+  if (overInventario && homcond) {
     homcond = false;
     invcond = true;
+  }  
+  if (overVentas && homcond) {
+    homcond = false;
+    vencond = true;
   }
   if (welcond) {
     welcond=false;
@@ -269,6 +242,11 @@ void mousePressed() {
   if (overHome && !homcond && invcond) {
     Interactive.deactivate();
     invcond=false;
+    homcond=true;
+  }
+  if (overHome && !homcond && vencond) {
+    Interactive.deactivate();
+    vencond=false;
     homcond=true;
   }
 }
@@ -298,31 +276,31 @@ void icon(float x, float y, float size, boolean o, PImage im, color on, color of
 void checkOver() {
   if (mouseX > bx2-boxSize && mouseX < bx2+boxSize && mouseY > by2-boxSize && mouseY < by2+boxSize) {
     overInventario=true;
-    println("Is over ");
+    println("Is over INVENTARIO");
   } else {
     overInventario=false;
   }
   if (mouseX > bx3-boxSize && mouseX < bx3+boxSize && mouseY > by3-boxSize && mouseY < by3+boxSize) {
     overRutas=true;
-    println("Is over ");
+    println("Is over RUTAS");
   } else {
     overRutas=false;
   }
   if (mouseX > bx4-boxSize && mouseX < bx4+boxSize && mouseY > by4-boxSize && mouseY < by4+boxSize) {
     overClientes=true;
-    println("Is over ");
+    println("Is over CLIENTES");
   } else {
     overClientes=false;
   }
   if (mouseX > bx5-boxSize && mouseX < bx5+boxSize && mouseY > by5-boxSize && mouseY < by5+boxSize) {
     overVentas=true;
-    println("Is over ");
+    println("Is over VENTAS");
   } else {
     overVentas=false;
   }
   if (mouseX > bx6-boxSizeH && mouseX < bx6+boxSizeH && mouseY > by6-boxSizeH && mouseY < by6+boxSizeH) {
     overHome=true;
-    println("Is over ");
+    println("Is over HOME");
   } else {
     overHome=false;
   }
@@ -340,4 +318,83 @@ void homeAdmin() {
   textFont(lgnFont);
   text("Bienvenido, "+user, width/2, 100);
   popStyle();
+}
+
+void inventario() {
+  background(morado_oscuro);
+  pushStyle();
+  imageMode(CORNER); 
+  icon(bx6, by6, boxSizeH, overHome, home2, amarillo, beige, "", lgnFont);
+  if (runOnce) {
+    listbox.addItem("ID");
+    listbox2.addItem("PRODUCTO");
+    listbox3.addItem("PRECIO");
+    listbox4.addItem("CANTIDAD");
+    listboxAux.addItem("PRECIO");
+    msql.query( "SELECT * FROM vw_inventariocl;" );
+    while (msql.next())
+    {
+      String ID = msql.getString("ID");
+      String PRODUCTO = msql.getString("PRODUCTO");
+      String PRECIO = msql.getString("PRECIO");
+      String CANTIDAD = msql.getString("CANTIDAD");
+      listbox.addItem(ID);
+      listbox2.addItem(PRODUCTO);
+      listbox3.addItem(PRECIO);
+      listbox4.addItem(CANTIDAD);
+      listboxAux.addItem(PRECIO);
+    }
+    runOnce = false;
+  }
+  textFont(lgnFont);
+  Interactive.setActive(true);
+  fill(255);
+  textFont(lgnFont);
+  text("Inventario", width/3, 100);
+  textMode(CENTER);
+  popStyle();
+}
+
+void ventas() {
+  background(morado_oscuro);
+  pushStyle();
+  imageMode(CORNER); 
+  icon(bx6, by6, boxSizeH, overHome, home2, amarillo, beige, "", lgnFont);
+  if (runOnce) {
+    listbox.addItem("ID");
+    listbox2.addItem("PRODUCTO");
+    listbox3.addItem("PRECIO");
+    listbox4.addItem("CANTIDAD");
+    msql.query( "SELECT * FROM vw_inventariocl;" );
+    while (msql.next())
+    {
+      String ID = msql.getString("ID");
+      String PRODUCTO = msql.getString("PRODUCTO");
+      String PRECIO = msql.getString("PRECIO");
+      String CANTIDAD = msql.getString("CANTIDAD");
+      listbox.addItem(ID);
+      listbox2.addItem(PRODUCTO);
+      listbox3.addItem(PRECIO);
+      listbox4.addItem(CANTIDAD);
+    }
+    runOnce = false;
+  }
+  textFont(lgnFont);
+  Interactive.setActive(true);
+  fill(255);
+  textFont(lgnFont);
+  text("Inventario", width/3, 100);
+  textMode(CENTER);
+  popStyle();
+}
+
+//COMO ARREGLAR EL PROBLEMA DE LOS GAPS GRISES:
+void keyPressed() {
+  if (key=='m') {// se activa oprimiendo m
+    listbox.undraw();// undraw() pinta el listbox pero fuera del canvas.
+    listboxAux.redraw(xIni, 300);// redraw() lo que hace es pintar el listbox desde la coordinadas (x,y) que se expecifican en los parametros.
+  } else {
+    listbox.redraw(xIni, 300);
+    listboxAux.undraw();
+  }
 }
