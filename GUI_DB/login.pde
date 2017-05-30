@@ -1,10 +1,12 @@
 void login() {
   noTint();
+  c.setVisible(true);
   pushStyle();
   imageMode(CENTER);
   image(bck, width/2, height/2, 700, 700);
   image(logo, width/2, height-height/6, logo.width/2, logo.height/2);
   popStyle();
+
   pushStyle();
   textAlign(CENTER );
   textFont(lgnFont);
@@ -14,9 +16,10 @@ void login() {
   text("user", width/4, height/3-20);
   text("password", width/4, height/3+60);
   popStyle();
-  c.setVisible(true);
+  
+
 }
-String pazz="";
+
 void actionPerformed(GUIEvent e) {
   if (e.getSource()==t2) {
     if (e.getMessage().equals("Completed")) {
