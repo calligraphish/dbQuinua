@@ -141,6 +141,8 @@ create procedure sp_rutaventa(IN ruta_id INT)
     END ;)
 DELIMITER ;
 
+
+
 #########################################################################################################
 -- FUNCIONES
 
