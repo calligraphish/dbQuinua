@@ -157,13 +157,13 @@ DELIMITER ;
 
 drop procedure if exists sp_ventacompleta;
 delimiter $$
-create procedure sp_ventacompleta (IN cliente varchar(45), IN cant_libra int, IN cant_kilo int, IN cant_12kilo int, IN cant_25kilo int)
+create procedure sp_ventacompleta (IN cliente varchar(45),IN sede int, IN empleado int, IN cant_libra int, IN cant_kilo int, IN cant_12kilo int, IN cant_25kilo int)
 begin
 declare id_cliente int;
 declare id_venta int;
 set id_cliente = FUN_get_ID_por_nombre(cliente);
 
-insert into venta (ven_fecha,ven_costo_total,CLIENTE_cli_id,SEDE_sed_id,EMPLEADO_emp_id) values(curdate(),-1,id_cliente,1,1);
+insert into venta (ven_fecha,ven_costo_total,CLIENTE_cli_id,SEDE_sed_id,EMPLEADO_emp_id) values(curdate(),-1,id_cliente,sede,empleado);
 select ven_id into id_venta from venta where ven_costo_total = -1;
 update venta set ven_costo_total=0 where ven_costo_total= -1;
 if(cant_libra > 0) then
