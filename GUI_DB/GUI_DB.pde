@@ -105,7 +105,7 @@ void setup() {
   c3.setVisible(false);
 
   t  = new IFTextField("Text Field", width/4, height/3, width/2);
-  t2 = new IFPasswordField("Text Field", width/4, height/3+80, width/2);
+  t2 = new IFPasswordField("Text Field", width/4, height/3+80, width/2,"", '*');
   l3 = new IFLabel("", width/2-20, height/2);
   
   t3 = new IFTextField("Text Field", width/4, height/2-50, width/2); 
