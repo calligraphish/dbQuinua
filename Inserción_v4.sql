@@ -63,7 +63,6 @@ CREATE TABLE Proveedor(
 DROP TABLE IF EXISTS Compra;#guarda la info de una compra hecha a un proveedor (cant. total,costo total,fecha, a que sede se dirije y el proveedor)
 CREATE TABLE Compra (
   com_id INT NOT NULL AUTO_INCREMENT,
-  com_cantidad INT NOT NULL,
   com_costo_total INT NOT NULL,
   com_fecha DATE NOT NULL,
   SEDE_sed_id INT NOT NULL,
@@ -170,7 +169,7 @@ CREATE TABLE Ruta(
   rut_costo INT NULL default NULL,
   REPARTIDOR_EMPLEADO_id INT NOT NULL,
   rut_VENTA_id INT NOT NULL,
-  rut_entregado BOOLEAN,
+  rut_entregado VARCHAR(2),
   PRIMARY KEY (rut_id),
     FOREIGN KEY (REPARTIDOR_EMPLEADO_id)
 		REFERENCES Repartidor (EMPLEADO_emp_id),
@@ -208,10 +207,10 @@ insert into sede (sed_direccion,sed_nombre) values ('Cr 8 # 42A-12 Piso 2(4parqu
 
 #compra
 
-insert into compra(com_cantidad,com_costo_total,com_fecha,SEDE_sed_id,PROVEEDOR_prov_id) values (19,83900,'2017-02-14',1,1);
-insert into compra(com_cantidad,com_costo_total,com_fecha,SEDE_sed_id,PROVEEDOR_prov_id) values (6,39336,'2017-02-16',1,1);
-insert into compra(com_cantidad,com_costo_total,com_fecha,SEDE_sed_id,PROVEEDOR_prov_id) values (61,1614700,'2017-02-16',1,1);
-insert into compra(com_cantidad,com_costo_total,com_fecha,SEDE_sed_id,PROVEEDOR_prov_id) values (25,85700,'2017-02-21',1,1);
+insert into compra(com_costo_total,com_fecha,SEDE_sed_id,PROVEEDOR_prov_id) values (83900,'2017-02-14',1,1),
+																				   (39336,'2017-02-16',1,1),
+																				   (1614700,'2017-02-16',1,1),
+																				   (85700,'2017-02-21',1,1);
 
 #select * from compra;
 #...................
@@ -373,19 +372,19 @@ insert into venta (ven_fecha, ven_costo_total, CLIENTE_cli_id, SEDE_sed_id,EMPLE
 
 #ruta
 
-insert into ruta(rut_costo,REPARTIDOR_EMPLEADO_id,rut_VENTA_id,rut_entregado) values(NULL,2,1,1),
-																					(NULL,2,2,1),
-																					(NULL,2,3,1),
-																					(NULL,2,4,1),
-																					(NULL,2,5,1),
-																					(10000,2,6,1),
-																					(NULL,2,7,1),
-																					(NULL,2,8,1),
-																					(NULL,2,9,1),
-																					(NULL,2,10,1),
-																					(NULL,2,11,1),
-																					(NULL,2,12,1),
-																					(NULL,2,13,0),
-																					(NULL,3,14,0);
+insert into ruta(rut_costo,REPARTIDOR_EMPLEADO_id,rut_VENTA_id,rut_entregado) values(NULL,2,1,'sí'),
+																					(NULL,2,2,'sí'),
+																					(NULL,2,3,'sí'),
+																					(NULL,2,4,'sí'),
+																					(NULL,2,5,'sí'),
+																					(10000,2,6,'sí'),
+																					(NULL,2,7,'sí'),
+																					(NULL,2,8,'sí'),
+																					(NULL,2,9,'sí'),
+																					(NULL,2,10,'sí'),
+																					(NULL,2,11,'sí'),
+																					(NULL,2,12,'sí'),
+																					(NULL,2,13,'no'),
+																					(NULL,3,14,'no');
 
 #select * from ruta;

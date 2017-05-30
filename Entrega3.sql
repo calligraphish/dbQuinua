@@ -181,7 +181,28 @@ end if;
 end $$
 delimiter ;
 
+drop procedure if exists sp_compracompleta;
+delimiter $$
+create procedure sp_compracompleta (IN sede INT,IN cant_libra int, IN cant_kilo int, IN cant_12kilo int, IN cant_25kilo int)
+begin
+declare id_compra int;
 
+insert into compra values(FUN_ULTIMA_COMPRA()+1,0,curdate(),sede,1);
+set id_compra = FUN_ULTIMA_COMPRA();
+if(cant_libra > 0) then
+	insert into detalle_compra values(id_compra,1,cant_libra);
+end if;
+if(cant_kilo > 0) then
+	insert into detalle_compra values(id_compra,2,cant_kilo);
+end if;
+if(cant_12kilo > 0) then
+	insert into detalle_compra values(id_compra,3,cant_12kilo);
+end if;
+if(cant_25kilo > 0 ) then
+	insert into detalle_compra values(id_compra,4,cant_25kilo);
+end if;
+end $$
+delimiter ;
 
 #########################################################################################################
 -- FUNCIONES
@@ -304,7 +325,7 @@ set pro_cant = new.detc_cantidad;
 
 select articulo.art_costo into pro_costo from ARTICULO where art_id = new.detc_ARTICULO_id;
 
-update compra set com_costo_total = com_costo_total + (pro_costo * pro_cant)/*, com_cantidad = com_cantidad + pro_cant*/ where com_id = new.detc_compra_id;
+update compra set com_costo_total = com_costo_total + (pro_costo * pro_cant) where com_id = new.detc_compra_id;
 
 end $$
 delimiter ;
