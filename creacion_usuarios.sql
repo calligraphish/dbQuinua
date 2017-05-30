@@ -13,6 +13,7 @@ create user 'admon'@'localhost' identified by '1234';
 revoke all on *.* from 'admon'@'localhost';
 grant select on db_1.vw_clientes to 'admon'@'localhost';
 grant select on db_1.vw_rutarepartidor to 'admon'@'localhost';
+grant select on db_1.vw_rutas_hist to 'admon'@'localhost';
 grant select on db_1.vw_ventas_admin to 'admon'@'localhost';
 grant select on db_1.vw_inventariocl to 'admon'@'localhost';
 grant execute on procedure db_1.sp_cambiar_repartidor to 'admon'@'localhost';
@@ -21,4 +22,6 @@ grant execute on procedure db_1.sp_comprapr to 'admon'@'localhost';
 grant execute on procedure db_1.sp_crearuta to 'admon'@'localhost';
 grant execute on procedure db_1.sp_registrocl to 'admon'@'localhost';
 grant execute on procedure db_1.sp_rutaventa to 'admon'@'localhost';
+grant execute on procedure db_1.sp_ventacompleta to 'admon'@'localhost';
+grant execute on procedure db_1.sp_compracompleta to 'admon'@'localhost';
 
