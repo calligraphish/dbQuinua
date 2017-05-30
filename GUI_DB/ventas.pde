@@ -42,7 +42,7 @@ void ventas() {
     Box18.setX(Box17.getWidth()+Box17.getX());
     Box19.setX(Box18.getWidth()+Box18.getX());
     Box20.setX(Box19.getWidth()+Box19.getX());
-    icon(bx8, by8, boxSizeH, overAdd, add, amarillo, beige, "", lgnFont);
+    icon(bx8, by8, boxSizeH, overAdd, add2, amarillo, beige, "", lgnFont);
   } else {
     pushStyle();
     textAlign(CENTER);
