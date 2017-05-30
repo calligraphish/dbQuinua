@@ -30,6 +30,21 @@ void actionPerformed(GUIEvent e) {
       t2.setValue("");
     }
   }
+  if(e.getSource()==t21){ //evento para que detecte cuando se haga enter en la casilla de dia
+    if (e.getMessage().equals("Completed")) {
+      q_year = t19.getValue();
+      q_month = t20.getValue();
+      q_day = t21.getValue();
+      Box5.remove();
+      Box6.remove();
+      Box7.remove();
+      runOnce = true;
+      //println(q_year,q_month,q_day); //debug
+      t19.setValue("");
+      t20.setValue("");
+      t21.setValue("");
+  }
+  }
 }
 
 void conectar() {
