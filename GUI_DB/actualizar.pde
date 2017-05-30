@@ -21,15 +21,13 @@ void actualizar() {
   fill(255);
   textFont(lgnFont);
   textAlign(CENTER);
-  text("Ingresar venta", width/2, 100);
+  text("Ingresar compra", width/2, 100);
   textAlign(LEFT);
   textSize(15);
-  text("Nombre del cliente", width/5, height/2-60); 
   text("ID de sede", width/5, height/2-10);
-  text("ID de empleado", width/5, height/2+40); 
-  text("Cantidad de libra", width/5, height/2+90);
-  text("Cantidad de kilo", width/5, height/2+140); 
-  text("Cantidad de 12kilos", width/5, height/2+190); 
-  text("Cantidad de 25kilos", width/5, height/2+240); 
+  text("Cantidad de libra", width/5, height/2+40);
+  text("Cantidad de kilo", width/5, height/2+90); 
+  text("Cantidad de 12kilos", width/5, height/2+140); 
+  text("Cantidad de 25kilos", width/5, height/2+190); 
   popStyle();
 }

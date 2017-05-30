@@ -125,11 +125,11 @@ void setup() {
   t12 = new IFTextField("Text Field", width/4, height/2+200, width/2); 
   t13 = new IFTextField("Text Field", width/4, height/2+250, width/2); 
   
-  t14 = new IFTextField("Text Field", width/4, height/2+50, width/2); 
-  t15 = new IFTextField("Text Field", width/4, height/2+100, width/2); 
-  t16 = new IFTextField("Text Field", width/4, height/2+150, width/2); 
-  t17 = new IFTextField("Text Field", width/4, height/2+200, width/2); 
-  t18 = new IFTextField("Text Field", width/4, height/2+250, width/2);
+  t14 = new IFTextField("Text Field", width/4, height/2, width/2); 
+  t15 = new IFTextField("Text Field", width/4, height/2+50, width/2); 
+  t16 = new IFTextField("Text Field", width/4, height/2+100, width/2); 
+  t17 = new IFTextField("Text Field", width/4, height/2+150, width/2); 
+  t18 = new IFTextField("Text Field", width/4, height/2+200, width/2);
   
   c.add(t);
   c.add(t2);
