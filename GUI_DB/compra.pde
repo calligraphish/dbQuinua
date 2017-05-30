@@ -23,9 +23,13 @@ void compra() {
   textAlign(CENTER);
   text("Ingresar venta", width/2, 100);
   textAlign(LEFT);
-  text("Ingrese ID cliente", width/7, height/2-70); 
-  text("ID de sede", width/7, height/2+30);
-  text("ID de venta", width/7, height/2+130); 
-  text("ID de empleado", width/7, height/2+230); 
+  textSize(15);
+  text("Nombre del cliente", width/5, height/2-60); 
+  text("ID de sede", width/5, height/2-10);
+  text("ID de empleado", width/5, height/2+40); 
+  text("Cantidad de libra", width/5, height/2+90);
+  text("Cantidad de kilo", width/5, height/2+140); 
+  text("Cantidad de 12kilos", width/5, height/2+190); 
+  text("Cantidad de 25kilos", width/5, height/2+240); 
   popStyle();
 }

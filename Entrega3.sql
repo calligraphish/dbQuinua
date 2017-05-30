@@ -155,6 +155,34 @@ create procedure sp_rutaventa(IN ruta_id INT)
     END ;)
 DELIMITER ;
 
+drop procedure if exists sp_ventacompleta;
+delimiter $$
+create procedure sp_ventacompleta (IN cliente varchar(45),IN sede int, IN empleado int, IN cant_libra int, IN cant_kilo int, IN cant_12kilo int, IN cant_25kilo int)
+begin
+declare id_cliente int;
+declare id_venta int;
+set id_cliente = FUN_get_ID_por_nombre(cliente);
+
+insert into venta (ven_fecha,ven_costo_total,CLIENTE_cli_id,SEDE_sed_id,EMPLEADO_emp_id) values(curdate(),-1,id_cliente,sede,empleado);
+select ven_id into id_venta from venta where ven_costo_total = -1;
+update venta set ven_costo_total=0 where ven_costo_total= -1;
+if(cant_libra > 0) then
+	insert into detalle_venta values(id_venta,1,cant_libra);
+end if;
+if(cant_kilo > 0) then
+	insert into detalle_venta values(id_venta,2,cant_kilo);
+end if;
+if(cant_12kilo > 0) then
+	insert into detalle_venta values(id_venta,3,cant_12kilo);
+end if;
+if(cant_25kilo > 0 ) then
+	insert into detalle_venta values(id_venta,4,cant_25kilo);
+end if;
+end $$
+delimiter ;
+
+
+
 #########################################################################################################
 -- FUNCIONES
 

@@ -2,7 +2,7 @@ import interfascia.*;
 import de.bezier.data.sql.*;
 MySQL msql;
 GUIController c, c2, c3;
-IFTextField t, t2, t3, t4, t5, t6, t7, t8, t9, t10;
+IFTextField t, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13;
 IFLabel l3;
 IFLookAndFeel defaultLook;
 
@@ -115,10 +115,20 @@ void setup() {
   t6 = new IFTextField("Text Field", width/4, height/2+250, width/2); 
 
   t7 = new IFTextField("Text Field", width/4, height/2-50, width/2); 
+<<<<<<< HEAD
   t8 = new IFTextField("Text Field", width/4, height/2+50, width/2);
   t9 = new IFTextField("Text Field", width/4, height/2+150, width/2); 
   t10 = new IFTextField("Text Field", width/4, height/2+250, width/2); 
 
+=======
+  t8 = new IFTextField("Text Field", width/4, height/2, width/2);
+  t9 = new IFTextField("Text Field", width/4, height/2+50, width/2); 
+  t10 = new IFTextField("Text Field", width/4, height/2+100, width/2); 
+  t11 = new IFTextField("Text Field", width/4, height/2+150, width/2); 
+  t12 = new IFTextField("Text Field", width/4, height/2+200, width/2); 
+  t13 = new IFTextField("Text Field", width/4, height/2+250, width/2); 
+  
+>>>>>>> b81adf937c1ea2fc4a4293c39c02177d08b1a962
   c.add(t);
   c.add(t2);
   c.add(l3);
@@ -132,7 +142,14 @@ void setup() {
   c3.add(t8);
   c3.add(t9);
   c3.add(t10);
+<<<<<<< HEAD
 
+=======
+  c3.add(t11);
+  c3.add(t12);
+  c3.add(t13);
+  
+>>>>>>> b81adf937c1ea2fc4a4293c39c02177d08b1a962
   t2.addActionListener(this);
 
   //CREACIÓN DE COLUMNAS ENLAZADAS PARA HACER TABLAS
@@ -342,13 +359,16 @@ void mousePressed() {
     clicond = true;
   }
   if (overCommit && buycond) {
-    msql.query("CALL sp_compracl(\""+t7.getValue()+"\",\""+t8.getValue()+"\",\""+t9.getValue()+"\",\""+t10.getValue()+"\");");
+    msql.query("CALL sp_ventacompleta (\""+t7.getValue()+"\",\""+t8.getValue()+"\",\""+t9.getValue()+"\",\""+t10.getValue()+"\",\""+t11.getValue()+"\",\""+t12.getValue()+"\",\""+t13.getValue()+"\");");
     intcond = false;
     runOnce = true;
     t7.setValue("");
     t8.setValue("");
     t9.setValue("");
     t10.setValue("");
+    t11.setValue("");
+    t12.setValue("");
+    t13.setValue("");
     clicond = true;
   }
   if (overLogOut && homcond) {
