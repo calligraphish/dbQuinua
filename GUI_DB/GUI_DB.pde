@@ -105,7 +105,7 @@ void setup() {
   c3.setVisible(false);
 
   t  = new IFTextField("Text Field", width/4, height/3, width/2);
-  t2 = new IFTextField("Text Field", width/4, height/3+80, width/2);
+  t2 = new IFPasswordField("Text Field", width/4, height/3+80, width/2);
   l3 = new IFLabel("", width/2-20, height/2);
   
   t3 = new IFTextField("Text Field", width/4, height/2-50, width/2); 
@@ -335,11 +335,12 @@ void mousePressed() {
     t4.setValue("");
     t5.setValue("");
     t6.setValue("");
+    c2.setVisible(false);
     clicond = true;
   }
   if (overCommit && buycond) {
     msql.query("CALL sp_ventacompleta (\""+t7.getValue()+"\",\""+t8.getValue()+"\",\""+t9.getValue()+"\",\""+t10.getValue()+"\",\""+t11.getValue()+"\",\""+t12.getValue()+"\",\""+t13.getValue()+"\");");
-    intcond = false;
+    buycond = false;
     runOnce = true;
     t7.setValue("");
     t8.setValue("");
@@ -348,7 +349,8 @@ void mousePressed() {
     t11.setValue("");
     t12.setValue("");
     t13.setValue("");
-    clicond = true;
+    c3.setVisible(false);
+    vencond = true;
   }
   if (overLogOut && homcond) {
     homcond = false;
