@@ -28,17 +28,29 @@ void rutas() {
     Box7.draw();
     Box6.setX(Box5.getWidth()+Box5.getX());
     Box7.setX(Box6.getWidth()+Box6.getX());
-  } else {
     pushStyle();
     textAlign(CENTER);
     textFont(lgnFont);
-    text("No tienes los permisos correctos.", width/2, height/2);
+    text("Las rutas para "+day()+"-"+month()+"-"+year()+" son:", width/2, 250);
     popStyle();
+  } else {
+    if (user.equals("root")||user.equals("admon")||user.equals("raul")) {
+      pushStyle();
+      textAlign(CENTER);
+      textFont(lgnFont);
+      text("No hay rutas para hoy.", width/2, height/2);
+      popStyle();
+    } else {
+      pushStyle();
+      textAlign(CENTER);
+      textFont(lgnFont);
+      text("No tienes los permisos correctos.", width/2, height/2);
+      popStyle();
+    }
   }
   pushStyle();
   textAlign(CENTER);
   textFont(lgnFont);
   text("Rutas", width/2, 100);
-  text("Las rutas para "+day()+"-"+month()+"-"+year()+" son:", width/2, 250);
   popStyle();
 }

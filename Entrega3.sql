@@ -1,5 +1,19 @@
 #########################################################################################################
 -- VISTAS
+DROP VIEW IF EXISTS vw_rutas_hist;
+CREATE VIEW vw_rutas_hist AS
+    SELECT 
+        ven_fecha AS FECHA, 
+        emp_nombre AS REPARTIDOR, 
+        rut_costo AS COSTO_ENVIO,
+        rut_entregado AS ENTREGADO
+    FROM
+        Ruta
+            JOIN
+        Empleado ON (REPARTIDOR_EMPLEADO_id = emp_id)
+            JOIN
+        Venta ON (rut_VENTA_id = ven_id);
+
 DROP VIEW IF EXISTS vw_clientes;
 CREATE VIEW vw_clientes AS
     SELECT 
@@ -84,7 +98,7 @@ create procedure sp_crearuta(IN venta_id INT, IN costo_total INT,IN emple_id INT
 		ELSE 
 			SET costo = 0;
         END IF;
-        insert into ruta value (last_entry+1,costo, emple_id,venta_id,0); 
+        insert into ruta value (last_entry+1,costo, emple_id,venta_id,'no'); 
     END ;)
 DELIMITER ;
 
@@ -137,7 +151,7 @@ DROP PROCEDURE IF EXISTS sp_rutaventa;
 DELIMITER ;)
 create procedure sp_rutaventa(IN ruta_id INT)
 	BEGIN
-		UPDATE ruta SET rut_entregado = 1 WHERE ruta_id = rut_id;
+		UPDATE ruta SET rut_entregado = 'sí' WHERE ruta_id = rut_id;
     END ;)
 DELIMITER ;
 
