@@ -4,6 +4,7 @@ void inventario() {
   pushStyle();
   imageMode(CORNER); 
   icon(bx6, by6, boxSizeH, overHome, home2, amarillo, beige, "", lgnFont);
+  icon(bx8, by8, boxSizeH, overAdd, add, amarillo, beige, "", lgnFont);
   if (runOnce) {
     box1.addItem("ID");
     Box2.addItem("PRODUCTO");
