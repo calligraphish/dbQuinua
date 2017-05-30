@@ -37,7 +37,7 @@ void setup() {
   add = loadImage("add.png");
   back = loadImage("back.png");
   commit = loadImage("ventas.png");
-  LogoQuinua = requestImage("logoQuinuandes.png");
+  LogoQuinua = requestImage("Q Dorado.png");
   
   boxSize = 128;
   boxSizeH = 40;
