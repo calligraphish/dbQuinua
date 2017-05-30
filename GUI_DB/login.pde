@@ -4,7 +4,8 @@ void login() {
   pushStyle();
   imageMode(CENTER);
   image(bck, width/2, height/2, 700, 700);
-  image(logo, width/2, height-height/6, logo.width/2, logo.height/2);
+  image(logo, width/2-60, height-height/6, logo.width/2, logo.height/2);
+  image(LogoQuinua, width/2+60, height-height/6, LogoQuinua.width, LogoQuinua.height);
   popStyle();
 
   pushStyle();

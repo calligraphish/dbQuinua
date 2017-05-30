@@ -15,7 +15,7 @@ color rojo, amarillo, naranja, aguamarina, morado, azul, beige, lila, morado_osc
 float var = 0.0;
 float bx1, by1, bx2, by2, bx3, by3, bx4, by4, bx5, by5, bx6, by6, bx7, by7, bx8, by8, bx9, by9;
 int boxSize, boxSizeH, boxSizeLO, boxSizeC, h1, h2, h3;
-PImage bck, logo, home, home2, inventario, ruta, cliente, venta, logOut, back, add,commit;
+PImage bck, logo, home, home2, inventario, ruta, cliente, venta, logOut, back, add,commit,LogoQuinua;
 PFont lgnFont;
 String user, pass, database="db_1", q_year=String.valueOf(year()), q_month=String.valueOf(month()), q_day=String.valueOf(day());
 
@@ -37,6 +37,7 @@ void setup() {
   add = loadImage("add.png");
   back = loadImage("back.png");
   commit = loadImage("ventas.png");
+  LogoQuinua = requestImage("logoQuinuandes.png");
   
   boxSize = 128;
   boxSizeH = 40;
