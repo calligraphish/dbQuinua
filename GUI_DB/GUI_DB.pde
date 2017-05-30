@@ -6,7 +6,7 @@ IFTextField t, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13;
 IFLabel l3;
 IFLookAndFeel defaultLook;
 
-Box box1, Box2, Box3, Box4, Box5, Box6, Box7, Box8, Box9, Box10, Box11, Box15, Box16, Box17, Box18, Box19, Box20, Box21, Box22, Box23, Box24;
+Box box1, Box2, Box3, Box4, Box5, Box6, Box7, Box8, Box9, Box10, Box11, Box15, Box16, Box17, Box18, Box19, Box20, Box21, Box22, Box23, Box24, Box25, Box26, Box27, Box28;
 
 boolean runOnce=true;
 boolean overHome, overInventario, overRutas, overClientes, overVentas, overLogOut, overAdd, overCommit;
@@ -15,7 +15,7 @@ color rojo, amarillo, naranja, aguamarina, morado, azul, beige, lila, morado_osc
 float var = 0.0;
 float bx1, by1, bx2, by2, bx3, by3, bx4, by4, bx5, by5, bx6, by6, bx7, by7, bx8, by8, bx9, by9;
 int boxSize, boxSizeH, boxSizeLO, boxSizeC, h1, h2, h3;
-PImage bck, logo, home, home2, inventario, ruta, cliente, venta, logOut, back, add,commit;
+PImage bck, logo, home, home2, inventario, ruta, cliente, venta, logOut, back, add, add2, commit;
 PFont lgnFont;
 String user, pass, database="db_1";
 
@@ -25,6 +25,7 @@ void setup() {
 
   bck = requestImage("bckpht.jpg");
   add= requestImage("add.png");
+  add2= requestImage("add2.png");
   logo= requestImage("un.png");
   back= requestImage("back.png");
   home= loadImage("home.png");
@@ -37,7 +38,7 @@ void setup() {
   add = loadImage("add.png");
   back = loadImage("back.png");
   commit = loadImage("ventas.png");
-  
+
   boxSize = 128;
   boxSizeH = 40;
   boxSizeLO = 40;
@@ -95,11 +96,11 @@ void setup() {
   c = new GUIController(this);
   c.setLookAndFeel(defaultLook);
   c.setVisible(false);
-  
+
   c2 = new GUIController(this);
   c2.setLookAndFeel(defaultLook);
   c2.setVisible(false);
-  
+
   c3 = new GUIController(this);
   c3.setLookAndFeel(defaultLook);
   c3.setVisible(false);
@@ -107,13 +108,19 @@ void setup() {
   t  = new IFTextField("Text Field", width/4, height/3, width/2);
   t2 = new IFPasswordField("Text Field", width/4, height/3+80, width/2);
   l3 = new IFLabel("", width/2-20, height/2);
-  
+
   t3 = new IFTextField("Text Field", width/4, height/2-50, width/2); 
   t4 = new IFTextField("Text Field", width/4, height/2+50, width/2);
   t5 = new IFTextField("Text Field", width/4, height/2+150, width/2); 
   t6 = new IFTextField("Text Field", width/4, height/2+250, width/2); 
 
   t7 = new IFTextField("Text Field", width/4, height/2-50, width/2); 
+<<<<<<< HEAD
+  t8 = new IFTextField("Text Field", width/4, height/2+50, width/2);
+  t9 = new IFTextField("Text Field", width/4, height/2+150, width/2); 
+  t10 = new IFTextField("Text Field", width/4, height/2+250, width/2); 
+
+=======
   t8 = new IFTextField("Text Field", width/4, height/2, width/2);
   t9 = new IFTextField("Text Field", width/4, height/2+50, width/2); 
   t10 = new IFTextField("Text Field", width/4, height/2+100, width/2); 
@@ -121,23 +128,28 @@ void setup() {
   t12 = new IFTextField("Text Field", width/4, height/2+200, width/2); 
   t13 = new IFTextField("Text Field", width/4, height/2+250, width/2); 
   
+>>>>>>> b81adf937c1ea2fc4a4293c39c02177d08b1a962
   c.add(t);
   c.add(t2);
   c.add(l3);
-  
+
   c2.add(t3);
   c2.add(t4);
   c2.add(t5);
   c2.add(t6);
-  
+
   c3.add(t7);
   c3.add(t8);
   c3.add(t9);
   c3.add(t10);
+<<<<<<< HEAD
+
+=======
   c3.add(t11);
   c3.add(t12);
   c3.add(t13);
   
+>>>>>>> b81adf937c1ea2fc4a4293c39c02177d08b1a962
   t2.addActionListener(this);
 
   //CREACIÓN DE COLUMNAS ENLAZADAS PARA HACER TABLAS
@@ -145,7 +157,7 @@ void setup() {
   Box2 = new Box(h1, 20);
   Box3 = new Box(h1, 20);
   Box4 = new Box(h1, 20);
-  
+
   box1.setTextSize(20);
   Box2.setTextSize(20);
   Box3.setTextSize(20);
@@ -171,6 +183,11 @@ void setup() {
   Box22 = new Box(h1, 20);
   Box23 = new Box(h1, 20);
   Box24 = new Box(h1, 20);
+
+  Box25 = new Box(h1, 20);
+  Box26 = new Box(h1, 20);
+  Box27 = new Box(h1, 20);
+  Box28 = new Box(h1, 20);
 }
 
 void draw() {
@@ -250,7 +267,7 @@ void mousePressed() {
     runOnce = true;
     homcond=true;
   }
-    if (overAdd && vencond) {
+  if (overAdd && vencond) {
     vencond=false;
     Box15.remove();
     Box16.remove();
@@ -275,6 +292,10 @@ void mousePressed() {
     Box5.remove();
     Box6.remove();
     Box7.remove(); 
+    Box25.remove();
+    Box26.remove();
+    Box27.remove();
+    Box28.remove();
     runOnce = true;
     homcond=true;
   }
@@ -305,7 +326,7 @@ void mousePressed() {
     t6.setValue("");
     clicond = true;
   }
- if (overLogOut && buycond) {
+  if (overLogOut && buycond) {
     buycond = false;
     runOnce = true;
     t3.setValue("");
