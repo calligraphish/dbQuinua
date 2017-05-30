@@ -157,7 +157,7 @@ DELIMITER ;
 
 drop procedure if exists sp_ventacompleta;
 delimiter $$
-create procedure sp_ventacompleta (IN cliente varchar(45),IN sede int, IN empleado int, IN cant_libra int, IN cant_kilo int, IN cant_12kilo int, IN cant_25kilo int)
+create procedure sp_ventacompleta ( IN cliente varchar(45),IN sede int, IN empleado int, IN cant_libra int, IN cant_kilo int, IN cant_12kilo int, IN cant_25kilo int)
 begin
 declare id_cliente int;
 declare id_venta int;
