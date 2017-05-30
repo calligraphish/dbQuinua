@@ -9,11 +9,10 @@ public class Box {
     this.y = yCoordinate;
     this.cell= heigthCell;
     this.txSize =9;
-    //this.items = new ArrayList();
   }
 
   void draw() {
-    if (items != null ) {
+    if ( items != null ) {
       this.w = this.largestString*txSize;
       this.h = this.items.size()-1*this.cell;
       for ( int i = 0; i < this.items.size(); i++ ) {
@@ -38,11 +37,9 @@ public class Box {
   }
 
   public void remove() {
-    if (items!=null) {
-      items.clear();
-    }
+    items.clear();
   }
-
+  
   public void addItem(String st ) {
     if ( items == null ) { 
       this.items = new ArrayList();
@@ -50,37 +47,24 @@ public class Box {
     this.items.add(st);
     largestString = items.get(0).toString().length();
     for (int i = 0; i < items.size(); i++) {
-      if (items.get(i) != null) {
-        if (items.get(i).toString().length() > largestString) {
-          largestString = items.get(i).toString().length();
-        }
-      } else {
-        items.set(i, " ");
+      if (items.get(i).toString().length() > largestString) {
+        largestString = items.get(i).toString().length();
       }
     }
   }
-  public int getWidth() {
+  public int getWidth(){
     return this.w;
   }
-  public int getHeight() {
-    return this.h;
-  }
-  public void setX(int xi) {
+  public void setX(int xi){
     this.x = xi;
   }
-  public int getX() {
+  public int getX(){
     return this.x;
   }
-  public void setY(int yi) {
-    this.y = yi;
-  }
-  public int getY() {
-    return this.y;
-  }
-  public ArrayList getItems() {
+  public ArrayList getItems(){
     return this.items;
   }
-  public void setTextSize(int size) {
+  public void setTextSize(int size){
     this.txSize = size;
   }
 }
