@@ -159,25 +159,55 @@ create procedure sp_ventacompleta ( IN cliente varchar(45),IN sede int, IN emple
 begin
 declare id_cliente int;
 declare id_venta int;
+
+declare cantidad int;
+
+set id_venta = FUN_ultima_venta()+1;
 set id_cliente = FUN_get_ID_por_nombre(cliente);
 
-insert into venta values(FUN_ultima_venta()+1,curdate(),-1,id_cliente,sede,empleado);
-select ven_id into id_venta from venta where ven_costo_total = -1;
+START TRANSACTION;
+SAVEPOINT A;
+insert into venta values(id_venta,curdate(),-1,id_cliente,sede,empleado);
 update venta set ven_costo_total=0 where ven_costo_total= -1;
-if(cant_libra > 0) then
+
+SELECT inv_cantidad into cantidad FROM inventario_sede where inventario_sede.inv_PRODUCTO_id=1;
+if(cant_libra > 0 and cant_libra<=cantidad) then
 	insert into detalle_venta values(id_venta,1,cant_libra);
+else 
+	ROLLBACK TO A;
 end if;
-if(cant_kilo > 0) then
+
+SAVEPOINT B;
+
+SELECT inv_cantidad into cantidad FROM inventario_sede where inventario_sede.inv_PRODUCTO_id=2;
+if(cant_kilo > 0 and cant_kilo<=cantidad) then
 	insert into detalle_venta values(id_venta,2,cant_kilo);
+else 
+	ROLLBACK TO B;
 end if;
-if(cant_12kilo > 0) then
+
+SAVEPOINT C;
+
+SELECT inv_cantidad into cantidad FROM inventario_sede where inventario_sede.inv_PRODUCTO_id=3;
+if(cant_12kilo > 0 and cant_12kilo<=cantidad) then
 	insert into detalle_venta values(id_venta,3,cant_12kilo);
+else 
+	ROLLBACK TO C;
 end if;
-if(cant_25kilo > 0 ) then
+
+SAVEPOINT D;
+
+SELECT inv_cantidad into cantidad FROM inventario_sede where inventario_sede.inv_PRODUCTO_id=4;
+if(cant_25kilo > 0 and cant_25kilo<=cantidad) then
 	insert into detalle_venta values(id_venta,4,cant_25kilo);
+else 
+	ROLLBACK TO D;
 end if;
+
+COMMIT;
 end $$
 delimiter ;
+
 
 drop procedure if exists sp_compracompleta;
 delimiter $$
