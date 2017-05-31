@@ -9,7 +9,6 @@ void homeAdmin() {
   defaultLook.darkGrayColor = beige;
   background(morado_oscuro);
   c.setVisible(false);
-  c5.setVisible(false);
   icon(bx2, by2, boxSize, overInventario, inventario, bLsel, bL, "Inventario", lgnFont);
   icon(bx3, by3, boxSize, overRutas, ruta, bRsel, bR, "Rutas", lgnFont);
   icon(bx4, by4, boxSize, overClientes, cliente, bLsel, bL, "Clientes", lgnFont);

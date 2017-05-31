@@ -1,28 +1,23 @@
 import interfascia.*;
 import de.bezier.data.sql.*;
 MySQL msql;
-<<<<<<< HEAD
-GUIController c, c2, c3;
-IFTextField t, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13;
-=======
-GUIController c, c2, c3, c4, c5;
-IFTextField t, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21;
->>>>>>> a4873f74b1dccf9b88d880bd3c905fccb484f2e1
+GUIController c, c2, c3, c4;
+IFTextField t, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18;
 IFLabel l3;
 IFLookAndFeel defaultLook;
 
 Box box1, Box2, Box3, Box4, Box5, Box6, Box7, Box8, Box9, Box10, Box11, Box15, Box16, Box17, Box18, Box19, Box20, Box21, Box22, Box23, Box24;
 
 boolean runOnce=true;
-boolean overHome, overInventario, overRutas, overClientes, overVentas, overLogOut, overAdd, overCommit, overYes, overNo;
-boolean welcond=true, logcond=false, homcond=false, invcond = false, vencond = false, rutcond = false, clicond=false, out = false, outAux = false, intcond=false, buycond= false;
+boolean overHome, overInventario, overRutas, overClientes, overVentas, overLogOut, overAdd, overCommit;
+boolean welcond=true, logcond=false, homcond=false, invcond = false, vencond = false, rutcond = false, clicond=false, out = false, intcond=false, buycond= false, actcond= false;
 color rojo, amarillo, naranja, aguamarina, morado, azul, beige, lila, morado_oscuro, bLsel, bL, bk, bR, bRsel;
 float var = 0.0;
 float bx1, by1, bx2, by2, bx3, by3, bx4, by4, bx5, by5, bx6, by6, bx7, by7, bx8, by8, bx9, by9;
 int boxSize, boxSizeH, boxSizeLO, boxSizeC, h1, h2, h3;
-PImage bck, logo, home, home2, inventario, ruta, cliente, venta, logOut, back, add,commit,LogoQuinua;
+PImage bck, logo, home, home2, inventario, ruta, cliente, venta, logOut, back, add,commit;
 PFont lgnFont;
-String user, pass, database="db_1", q_year=String.valueOf(year()), q_month=String.valueOf(month()), q_day=String.valueOf(day());
+String user, pass, database="db_1";
 
 void setup() {
   size(700, 700);
@@ -42,7 +37,6 @@ void setup() {
   add = loadImage("add.png");
   back = loadImage("back.png");
   commit = loadImage("ventas.png");
-  LogoQuinua = requestImage("Q Dorado.png");
   
   boxSize = 128;
   boxSizeH = 40;
@@ -101,7 +95,7 @@ void setup() {
   c = new GUIController(this);
   c.setLookAndFeel(defaultLook);
   c.setVisible(false);
-  c.setWidth(40);
+  
   c2 = new GUIController(this);
   c2.setLookAndFeel(defaultLook);
   c2.setVisible(false);
@@ -109,17 +103,10 @@ void setup() {
   c3 = new GUIController(this);
   c3.setLookAndFeel(defaultLook);
   c3.setVisible(false);
-<<<<<<< HEAD
-=======
   
   c4 = new GUIController(this);
   c4.setLookAndFeel(defaultLook);
   c4.setVisible(false);
-  
-  c5 = new GUIController(this);
-  c5.setLookAndFeel(defaultLook);
-  c5.setVisible(false);
->>>>>>> a4873f74b1dccf9b88d880bd3c905fccb484f2e1
 
   t  = new IFTextField("Text Field", width/4, height/3, width/2);
   t2 = new IFPasswordField("Text Field", width/4, height/3+80, width/2,"", '*');
@@ -138,19 +125,12 @@ void setup() {
   t12 = new IFTextField("Text Field", width/4, height/2+200, width/2); 
   t13 = new IFTextField("Text Field", width/4, height/2+250, width/2); 
   
-<<<<<<< HEAD
-=======
   t14 = new IFTextField("Text Field", width/4, height/2, width/2); 
   t15 = new IFTextField("Text Field", width/4, height/2+50, width/2); 
   t16 = new IFTextField("Text Field", width/4, height/2+100, width/2); 
   t17 = new IFTextField("Text Field", width/4, height/2+150, width/2); 
   t18 = new IFTextField("Text Field", width/4, height/2+200, width/2);
   
-  t19 = new IFTextField("Text Field", 400, 200, 60);
-  t20 = new IFTextField("Text Field", 470, 200, 40);
-  t21 = new IFTextField("Text Field", 520, 200, 40);
-  
->>>>>>> a4873f74b1dccf9b88d880bd3c905fccb484f2e1
   c.add(t);
   c.add(t2);
   c.add(l3);
@@ -168,22 +148,13 @@ void setup() {
   c3.add(t12);
   c3.add(t13);
   
-<<<<<<< HEAD
-=======
   c4.add(t14);
   c4.add(t15);
   c4.add(t16);
   c4.add(t17);
   c4.add(t18);
   
-  c5.add(t19);
-  c5.add(t20);
-  c5.add(t21);
-  
->>>>>>> a4873f74b1dccf9b88d880bd3c905fccb484f2e1
   t2.addActionListener(this);
-  
-  t21.addActionListener(this);
 
   //CREACIÓN DE COLUMNAS ENLAZADAS PARA HACER TABLAS
   box1 = new Box(h1, 20);//SOLO RECIBEN 2 PARÁMETROS: LA ALTURA Y EL ALTO DE LA CELDA.
@@ -196,9 +167,9 @@ void setup() {
   Box3.setTextSize(20);
   Box4.setTextSize(20);
 
-  /*Box5 = new Box(h1, 20);
+  Box5 = new Box(h1, 20);
   Box6 = new Box(h1, 20);
-  Box7 = new Box(h1, 20);*/
+  Box7 = new Box(h1, 20);
 
   Box8 = new Box(h1, 20);
   Box9 = new Box(h1, 20);
@@ -247,15 +218,14 @@ void draw() {
   if (buycond) {
     compra();
   }
-  if(outAux){
-    sure();
+  if (actcond) {
+    actualizar();
   }
   if (out) {
     logOut();
     login();
   }  
   text(mouseX, 20, 10);//IMPRIME LAS COORDENADAS DE X EN UNA ESQUINA PARA QUE CENTRAR SEA MÁS FÁCIL
-  text(mouseY,60,10);
 }
 
 void mousePressed() {
@@ -319,6 +289,15 @@ void mousePressed() {
     runOnce = true;
     intcond = true;
   }
+    if (overAdd && invcond) {
+    invcond = false;
+    box1.remove();
+    Box2.remove();
+    Box3.remove();
+    Box4.remove();
+    runOnce = true;
+    actcond = true;
+  }
   if (overHome && !homcond && rutcond) {
     rutcond=false;
     Box5.remove();
@@ -357,12 +336,26 @@ void mousePressed() {
  if (overLogOut && buycond) {
     buycond = false;
     runOnce = true;
-    t3.setValue("");
-    t4.setValue("");
-    t5.setValue("");
-    t6.setValue("");
+    t7.setValue("");
+    t8.setValue("");
+    t9.setValue("");
+    t10.setValue("");
+    t11.setValue("");
+    t12.setValue("");
+    t13.setValue("");
     c3.setVisible(false);
     vencond = true;
+  }
+ if (overLogOut && actcond) {
+    actcond = false;
+    runOnce = true;
+    t14.setValue("");
+    t15.setValue("");
+    t16.setValue("");
+    t17.setValue("");
+    t18.setValue("");
+    c4.setVisible(false);
+    invcond = true;
   }
   if (overHome && !homcond && buycond) {
     buycond=false;
@@ -374,6 +367,16 @@ void mousePressed() {
     Box20.remove(); 
     runOnce = true;
     c3.setVisible(false);
+    homcond=true;
+  }
+ if (overHome && !homcond && actcond) {
+    actcond=false;
+    box1.remove();
+    Box2.remove();
+    Box3.remove();
+    Box4.remove();
+    runOnce = true;
+    c4.setVisible(false);
     homcond=true;
   }
   if (overCommit && intcond) {
@@ -401,20 +404,21 @@ void mousePressed() {
     c3.setVisible(false);
     vencond = true;
   }
-  if (overYes && outAux) {
-    homcond = false;
-    runOnce=true;
-    outAux =false;
-    out = true;
-  }
-  if (overNo && outAux) {
-    outAux = false;
-    runOnce=true;
-    homcond = true;
+  if (overCommit && actcond) {
+    msql.query("CALL sp_compracompleta (\""+t14.getValue()+"\",\""+t15.getValue()+"\",\""+t16.getValue()+"\",\""+t17.getValue()+"\",\""+t18.getValue()+"\");");
+    actcond = false;
+    runOnce = true;
+    t14.setValue("");
+    t15.setValue("");
+    t16.setValue("");
+    t17.setValue("");
+    t18.setValue("");
+    c4.setVisible(false);
+    invcond = true;
   }
   if (overLogOut && homcond) {
     homcond = false;
     runOnce=true;
-    outAux = true;
+    out = true;
   }
 }
