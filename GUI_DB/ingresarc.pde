@@ -23,9 +23,10 @@ void ingresar() {
   textAlign(CENTER);
   text("Ingresar Cliente", width/2, 100);
   textAlign(LEFT);
-  text("Nombre", width/7, height/2-70); 
-  text("Tipo de establecimiento", width/7, height/2+30);
-  text("Nombre del representante", width/7, height/2+130); 
-  text("Teléfono", width/7, height/2+230); 
+  text("Nombre", width/7, height/2-120); 
+  text("Tipo de establecimiento", width/7, height/2-20);
+  text("Nombre del representante", width/7, height/2+80); 
+  text("Teléfono", width/7, height/2+180); 
+  text("Dirección", width/7, height/2+280); 
   popStyle();
 }
