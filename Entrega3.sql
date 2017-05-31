@@ -46,7 +46,7 @@ CREATE VIEW vw_ventas_admin AS
 DROP VIEW IF EXISTS vw_rutarepartidor;
 CREATE VIEW vw_rutarepartidor AS
     SELECT 
-        CURDATE() AS FECHA, emp_nombre AS REPARTIDOR, cli_nombre AS CLIENTE,
+        ven_fecha AS FECHA, emp_nombre AS REPARTIDOR, cli_nombre AS CLIENTE,
         cli_direccion AS DIRECCION
     FROM
         Ruta
@@ -56,9 +56,7 @@ CREATE VIEW vw_rutarepartidor AS
         Venta ON (rut_VENTA_id = ven_id)
 			JOIN
         cliente ON (cli_id = CLIENTE_cli_id)    
-    WHERE
-        ven_fecha = CURDATE()
-    ORDER BY REPARTIDOR;
+    ORDER BY REPARTIDOR, FECHA;
 
 DROP VIEW IF EXISTS vw_inventariocl;
 CREATE VIEW vw_inventariocl AS

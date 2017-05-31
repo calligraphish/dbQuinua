@@ -1,8 +1,13 @@
 import interfascia.*;
 import de.bezier.data.sql.*;
 MySQL msql;
+<<<<<<< HEAD
 GUIController c, c2, c3;
 IFTextField t, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13;
+=======
+GUIController c, c2, c3, c4, c5;
+IFTextField t, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21;
+>>>>>>> a4873f74b1dccf9b88d880bd3c905fccb484f2e1
 IFLabel l3;
 IFLookAndFeel defaultLook;
 
@@ -15,9 +20,9 @@ color rojo, amarillo, naranja, aguamarina, morado, azul, beige, lila, morado_osc
 float var = 0.0;
 float bx1, by1, bx2, by2, bx3, by3, bx4, by4, bx5, by5, bx6, by6, bx7, by7, bx8, by8, bx9, by9;
 int boxSize, boxSizeH, boxSizeLO, boxSizeC, h1, h2, h3;
-PImage bck, logo, home, home2, inventario, ruta, cliente, venta, logOut, back, add,commit;
+PImage bck, logo, home, home2, inventario, ruta, cliente, venta, logOut, back, add,commit,LogoQuinua;
 PFont lgnFont;
-String user, pass, database="db_1";
+String user, pass, database="db_1", q_year=String.valueOf(year()), q_month=String.valueOf(month()), q_day=String.valueOf(day());
 
 void setup() {
   size(700, 700);
@@ -37,6 +42,7 @@ void setup() {
   add = loadImage("add.png");
   back = loadImage("back.png");
   commit = loadImage("ventas.png");
+  LogoQuinua = requestImage("Q Dorado.png");
   
   boxSize = 128;
   boxSizeH = 40;
@@ -103,6 +109,17 @@ void setup() {
   c3 = new GUIController(this);
   c3.setLookAndFeel(defaultLook);
   c3.setVisible(false);
+<<<<<<< HEAD
+=======
+  
+  c4 = new GUIController(this);
+  c4.setLookAndFeel(defaultLook);
+  c4.setVisible(false);
+  
+  c5 = new GUIController(this);
+  c5.setLookAndFeel(defaultLook);
+  c5.setVisible(false);
+>>>>>>> a4873f74b1dccf9b88d880bd3c905fccb484f2e1
 
   t  = new IFTextField("Text Field", width/4, height/3, width/2);
   t2 = new IFPasswordField("Text Field", width/4, height/3+80, width/2,"", '*');
@@ -121,6 +138,19 @@ void setup() {
   t12 = new IFTextField("Text Field", width/4, height/2+200, width/2); 
   t13 = new IFTextField("Text Field", width/4, height/2+250, width/2); 
   
+<<<<<<< HEAD
+=======
+  t14 = new IFTextField("Text Field", width/4, height/2, width/2); 
+  t15 = new IFTextField("Text Field", width/4, height/2+50, width/2); 
+  t16 = new IFTextField("Text Field", width/4, height/2+100, width/2); 
+  t17 = new IFTextField("Text Field", width/4, height/2+150, width/2); 
+  t18 = new IFTextField("Text Field", width/4, height/2+200, width/2);
+  
+  t19 = new IFTextField("Text Field", 400, 200, 60);
+  t20 = new IFTextField("Text Field", 470, 200, 40);
+  t21 = new IFTextField("Text Field", 520, 200, 40);
+  
+>>>>>>> a4873f74b1dccf9b88d880bd3c905fccb484f2e1
   c.add(t);
   c.add(t2);
   c.add(l3);
@@ -138,7 +168,22 @@ void setup() {
   c3.add(t12);
   c3.add(t13);
   
+<<<<<<< HEAD
+=======
+  c4.add(t14);
+  c4.add(t15);
+  c4.add(t16);
+  c4.add(t17);
+  c4.add(t18);
+  
+  c5.add(t19);
+  c5.add(t20);
+  c5.add(t21);
+  
+>>>>>>> a4873f74b1dccf9b88d880bd3c905fccb484f2e1
   t2.addActionListener(this);
+  
+  t21.addActionListener(this);
 
   //CREACIÓN DE COLUMNAS ENLAZADAS PARA HACER TABLAS
   box1 = new Box(h1, 20);//SOLO RECIBEN 2 PARÁMETROS: LA ALTURA Y EL ALTO DE LA CELDA.
@@ -151,9 +196,9 @@ void setup() {
   Box3.setTextSize(20);
   Box4.setTextSize(20);
 
-  Box5 = new Box(h1, 20);
+  /*Box5 = new Box(h1, 20);
   Box6 = new Box(h1, 20);
-  Box7 = new Box(h1, 20);
+  Box7 = new Box(h1, 20);*/
 
   Box8 = new Box(h1, 20);
   Box9 = new Box(h1, 20);
@@ -210,6 +255,7 @@ void draw() {
     login();
   }  
   text(mouseX, 20, 10);//IMPRIME LAS COORDENADAS DE X EN UNA ESQUINA PARA QUE CENTRAR SEA MÁS FÁCIL
+  text(mouseY,60,10);
 }
 
 void mousePressed() {
