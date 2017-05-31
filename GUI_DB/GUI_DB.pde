@@ -290,7 +290,7 @@ void mousePressed() {
     runOnce = true;
     homcond=true;
   }
-  if (overAdd && vencond) {
+  if (overAdd && vencond && permisos()) {
     vencond=false;
     Box15.remove();
     Box16.remove();
@@ -301,7 +301,7 @@ void mousePressed() {
     runOnce = true;
     buycond=true;
   }
-  if (overAdd && clicond) {
+  if (overAdd && clicond && permisos()) {
     clicond = false;
     Box21.remove();
     Box22.remove();
@@ -310,7 +310,7 @@ void mousePressed() {
     runOnce = true;
     intcond = true;
   }
-  if (overAdd && invcond) {
+  if (overAdd && invcond && permisos()) {
     invcond = false;
     box1.remove();
     Box2.remove();
@@ -454,4 +454,9 @@ void mousePressed() {
     runOnce=true;
     outAux = true;
   }
+}
+
+boolean permisos(){
+if(user.equals("root")||user.equals("admon")) return true;
+else return false;
 }

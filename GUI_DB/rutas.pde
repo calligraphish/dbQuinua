@@ -47,7 +47,7 @@ void rutas() {
       textFont(lgnFont);
       textSize(18);
     text("Rutas del dia ", width/2,height/2);
-    text(q_year+"-"+q_month+"-"+q_day, width/2,height/2+20);
+    text(q_year+"-"+q_month+"-"+q_day, width/2,height/2+40);
     popStyle();
   } else {
     if (user.equals("root")||user.equals("admon")||user.equals("raul")) {
@@ -55,7 +55,7 @@ void rutas() {
       textAlign(CENTER);
       textFont(lgnFont);
     text("No hay rutas para el dia :", width/2,height/2);
-    text(q_year+"-"+q_month+"-"+q_day, width/2,height/2+20);
+    text(q_year+"-"+q_month+"-"+q_day, width/2,height/2+40);
       popStyle();
     } else {
       pushStyle();
