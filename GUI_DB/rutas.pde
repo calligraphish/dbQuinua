@@ -43,17 +43,19 @@ void rutas() {
     Box6.setX(Box5.getWidth()+Box5.getX());
     Box7.setX(Box6.getWidth()+Box6.getX());
       pushStyle();
-      textAlign(CORNER);
+      textAlign(CENTER);
       textFont(lgnFont);
       textSize(18);
-    text("Rutas del dia "+q_year+"-"+q_month+"-"+q_day, 85, 216);
+    text("Rutas del dia ", width/2,height/2);
+    text(q_year+"-"+q_month+"-"+q_day, width/2,height/2+20);
     popStyle();
   } else {
     if (user.equals("root")||user.equals("admon")||user.equals("raul")) {
       pushStyle();
       textAlign(CENTER);
       textFont(lgnFont);
-      text("No hay rutas para el dia ( "+q_year+"-"+q_month+"-"+q_day+" )", width/2, height/2);
+    text("No hay rutas para el dia :", width/2,height/2);
+    text(q_year+"-"+q_month+"-"+q_day, width/2,height/2+20);
       popStyle();
     } else {
       pushStyle();

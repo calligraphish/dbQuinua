@@ -342,6 +342,7 @@ void mousePressed() {
     Box22.remove();
     Box23.remove();
     Box24.remove();
+    c2.setVisible(false);
     runOnce = true;
     homcond=true;
   }
