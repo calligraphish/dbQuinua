@@ -37,7 +37,7 @@ void ventas() {
     Box18.draw();
     Box19.draw();
     Box20.draw();  
-    Box15.setY(abs(width-Box15.getHeight())/3);
+    Box15.setY(abs(width-Box15.getHeight())/3);//ESTO AUTOMATICAMENTE CENTRA EN Y LA TABLA
     Box16.setY(abs(width-Box15.getHeight())/3);
     Box17.setY(abs(width-Box15.getHeight())/3);
     Box18.setY(abs(width-Box15.getHeight())/3);

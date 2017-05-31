@@ -28,6 +28,10 @@ void clientes() {
     Box22.draw();
     Box23.draw();
     Box24.draw();
+    Box21.setY(abs(width-Box21.getHeight())/3);//ESTO AUTOMATICAMENTE CENTRA EN Y LA TABLA
+    Box22.setY(abs(width-Box21.getHeight())/3);
+    Box23.setY(abs(width-Box21.getHeight())/3);
+    Box24.setY(abs(width-Box21.getHeight())/3);
     Box22.setX(Box21.getWidth()+Box21.getX());
     Box23.setX(Box22.getWidth()+Box22.getX());
     Box24.setX(Box23.getWidth()+Box23.getX());

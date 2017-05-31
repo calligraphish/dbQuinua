@@ -10,6 +10,8 @@ IFLookAndFeel defaultLook;
 
 Box box1, Box2, Box3, Box4, Box5, Box6, Box7, Box8, Box9, Box10, Box11, Box15, Box16, Box17, Box18, Box19, Box20, Box21, Box22, Box23, Box24;
 
+boolean bcare, exitd =false;
+int foo = 0;
 boolean runOnce=true;
 boolean overHome, overInventario, overRutas, overClientes, overVentas, overLogOut, overAdd, overCommit, overYes, overNo;
 boolean welcond=true, logcond=false, homcond=false, invcond = false, vencond = false, rutcond = false, clicond=false, out = false, outAux = false, intcond=false, buycond= false, actcond= false;
@@ -212,46 +214,52 @@ void setup() {
 }
 
 void draw() {
-  checkOver();
-  if (welcond) {
-    welcome();
+
+  if (!exitd) {
+    checkOver();
+    if (welcond) {
+      welcome();
+    }
+    if (logcond) {
+      login();
+    }
+    if (homcond) {
+      homeAdmin();
+    }
+    if (invcond) {
+      inventario();
+    }
+    if (vencond) {
+      ventas();
+    }
+    if (rutcond) {
+      rutas();
+    }
+    if (clicond) {
+      clientes();
+    }
+    if (intcond) {
+      ingresar();
+    }
+    if (buycond) {
+      compra();
+    }
+    if (actcond) {
+      actualizar();
+    }
+    if (outAux) {
+      sure();
+    }  
+    if (out) {
+      logOut();
+      login();
+    }  
+    text(mouseX, 20, 10);//IMPRIME LAS COORDENADAS DE X EN UNA ESQUINA PARA QUE CENTRAR SEA MÁS FÁCIL
+    text(mouseY, 60, 10);
+    holi();
+  } else {
+    thanks();
   }
-  if (logcond) {
-    login();
-  }
-  if (homcond) {
-    homeAdmin();
-  }
-  if (invcond) {
-    inventario();
-  }
-  if (vencond) {
-    ventas();
-  }
-  if (rutcond) {
-    rutas();
-  }
-  if (clicond) {
-    clientes();
-  }
-  if (intcond) {
-    ingresar();
-  }
-  if (buycond) {
-    compra();
-  }
-  if (actcond) {
-    actualizar();
-  }
-  if (outAux) {
-    sure();
-  }  
-  if (out) {
-    logOut();
-    login();
-  }  
-  text(mouseX, 20, 10);//IMPRIME LAS COORDENADAS DE X EN UNA ESQUINA PARA QUE CENTRAR SEA MÁS FÁCIL
-  text(mouseY, 60, 10);
 }
 
 void mousePressed() {
@@ -466,4 +474,31 @@ void mousePressed() {
 boolean permisos() {
   if (user.equals("root")||user.equals("admon")) return true;
   else return false;
+}
+
+void holi() {
+  pushStyle();
+  fill(#0A3E43);
+  rect(0, height-10, width, 10);
+  fill(255);
+  textAlign(CENTER);
+  text("Hecho por: BuenosEstudiantesUN™", width/2, height);
+  popStyle();
+}
+
+void keyPressed() {
+  if (keyCode==SHIFT) {
+    exitd =true;
+  }
+}
+
+
+void thanks() {
+  background(random(255), random(255), random(255));
+  fill(255);
+  textAlign(CENTER);
+  textFont(lgnFont);
+  textSize(90);
+  text("¡Gracias!", width/2, height/2);
+  delay(1000);
 }

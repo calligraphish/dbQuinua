@@ -21,6 +21,10 @@ void inventario() {
       Box2.addItem(PRODUCTO);
       Box3.addItem(PRECIO);
       Box4.addItem(CANTIDAD);
+      foo = Integer.parseInt(CANTIDAD);
+      if(foo<5){
+        boolean bcare = true;
+      }
     }
     runOnce = false;
   }
@@ -34,6 +38,14 @@ void inventario() {
     Box2.setX(box1.getWidth()+box1.getX());//PATRÓN DESPUÉS DEL DRAW.
     Box3.setX(Box2.getWidth()+Box2.getX());
     Box4.setX(Box3.getWidth()+Box3.getX());
+    if(bcare){
+      pushStyle();
+      fill(rojo);
+      textAlign(CENTER);
+      text("¡Cuidado!", width/2, height-height/6);
+      text("Hay productos que se están acabando", width/2, height-height/6+30);
+      popStyle();
+    }
   } else {
     pushStyle();
     textAlign(CENTER);

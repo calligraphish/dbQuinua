@@ -46,6 +46,8 @@ void rutas() {
     textAlign(CENTER);
     textFont(lgnFont);
     text("Rutas", width/2, 100);
+    textSize(20);
+    text("Busca la ruta de cierto día:",250,216);
     popStyle();
     text("Año", 400, 198);
     text("AAAA", 400, 233);
