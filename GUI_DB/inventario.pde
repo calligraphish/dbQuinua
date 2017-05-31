@@ -25,7 +25,7 @@ void inventario() {
     runOnce = false;
   }
   if (!(box1.getItems().size()==1)&&permisos()||user.equals("cliente")) {
-    if (permisos())icon(bx8, by8, boxSizeH, overAdd, add, amarillo, beige, "", lgnFont);
+    if (permisos())icon(bx8, by8, boxSizeH, overAdd, add2, amarillo, beige, "", lgnFont);
     box1.setX((width-((Box4.getX()+Box4.getWidth())-box1.getX()))/2);//ESTA LINEA CENTRA AUTOMATICAMENTE TODO
     box1.draw();
     Box2.draw();

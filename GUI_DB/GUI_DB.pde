@@ -11,13 +11,13 @@ IFLookAndFeel defaultLook;
 Box box1, Box2, Box3, Box4, Box5, Box6, Box7, Box8, Box9, Box10, Box11, Box15, Box16, Box17, Box18, Box19, Box20, Box21, Box22, Box23, Box24;
 
 boolean runOnce=true;
-boolean overHome, overInventario, overRutas, overClientes, overVentas, overLogOut, overAdd, overCommit, overYes,overNo;
+boolean overHome, overInventario, overRutas, overClientes, overVentas, overLogOut, overAdd, overCommit, overYes, overNo;
 boolean welcond=true, logcond=false, homcond=false, invcond = false, vencond = false, rutcond = false, clicond=false, out = false, outAux = false, intcond=false, buycond= false, actcond= false;
 color rojo, amarillo, naranja, aguamarina, morado, azul, beige, lila, morado_oscuro, bLsel, bL, bk, bR, bRsel;
 float var = 0.0;
 float bx1, by1, bx2, by2, bx3, by3, bx4, by4, bx5, by5, bx6, by6, bx7, by7, bx8, by8, bx9, by9;
 int boxSize, boxSizeH, boxSizeLO, boxSizeC, h1, h2, h3;
-PImage bck, logo, home, home2, inventario, ruta, cliente, venta, logOut, back, add, commit, LogoQuinua;
+PImage bck, logo, home, home2, inventario, ruta, cliente, venta, logOut, back, add, add2, commit, LogoQuinua;
 PFont lgnFont;
 String user, pass, database="db_1", q_year=String.valueOf(year()), q_month=String.valueOf(month()), q_day=String.valueOf(day());
 
@@ -27,6 +27,7 @@ void setup() {
 
   bck = requestImage("bckpht.jpg");
   add= requestImage("add.png");
+  add2= requestImage("add2.png");
   logo= requestImage("un.png");
   back= requestImage("back.png");
   home= loadImage("home.png");
@@ -39,7 +40,7 @@ void setup() {
   add = loadImage("add.png");
   back = loadImage("back.png");
   commit = loadImage("ventas.png");
-  LogoQuinua = requestImage("Q Dorado.png");
+  LogoQuinua = loadImage("Q Dorado.png");
 
   boxSize = 128;
   boxSizeH = 40;
@@ -438,7 +439,7 @@ void mousePressed() {
     c4.setVisible(false);
     invcond = true;
   }
-    if (overYes && outAux) {
+  if (overYes && outAux) {
     homcond = false;
     runOnce=true;
     outAux =false;
@@ -456,7 +457,7 @@ void mousePressed() {
   }
 }
 
-boolean permisos(){
-if(user.equals("root")||user.equals("admon")) return true;
-else return false;
+boolean permisos() {
+  if (user.equals("root")||user.equals("admon")) return true;
+  else return false;
 }
