@@ -1,16 +1,16 @@
 import interfascia.*;
 import de.bezier.data.sql.*;
 MySQL msql;
-GUIController c, c2, c3, c4;
-IFTextField t, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18;
+GUIController c, c2, c3;
+IFTextField t, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13;
 IFLabel l3;
 IFLookAndFeel defaultLook;
 
 Box box1, Box2, Box3, Box4, Box5, Box6, Box7, Box8, Box9, Box10, Box11, Box15, Box16, Box17, Box18, Box19, Box20, Box21, Box22, Box23, Box24;
 
 boolean runOnce=true;
-boolean overHome, overInventario, overRutas, overClientes, overVentas, overLogOut, overAdd, overCommit;
-boolean welcond=true, logcond=false, homcond=false, invcond = false, vencond = false, rutcond = false, clicond=false, out = false, intcond=false, buycond= false, actcond= false;
+boolean overHome, overInventario, overRutas, overClientes, overVentas, overLogOut, overAdd, overCommit, overYes, overNo;
+boolean welcond=true, logcond=false, homcond=false, invcond = false, vencond = false, rutcond = false, clicond=false, out = false, outAux = false, intcond=false, buycond= false;
 color rojo, amarillo, naranja, aguamarina, morado, azul, beige, lila, morado_oscuro, bLsel, bL, bk, bR, bRsel;
 float var = 0.0;
 float bx1, by1, bx2, by2, bx3, by3, bx4, by4, bx5, by5, bx6, by6, bx7, by7, bx8, by8, bx9, by9;
@@ -95,7 +95,7 @@ void setup() {
   c = new GUIController(this);
   c.setLookAndFeel(defaultLook);
   c.setVisible(false);
-  
+  c.setWidth(40);
   c2 = new GUIController(this);
   c2.setLookAndFeel(defaultLook);
   c2.setVisible(false);
@@ -103,10 +103,6 @@ void setup() {
   c3 = new GUIController(this);
   c3.setLookAndFeel(defaultLook);
   c3.setVisible(false);
-  
-  c4 = new GUIController(this);
-  c4.setLookAndFeel(defaultLook);
-  c4.setVisible(false);
 
   t  = new IFTextField("Text Field", width/4, height/3, width/2);
   t2 = new IFPasswordField("Text Field", width/4, height/3+80, width/2,"", '*');
@@ -125,12 +121,6 @@ void setup() {
   t12 = new IFTextField("Text Field", width/4, height/2+200, width/2); 
   t13 = new IFTextField("Text Field", width/4, height/2+250, width/2); 
   
-  t14 = new IFTextField("Text Field", width/4, height/2, width/2); 
-  t15 = new IFTextField("Text Field", width/4, height/2+50, width/2); 
-  t16 = new IFTextField("Text Field", width/4, height/2+100, width/2); 
-  t17 = new IFTextField("Text Field", width/4, height/2+150, width/2); 
-  t18 = new IFTextField("Text Field", width/4, height/2+200, width/2);
-  
   c.add(t);
   c.add(t2);
   c.add(l3);
@@ -147,12 +137,6 @@ void setup() {
   c3.add(t11);
   c3.add(t12);
   c3.add(t13);
-  
-  c4.add(t14);
-  c4.add(t15);
-  c4.add(t16);
-  c4.add(t17);
-  c4.add(t18);
   
   t2.addActionListener(this);
 
@@ -218,8 +202,8 @@ void draw() {
   if (buycond) {
     compra();
   }
-  if (actcond) {
-    actualizar();
+  if(outAux){
+    sure();
   }
   if (out) {
     logOut();
@@ -289,15 +273,6 @@ void mousePressed() {
     runOnce = true;
     intcond = true;
   }
-    if (overAdd && invcond) {
-    invcond = false;
-    box1.remove();
-    Box2.remove();
-    Box3.remove();
-    Box4.remove();
-    runOnce = true;
-    actcond = true;
-  }
   if (overHome && !homcond && rutcond) {
     rutcond=false;
     Box5.remove();
@@ -336,26 +311,12 @@ void mousePressed() {
  if (overLogOut && buycond) {
     buycond = false;
     runOnce = true;
-    t7.setValue("");
-    t8.setValue("");
-    t9.setValue("");
-    t10.setValue("");
-    t11.setValue("");
-    t12.setValue("");
-    t13.setValue("");
+    t3.setValue("");
+    t4.setValue("");
+    t5.setValue("");
+    t6.setValue("");
     c3.setVisible(false);
     vencond = true;
-  }
- if (overLogOut && actcond) {
-    actcond = false;
-    runOnce = true;
-    t14.setValue("");
-    t15.setValue("");
-    t16.setValue("");
-    t17.setValue("");
-    t18.setValue("");
-    c4.setVisible(false);
-    invcond = true;
   }
   if (overHome && !homcond && buycond) {
     buycond=false;
@@ -367,16 +328,6 @@ void mousePressed() {
     Box20.remove(); 
     runOnce = true;
     c3.setVisible(false);
-    homcond=true;
-  }
- if (overHome && !homcond && actcond) {
-    actcond=false;
-    box1.remove();
-    Box2.remove();
-    Box3.remove();
-    Box4.remove();
-    runOnce = true;
-    c4.setVisible(false);
     homcond=true;
   }
   if (overCommit && intcond) {
@@ -404,21 +355,20 @@ void mousePressed() {
     c3.setVisible(false);
     vencond = true;
   }
-  if (overCommit && actcond) {
-    msql.query("CALL sp_compracompleta (\""+t14.getValue()+"\",\""+t15.getValue()+"\",\""+t16.getValue()+"\",\""+t17.getValue()+"\",\""+t18.getValue()+"\");");
-    actcond = false;
-    runOnce = true;
-    t14.setValue("");
-    t15.setValue("");
-    t16.setValue("");
-    t17.setValue("");
-    t18.setValue("");
-    c4.setVisible(false);
-    invcond = true;
+  if (overYes && outAux) {
+    homcond = false;
+    runOnce=true;
+    outAux =false;
+    out = true;
+  }
+  if (overNo && outAux) {
+    outAux = false;
+    runOnce=true;
+    homcond = true;
   }
   if (overLogOut && homcond) {
     homcond = false;
     runOnce=true;
-    out = true;
+    outAux = true;
   }
 }
