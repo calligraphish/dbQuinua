@@ -25,3 +25,5 @@ grant execute on procedure db_1.sp_rutaventa to 'admon'@'localhost';
 grant execute on procedure db_1.sp_ventacompleta to 'admon'@'localhost';
 grant execute on procedure db_1.sp_compracompleta to 'admon'@'localhost';
 
+SELECT * FROM vw_rutarepartidor;
+SELECT * FROM vw_ventas_admin;

@@ -135,11 +135,11 @@ DELIMITER ;
 
 DROP PROCEDURE IF EXISTS sp_registrocl;
 DELIMITER ** 
-create procedure sp_registrocl(IN cli_nombre VARCHAR(45),IN cli_tipo VARCHAR(45), IN cli_rep VARCHAR(45), IN cli_telefono VARCHAR(50))
+create procedure sp_registrocl(IN cli_nombre VARCHAR(45),IN cli_tipo VARCHAR(45), IN cli_rep VARCHAR(45), IN cli_telefono VARCHAR(50), IN cli_direccion VARCHAR(50))
 	BEGIN
     DECLARE ID INT;
     SELECT MAX(cli_id)+1 INTO ID FROM cliente; 
-		INSERT INTO cliente VALUES(ID,cli_nombre,"","");
+		INSERT INTO cliente VALUES(ID,cli_nombre,"N/A",cli_direccion);
 		INSERT INTO establecimiento VALUES(ID,cli_tipo,"",cli_rep,cli_telefono,"","");
     END ;
 **
@@ -161,7 +161,7 @@ declare id_cliente int;
 declare id_venta int;
 set id_cliente = FUN_get_ID_por_nombre(cliente);
 
-insert into venta (ven_fecha,ven_costo_total,CLIENTE_cli_id,SEDE_sed_id,EMPLEADO_emp_id) values(curdate(),-1,id_cliente,sede,empleado);
+insert into venta values(FUN_ultima_venta()+1,curdate(),-1,id_cliente,sede,empleado);
 select ven_id into id_venta from venta where ven_costo_total = -1;
 update venta set ven_costo_total=0 where ven_costo_total= -1;
 if(cant_libra > 0) then
@@ -301,7 +301,7 @@ DELIMITER ;)
 CREATE FUNCTION FUN_get_ID_por_nombre(nombre varchar(40)) RETURNS INT
 BEGIN
 	DECLARE id INT;
-	SELECT cli_id INTO id FROM cliente WHERE cli_nombre = nombre;
+	SELECT cli_id INTO id FROM cliente WHERE cli_nombre LIKE CONCAT("%",nombre,"%");
     RETURN id;
 END ;)
 DELIMITER ;
