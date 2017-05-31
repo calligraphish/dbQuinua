@@ -1,3 +1,5 @@
+//VERSIONGITHUB
+
 import interfascia.*;
 import de.bezier.data.sql.*;
 MySQL msql;
@@ -9,13 +11,13 @@ IFLookAndFeel defaultLook;
 Box box1, Box2, Box3, Box4, Box5, Box6, Box7, Box8, Box9, Box10, Box11, Box15, Box16, Box17, Box18, Box19, Box20, Box21, Box22, Box23, Box24;
 
 boolean runOnce=true;
-boolean overHome, overInventario, overRutas, overClientes, overVentas, overLogOut, overAdd, overCommit;
-boolean welcond=true, logcond=false, homcond=false, invcond = false, vencond = false, rutcond = false, clicond=false, out = false, intcond=false, buycond= false, actcond= false;
+boolean overHome, overInventario, overRutas, overClientes, overVentas, overLogOut, overAdd, overCommit, overYes,overNo;
+boolean welcond=true, logcond=false, homcond=false, invcond = false, vencond = false, rutcond = false, clicond=false, out = false, outAux = false, intcond=false, buycond= false, actcond= false;
 color rojo, amarillo, naranja, aguamarina, morado, azul, beige, lila, morado_oscuro, bLsel, bL, bk, bR, bRsel;
 float var = 0.0;
 float bx1, by1, bx2, by2, bx3, by3, bx4, by4, bx5, by5, bx6, by6, bx7, by7, bx8, by8, bx9, by9;
 int boxSize, boxSizeH, boxSizeLO, boxSizeC, h1, h2, h3;
-PImage bck, logo, home, home2, inventario, ruta, cliente, venta, logOut, back, add,commit,LogoQuinua;
+PImage bck, logo, home, home2, inventario, ruta, cliente, venta, logOut, back, add, commit, LogoQuinua;
 PFont lgnFont;
 String user, pass, database="db_1", q_year=String.valueOf(year()), q_month=String.valueOf(month()), q_day=String.valueOf(day());
 
@@ -38,7 +40,7 @@ void setup() {
   back = loadImage("back.png");
   commit = loadImage("ventas.png");
   LogoQuinua = requestImage("Q Dorado.png");
-  
+
   boxSize = 128;
   boxSizeH = 40;
   boxSizeLO = 40;
@@ -96,27 +98,27 @@ void setup() {
   c = new GUIController(this);
   c.setLookAndFeel(defaultLook);
   c.setVisible(false);
-  
+
   c2 = new GUIController(this);
   c2.setLookAndFeel(defaultLook);
   c2.setVisible(false);
-  
+
   c3 = new GUIController(this);
   c3.setLookAndFeel(defaultLook);
   c3.setVisible(false);
-  
+
   c4 = new GUIController(this);
   c4.setLookAndFeel(defaultLook);
   c4.setVisible(false);
-  
+
   c5 = new GUIController(this);
   c5.setLookAndFeel(defaultLook);
   c5.setVisible(false);
 
   t  = new IFTextField("Text Field", width/4, height/3, width/2);
-  t2 = new IFPasswordField("Text Field", width/4, height/3+80, width/2,"", '*');
+  t2 = new IFPasswordField("Text Field", width/4, height/3+80, width/2, "", '*');
   l3 = new IFLabel("", width/2-20, height/2);
-  
+
   t3 = new IFTextField("Text Field", width/4, height/2-50, width/2); 
   t4 = new IFTextField("Text Field", width/4, height/2+50, width/2);
   t5 = new IFTextField("Text Field", width/4, height/2+150, width/2); 
@@ -129,26 +131,26 @@ void setup() {
   t11 = new IFTextField("Text Field", width/4, height/2+150, width/2); 
   t12 = new IFTextField("Text Field", width/4, height/2+200, width/2); 
   t13 = new IFTextField("Text Field", width/4, height/2+250, width/2); 
-  
+
   t14 = new IFTextField("Text Field", width/4, height/2, width/2); 
   t15 = new IFTextField("Text Field", width/4, height/2+50, width/2); 
   t16 = new IFTextField("Text Field", width/4, height/2+100, width/2); 
   t17 = new IFTextField("Text Field", width/4, height/2+150, width/2); 
   t18 = new IFTextField("Text Field", width/4, height/2+200, width/2);
-  
+
   t19 = new IFTextField("Text Field", 400, 200, 60);
   t20 = new IFTextField("Text Field", 470, 200, 40);
   t21 = new IFTextField("Text Field", 520, 200, 40);
-  
+
   c.add(t);
   c.add(t2);
   c.add(l3);
-  
+
   c2.add(t3);
   c2.add(t4);
   c2.add(t5);
   c2.add(t6);
-  
+
   c3.add(t7);
   c3.add(t8);
   c3.add(t9);
@@ -156,19 +158,19 @@ void setup() {
   c3.add(t11);
   c3.add(t12);
   c3.add(t13);
-  
+
   c4.add(t14);
   c4.add(t15);
   c4.add(t16);
   c4.add(t17);
   c4.add(t18);
-  
+
   c5.add(t19);
   c5.add(t20);
   c5.add(t21);
-  
+
   t2.addActionListener(this);
-  
+
   t21.addActionListener(this);
 
   //CREACIÓN DE COLUMNAS ENLAZADAS PARA HACER TABLAS
@@ -176,15 +178,15 @@ void setup() {
   Box2 = new Box(h1, 20);
   Box3 = new Box(h1, 20);
   Box4 = new Box(h1, 20);
-  
+
   box1.setTextSize(20);
   Box2.setTextSize(20);
   Box3.setTextSize(20);
   Box4.setTextSize(20);
 
   /*Box5 = new Box(h1, 20);
-  Box6 = new Box(h1, 20);
-  Box7 = new Box(h1, 20);*/
+   Box6 = new Box(h1, 20);
+   Box7 = new Box(h1, 20);*/
 
   Box8 = new Box(h1, 20);
   Box9 = new Box(h1, 20);
@@ -236,12 +238,15 @@ void draw() {
   if (actcond) {
     actualizar();
   }
+  if (outAux) {
+    sure();
+  }  
   if (out) {
     logOut();
     login();
   }  
   text(mouseX, 20, 10);//IMPRIME LAS COORDENADAS DE X EN UNA ESQUINA PARA QUE CENTRAR SEA MÁS FÁCIL
-  text(mouseY,60,10);
+  text(mouseY, 60, 10);
 }
 
 void mousePressed() {
@@ -285,7 +290,7 @@ void mousePressed() {
     runOnce = true;
     homcond=true;
   }
-    if (overAdd && vencond) {
+  if (overAdd && vencond) {
     vencond=false;
     Box15.remove();
     Box16.remove();
@@ -305,7 +310,7 @@ void mousePressed() {
     runOnce = true;
     intcond = true;
   }
-    if (overAdd && invcond) {
+  if (overAdd && invcond) {
     invcond = false;
     box1.remove();
     Box2.remove();
@@ -349,7 +354,7 @@ void mousePressed() {
     t6.setValue("");
     clicond = true;
   }
- if (overLogOut && buycond) {
+  if (overLogOut && buycond) {
     buycond = false;
     runOnce = true;
     t7.setValue("");
@@ -362,7 +367,7 @@ void mousePressed() {
     c3.setVisible(false);
     vencond = true;
   }
- if (overLogOut && actcond) {
+  if (overLogOut && actcond) {
     actcond = false;
     runOnce = true;
     t14.setValue("");
@@ -385,7 +390,7 @@ void mousePressed() {
     c3.setVisible(false);
     homcond=true;
   }
- if (overHome && !homcond && actcond) {
+  if (overHome && !homcond && actcond) {
     actcond=false;
     box1.remove();
     Box2.remove();
@@ -432,9 +437,20 @@ void mousePressed() {
     c4.setVisible(false);
     invcond = true;
   }
+    if (overYes && outAux) {
+    homcond = false;
+    runOnce=true;
+    outAux =false;
+    out = true;
+  }
+  if (overNo && outAux) {
+    outAux = false;
+    runOnce=true;
+    homcond = true;
+  }
   if (overLogOut && homcond) {
     homcond = false;
     runOnce=true;
-    out = true;
+    outAux = true;
   }
 }

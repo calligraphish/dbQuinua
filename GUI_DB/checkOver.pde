@@ -47,6 +47,16 @@ void checkOver() {
   } else {
     overCommit=false;
   }
+    if (mouseX > width/4-100 && mouseX < width/4+100 && mouseY > height/2+50-50 && mouseY < height/2+50+50) {
+    overYes=true;
+  } else {
+    overYes=false;
+  }
+  if (mouseX > 3*width/4-100 && mouseX < 3*width/4+100 && mouseY > height/2+50-50 && mouseY < height/2+50+50) {
+    overNo=true;
+  } else {
+    overNo=false;
+  }
 
 
 }
