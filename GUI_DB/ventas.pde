@@ -37,12 +37,18 @@ void ventas() {
     Box18.draw();
     Box19.draw();
     Box20.draw();  
+    Box15.setY(abs(width-Box15.getHeight())/3);
+    Box16.setY(abs(width-Box15.getHeight())/3);
+    Box17.setY(abs(width-Box15.getHeight())/3);
+    Box18.setY(abs(width-Box15.getHeight())/3);
+    Box19.setY(abs(width-Box15.getHeight())/3);
+    Box20.setY(abs(width-Box15.getHeight())/3);
     Box16.setX(Box15.getWidth()+Box15.getX());//SE DEBE SEGUIR EL MISMO PATRÓN PARA ORGANIZAR AUTOMATICAMENTE LAS COLUMNAS
     Box17.setX(Box16.getWidth()+Box16.getX());//DEBE HACERSE DESPUÉS DEL <BoXnum>.draw(), NO ANTES.
     Box18.setX(Box17.getWidth()+Box17.getX());
     Box19.setX(Box18.getWidth()+Box18.getX());
     Box20.setX(Box19.getWidth()+Box19.getX());
-    icon(bx8, by8, boxSizeH, overAdd, add, amarillo, beige, "", lgnFont);
+    icon(bx8, by8, boxSizeH, overAdd, add2, amarillo, beige, "", lgnFont);
   } else {
     pushStyle();
     textAlign(CENTER);

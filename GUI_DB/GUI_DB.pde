@@ -64,7 +64,7 @@ void setup() {
   bx8= width-90;
   by8= height/8+boxSizeH+15;
   bx9 =width/2;
-  by9 =height/2-200;
+  by9 =height/2-150;
 
   h1 = 300;
   h2 = 300;

@@ -39,7 +39,7 @@ public class Box {
   public void remove() {
     items.clear();
   }
-  
+
   public void addItem(String st ) {
     if ( items == null ) { 
       this.items = new ArrayList();
@@ -52,19 +52,28 @@ public class Box {
       }
     }
   }
-  public int getWidth(){
+  public int getWidth() {
     return this.w;
   }
-  public void setX(int xi){
+  public void setX(int xi) {
     this.x = xi;
   }
-  public int getX(){
+  public int getX() {
     return this.x;
   }
-  public ArrayList getItems(){
+  public ArrayList getItems() {
     return this.items;
   }
-  public void setTextSize(int size){
+  public void setTextSize(int size) {
     this.txSize = size;
+  }
+  public int getY() {
+    return this.y;
+  }
+  public void setY(int yy) {
+    this.y = yy;
+  }
+  public int getHeight() {
+    return this.h;
   }
 }
