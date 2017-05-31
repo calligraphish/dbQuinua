@@ -4,7 +4,7 @@ import interfascia.*;
 import de.bezier.data.sql.*;
 MySQL msql;
 GUIController c, c2, c3, c4, c5;
-IFTextField t, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22;
+IFTextField t, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23;
 IFLabel l3;
 IFLookAndFeel defaultLook;
 
@@ -120,11 +120,12 @@ void setup() {
   t2 = new IFPasswordField("Text Field", width/4, height/3+80, width/2, "", '*');
   l3 = new IFLabel("", width/2-20, height/2);
 
-  t3 = new IFTextField("Text Field", width/4, height/2-100, width/2); 
+  t3 = new IFTextField("Text Field", width/4, height/2-50, width/2); 
   t4 = new IFTextField("Text Field", width/4, height/2, width/2);
-  t5 = new IFTextField("Text Field", width/4, height/2+100, width/2); 
-  t6 = new IFTextField("Text Field", width/4, height/2+200, width/2);
-  t22 = new IFTextField("Text Field", width/4, height/2+300, width/2); 
+  t5 = new IFTextField("Text Field", width/4, height/2+50, width/2); 
+  t6 = new IFTextField("Text Field", width/4, height/2+100, width/2);
+  t22 = new IFTextField("Text Field", width/4, height/2+150, width/2); 
+  t23 = new IFTextField("Text Field", width/4, height/2+200, width/2); 
 
   t7 = new IFTextField("Text Field", width/4, height/2-50, width/2); 
   t8 = new IFTextField("Text Field", width/4, height/2, width/2);
@@ -153,6 +154,7 @@ void setup() {
   c2.add(t5);
   c2.add(t6);
   c2.add(t22);
+  c2.add(t23);
 
   c3.add(t7);
   c3.add(t8);
@@ -405,7 +407,7 @@ void mousePressed() {
     homcond=true;
   }
   if (overCommit && intcond) {
-    msql.query("CALL sp_registrocl(\""+t3.getValue()+"\",\""+t4.getValue()+"\",\""+t5.getValue()+"\",\""+t6.getValue()+"\",\""+t22.getValue()+"\");");
+    msql.query("CALL sp_registrocl(\""+t3.getValue()+"\",\""+t4.getValue()+"\",\""+t5.getValue()+"\",\""+t6.getValue()+"\",\""+t22.getValue()+"\",\""+t23.getValue()+"\");");
     intcond = false;
     runOnce = true;
     t3.setValue("");
@@ -413,6 +415,7 @@ void mousePressed() {
     t5.setValue("");
     t6.setValue("");
     t22.setValue("");
+    t23.setValue("");
     c2.setVisible(false);
     clicond = true;
   }
